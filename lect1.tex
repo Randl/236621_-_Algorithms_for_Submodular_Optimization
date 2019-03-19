@@ -1,0 +1,119 @@
+\section{Introduction}
+We are looking on $f: 2^N \to \mathbb{R}$ for some set $N = \left\{1, \dots n \right\}$
+\begin{definition}
+	$f$ is submodular if 
+	\begin{align}
+	f(A)+f(B) \geq f(A\cap B) + f(A\cup B)
+	\end{align}
+\end{definition}
+
+\begin{definition}
+	Return of $u$ wrt $A$ is $f(A \cup \left\{u \right\}) - f(A)$
+	
+\end{definition}
+\begin{definition}[Diminishing returns]
+$f$ has diminishing returns if for $A\subseteq B$
+\begin{align}
+f(A \cup \left\{u \right\}) - f(A) \geq f(B \cup \left\{u \right\}) - f(B)
+\end{align}
+\end{definition}
+
+\begin{prop}
+	$f$ is submodular iff $f$ has diminishing returns
+	\begin{proof}
+		$\Rightarrow$:
+		
+		Let $A\subseteq B \subseteq N$ and $u\notin B$. Lets use submodularity property on $A\cup \left\{ u \right\}$ and $B$:
+		\begin{align}
+		f(A\cup \left\{ u \right\}) + f(B) \geq f\qty(A\cup \left\{ u \right\} \cup B) + f\qty(9A\cup \left\{ u \right\}0 \cap B)  = f\qty(B\cup \left\{ u \right\}) + f(B)  
+		\end{align}
+		Thus
+		
+		\begin{align}
+		f(A\cup \left\{ u \right\}) \geq f\qty(B\cup \left\{ u \right\})  
+		\end{align}
+	\end{proof}
+
+
+$\Leftarrow$:
+
+We'll proof by induction over $\abs{A\cup B} - \abs{A\cap B}$, i.e., size of symmetric difference.
+
+Basis: $\abs{A\cup B} - \abs{A\cap B} = 0$, then $A=B$, and then submodular property is fulfilled.
+
+Step: assume $\abs{A\cup B} - \abs{A\cap B} = k$. WLOG let $u\in A$ such that $u\notin B$.
+\begin{align}
+f(A) + f(B) = f(A) - f(A \setminus \left\{u\right\}) + f(A \setminus  \left\{u\right\}) + f(B) \geq\\\geq  f(A) - f(A \setminus \left\{u\right\}) + f(A \setminus  \left\{u\right\} \cup B) + f(A \setminus  \left\{u\right\}  \cap B) \geq\\\geq f(A\cup B) -  f(A\cup B \setminus \left\{ u \right\}) + f(A  \cup B \setminus  \left\{u\right\} ) + f(A  \cap B) = f(A\cup B) + f(A\cap B)
+\end{align}
+\end{prop}
+
+\begin{definition}[Monotonous function]
+	$f$ is non-decreasing monotonous if $\forall A\subseteq B \subseteq N$, $f(A) \leq f(B)$.
+\end{definition}
+
+\begin{definition}[Symmetric function]
+	$f$ is symmetric if $\forall S \subseteq N$, $f(S) \leq f(N\setminus S)$.
+\end{definition}
+\begin{definition}[Normalized function]
+$f$ is normalized if $f(\emptyset) = 0$.
+\end{definition}
+
+\paragraph{Examples}
+\subparagraph{Linear function}
+$\forall n\in N$ exists weight $w_n$ and 
+\begin{align}
+f(S) = \sum_{u \in S} w_u + b
+\end{align} 
+
+Such $f$ is submodular.
+\subparagraph{Budget additive function (clipped linear function)}
+$\forall n\in N$ exists weight $w_n$ and 
+\begin{align}
+f(S) = \min \left\{ \sum_{u \in S} w_u,  b \right\}
+\end{align} 
+
+Such $f$ is submodular.
+
+\subparagraph{Coverage function}
+Given set $X$ and $n$ subsets $S_1, S_2, \dots, S_n \subset X$ define
+\begin{align}
+f(S) = \abs{\bigcup_{i \in S} S_i}
+\end{align}
+
+This $f$ is obviously submodular.
+
+\subparagraph{Graph cuts}
+Let $G+(V,E)$ be a graph and $w: E\to \mathbb{R}^+$ weights of edges. Given a cut $S\subseteq V$ define $\delta(S)$ to be sum of weights of all edges going through the cut. $\delta : 2^V \to \mathbb{R}^+$ is submodular, normalized, and symmetric.
+
+
+\subparagraph{Rank function}
+Let $v_1, \dots, v_n \in \mathbb{R}^d$ vectors, and 
+
+\begin{align}
+f(S) = \rank (S) = \dim \text{span} \qty\big( \left\{ v_i | i \in S\right\} )
+\end{align}
+
+
+\section{Submodular optimization}
+Given world $N$, submodular function $f: 2^N \to \mathbb{R}^+$, and a family of feasible solutions $\mathcal{I} \subseteq 2^N$
+\begin{align}
+\max & f(S)\\
+\st & S\in \mathcal{I}
+\end{align}
+
+\paragraph{Note} Most of submodular functions (except for logarithm of determinant of submatrix) are nonnegative. We use the condition to have properly defined multiplicative approximation.
+\paragraph{Note} How $f$ is given in input? Obviously, not as a list of values, since it's exponential in $\abs{N}$. Thus we represent $f$ with black box, and same applies for constraints. Usually, constraints are simple. 
+
+\subsection{Examples of submodular optimization problems}
+\paragraph{Example}
+$f$ is submodular and there are no constraints. It generalizes \textsc{max-cut}, \textsc{max-dicut}
+\paragraph{Example}
+$f$ is submodular and there is size constraint:
+
+\begin{align}
+\max & f(S)\\
+\st & \abs{S} \leq k
+\end{align}
+. It generalizes \textsc{max-k-cover}.
+
+\paragraph{Submodular welfare}

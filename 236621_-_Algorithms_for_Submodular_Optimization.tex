@@ -1,0 +1,110 @@
+\documentclass[]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{gensymb}
+\usepackage{graphicx}
+\usepackage{svg}
+\usepackage{bbding}
+\usepackage{mathtools}
+\usepackage{centernot} % not parallel, etc.
+\usepackage{lmodern}
+\usepackage{morewrites}
+\usepackage{xcolor,sectsty} % colorful sections
+\usepackage[left=10mm, top=10mm, right=10mm, bottom=20mm, nohead]{geometry}
+%\usepackage{bigints}
+\usepackage{dsfont} %mathbb 1
+\usepackage{esint} % beatiful integrals
+\usepackage[arrowdel]{physics}
+\usepackage{amsthm} % theorems
+
+\usepackage[T1]{fontenc}
+% Nicer default font (+ math font) than Computer Modern for most use cases
+% \usepackage{mathpazo} % problems with greek vectors
+\usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+% Prevent overflowing lines due to hard-to-break entities
+\sloppy 
+% Colors for the hyperref package
+\definecolor{urlcolor}{rgb}{0,.145,.698}
+\definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+\definecolor{citecolor}{rgb}{.12,.54,.11}
+% Setup hyperref package
+\hypersetup{
+	breaklinks=true,  % so long urls are correctly broken across lines
+	colorlinks=true,
+	urlcolor=urlcolor,
+	linkcolor=linkcolor,
+	citecolor=citecolor,
+}
+
+
+\DeclareFontFamily{OMX}{lmex}{}
+\DeclareFontShape{OMX}{lmex}{m}{n}{<-> lmex10}{}
+
+
+%colors of sections
+\definecolor{secfont}{RGB}{46,116,181}
+\definecolor{subfont}{RGB}{146,23,57}
+\definecolor{parfont}{RGB}{19,127,43}
+\definecolor{subparfont}{RGB}{7,11,100}
+
+\subsectionfont{\color{subfont}}
+\sectionfont{\color{secfont}}
+\paragraphfont{\color{parfont}}
+\subparagraphfont{\color{subparfont}}
+
+
+% declare a new theorem style
+\newtheoremstyle{bluestyle}%
+{3pt}% Space above
+{3pt}% Space below 
+{}% Body font
+{}% Indent amount
+{\bfseries\color{blue}}% Theorem head font
+{.}% Punctuation after theorem head
+{.5em}% Space after theorem head
+{}% Theorem head spec (can be left empty, meaning ‘normal’)
+% declare a new theorem style
+\newtheoremstyle{redstyle}{3pt}{3pt}{}{}{\bfseries\color{red}}{.}{.5em}{}
+\newtheoremstyle{olivestyle}{3pt}{3pt}{}{}{\bfseries\color{olive}}{.}{.5em}{}
+\newtheoremstyle{orangestyle}{3pt}{3pt}{}{}{\bfseries\color{orange}}{.}{.5em}{}
+\newtheoremstyle{magentastyle}{3pt}{3pt}{}{}{\bfseries\color{magenta}}{.}{.5em}{}
+
+\theoremstyle{bluestyle}
+\newtheorem{theorem}{Theorem}[section]
+\theoremstyle{redstyle}
+\newtheorem{definition}{Definition}[section]
+\theoremstyle{magentastyle}
+\newtheorem{coll}{Collary}[theorem]
+\theoremstyle{olivestyle}
+\newtheorem{lemma}{Lemma}[section]
+\theoremstyle{olivestyle}
+\newtheorem{prop}[theorem]{Proposition}
+
+\newcommand{\st}{\text{s.t.} \:}
+
+%\usepackage{babel}[english]
+%opening
+\title{ 	236621 - Algorithms for Submodular Optimization}
+\author{Roy Schwartz}
+% njc860@gmail.com
+% Amado 707
+% https://sites.google.com/site/njcrawfordacademic/
+% David Williams Probability with Martingales
+% Rick Derret Probability Theory and examples
+
+
+\parindent=0em
+\begin{document}
+
+
+\maketitle
+
+\begin{abstract}
+
+\end{abstract}
+
+%\tableofcontents
+\input{lect1.tex}
+\end{document}
