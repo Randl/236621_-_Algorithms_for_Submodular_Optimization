@@ -1,5 +1,5 @@
 \section{Introduction}
-We are looking on $f: 2^N \to \mathbb{R}$ for some set $N = \left\{1, \dots n \right\}$
+We are looking on $f: 2^N \to \mathbb{R}$ for some set $N = \qty{1, \dots n }$
 \begin{definition}
 	$f$ is submodular if 
 	\begin{align}
@@ -8,13 +8,13 @@ We are looking on $f: 2^N \to \mathbb{R}$ for some set $N = \left\{1, \dots n \r
 \end{definition}
 
 \begin{definition}
-	Return of $u$ wrt $A$ is $f(A \cup \left\{u \right\}) - f(A)$
+	Return of $u$ wrt $A$ is $f(A \cup \qty{u }) - f(A)$
 	
 \end{definition}
 \begin{definition}[Diminishing returns]
 $f$ has diminishing returns if for $A\subseteq B$
 \begin{align}
-f(A \cup \left\{u \right\}) - f(A) \geq f(B \cup \left\{u \right\}) - f(B)
+f(A \cup \qty{u }) - f(A) \geq f(B \cup \qty{u }) - f(B)
 \end{align}
 \end{definition}
 
@@ -23,14 +23,14 @@ f(A \cup \left\{u \right\}) - f(A) \geq f(B \cup \left\{u \right\}) - f(B)
 	\begin{proof}
 		$\Rightarrow$:
 		
-		Let $A\subseteq B \subseteq N$ and $u\notin B$. Lets use submodularity property on $A\cup \left\{ u \right\}$ and $B$:
+		Let $A\subseteq B \subseteq N$ and $u\notin B$. Lets use submodularity property on $A\cup \qty{ u }$ and $B$:
 		\begin{align}
-		f(A\cup \left\{ u \right\}) + f(B) \geq f\qty(A\cup \left\{ u \right\} \cup B) + f\qty(9A\cup \left\{ u \right\}0 \cap B)  = f\qty(B\cup \left\{ u \right\}) + f(B)  
+		f(A\cup \qty{ u }) + f(B) \geq f\qty(A\cup \qty{ u } \cup B) + f\qty(9A\cup \qty{ u }0 \cap B)  = f\qty(B\cup \qty{ u }) + f(B)  
 		\end{align}
 		Thus
 		
 		\begin{align}
-		f(A\cup \left\{ u \right\}) \geq f\qty(B\cup \left\{ u \right\})  
+		f(A\cup \qty{ u }) \geq f\qty(B\cup \qty{ u })  
 		\end{align}
 	\end{proof}
 
@@ -43,7 +43,7 @@ Basis: $\abs{A\cup B} - \abs{A\cap B} = 0$, then $A=B$, and then submodular prop
 
 Step: assume $\abs{A\cup B} - \abs{A\cap B} = k$. WLOG let $u\in A$ such that $u\notin B$.
 \begin{align}
-f(A) + f(B) = f(A) - f(A \setminus \left\{u\right\}) + f(A \setminus  \left\{u\right\}) + f(B) \geq\\\geq  f(A) - f(A \setminus \left\{u\right\}) + f(A \setminus  \left\{u\right\} \cup B) + f(A \setminus  \left\{u\right\}  \cap B) \geq\\\geq f(A\cup B) -  f(A\cup B \setminus \left\{ u \right\}) + f(A  \cup B \setminus  \left\{u\right\} ) + f(A  \cap B) = f(A\cup B) + f(A\cap B)
+f(A) + f(B) = f(A) - f(A \setminus \qty{u}) + f(A \setminus  \qty{u}) + f(B) \geq\\\geq  f(A) - f(A \setminus \qty{u}) + f(A \setminus  \qty{u} \cup B) + f(A \setminus  \qty{u}  \cap B) \geq\\\geq f(A\cup B) -  f(A\cup B \setminus \qty{ u }) + f(A  \cup B \setminus  \qty{u} ) + f(A  \cap B) = f(A\cup B) + f(A\cap B)
 \end{align}
 \end{prop}
 
@@ -69,7 +69,7 @@ Such $f$ is submodular.
 \subparagraph{Budget additive function (clipped linear function)}
 $\forall n\in N$ exists weight $w_n$ and 
 \begin{align}
-f(S) = \min \left\{ \sum_{u \in S} w_u,  b \right\}
+f(S) = \min \qty{ \sum_{u \in S} w_u,  b }
 \end{align} 
 
 Such $f$ is submodular.
@@ -90,7 +90,7 @@ Let $G+(V,E)$ be a graph and $w: E\to \mathbb{R}^+$ weights of edges. Given a cu
 Let $v_1, \dots, v_n \in \mathbb{R}^d$ vectors, and 
 
 \begin{align}
-f(S) = \rank (S) = \dim \text{span} \qty\big( \left\{ v_i | i \in S\right\} )
+f(S) = \rank (S) = \dim \text{span} \qty\big( \qty{ v_i | i \in S} )
 \end{align}
 
 
@@ -111,7 +111,7 @@ $f$ is submodular and there are no constraints. It generalizes \textsc{max-cut},
 $f$ is submodular and there is size constraint:
 
 \begin{align}
-\max & f(S)\\
+\max \: & f(S)\\
 \st & \abs{S} \leq k
 \end{align}
 . It generalizes \textsc{max-k-cover}.
