@@ -2,7 +2,6 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
-\usepackage{hyperref}
 \usepackage{gensymb}
 \usepackage{graphicx}
 \usepackage{svg}
@@ -18,6 +17,19 @@
 \usepackage{esint} % beatiful integrals
 \usepackage[arrowdel]{physics}
 \usepackage{amsthm} % theorems
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{algorithmicx}
+\usepackage{natbib}
+
+
+\usepackage{varioref} % references to show page
+\usepackage[pagebackref]{hyperref}
+\usepackage{url}
+\usepackage[capitalise]{cleveref} 
+
+\newcommand{\yrcite}[1]{\citeyearpar{#1}}
+\renewcommand{\cite}[1]{\citep{#1}}
 
 \usepackage[T1]{fontenc}
 % Nicer default font (+ math font) than Computer Modern for most use cases
@@ -36,6 +48,18 @@
 	urlcolor=urlcolor,
 	linkcolor=linkcolor,
 	citecolor=citecolor,
+}
+
+
+\renewcommand*{\backref}[1]{} % for backref < 1.33 necessary
+\renewcommand*{\backrefalt}[4]{%
+	\ifcase #1 %
+	%
+	\or
+	(cited on p. #2)%
+	\else
+	(cited on pp. #2)%
+	\fi
 }
 
 
@@ -107,4 +131,9 @@
 
 %\tableofcontents
 \input{lect1.tex}
+\input{lect2.tex}
+
+
+\bibliographystyle{plainnat}
+\bibliography{236621_-_Algorithms_for_Submodular_Optimization}
 \end{document}

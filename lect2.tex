@@ -1,0 +1,104 @@
+\section{Maximization of the submodular function with cardinality constraints}
+\begin{align}
+\max \: & f(S)\\
+\st & \abs{S} \leq k
+\end{align}
+
+\paragraph{Greedy algorithm}
+If $f$ is monotonic, there exist an optimal algorithm.
+\begin{algorithm}
+	\caption{Nemhauser-Wolsey-Fisher}\label{greedy}
+	\begin{algorithmic}[1]
+		\Procedure{Greedy}{$N$}
+		\State $A \gets \emptyset$
+		\For{$i=1$ to $k$}
+		\State Let $u_i\in N$ maximize $f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1})$
+		\State $ A_i \gets A_{i-1} \cup \qty{u_i}$
+		\EndFor
+		\State \textbf{return} $A_k$
+		\EndProcedure
+	\end{algorithmic}
+\end{algorithm}
+\begin{lemma}
+	For submodular $f: 2^N \to \mathbb{R}_+$,
+	\begin{align}
+	f(A\cup B) - f(A) \leq \sum_{b_i \in B} f(A\cup \qty{b_i}) - f(A)
+	\end{align}
+	\begin{proof}
+		\begin{align}
+		f(A\cup B) - f(A) = \sum_i f(A \cup \qty{b_1, \dots b_{i-1}} \cup \qty{b_i} ) - f(A \cup \qty{b_1, \dots b_{i-1}})\leq \sum_i f(A \cup \qty{b_i}) - f(A)
+		\end{align}
+	\end{proof}
+\end{lemma}
+\begin{prop}[\citet{nemhauser1978analysis}] \label{greedy_proof}
+	\cref{greedy} is $1-\frac{1}{e}$ optimal.
+	\begin{proof}
+		For optimal set $S^*$
+		\begin{align}
+		f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1})&\geq \max\limits_{u\in S^*} \qty{f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1})} \geq \frac{1}{k} \sum_{u\in S^*} \qty[f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1})] \geq\\&\geq \frac{1}{k} \qty\bigg(f(A_{i-1} \cup S^*) - f(A_{i-1})) \geq \frac{1}{k} \qty\bigg[f(S^*) - f(A_{i-1})]
+		\end{align}
+		
+		We got a recursion equation:
+		\begin{align}
+		f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1})\geq \frac{1}{k} \qty\bigg[f(S^*) - f(A_{i-1})]
+		\end{align}
+		We can solve the recursion and acquire
+		\begin{align}
+		f(A_{k}) \geq \qty(1-\qty(1-\frac{1}{k})^k)f(S^*) + \qty(1-\frac{1}{k})^k f(A_0) \geq \qty(1-\frac{1}{e}) f(S^*) 
+		\end{align}
+		
+	\end{proof}
+\end{prop}
+
+\begin{theorem}[\citet{nemhauser1978best}] 
+	For all constant $\epsilon>0$ each algorithm acquiring $1-\frac{1}{e} + \epsilon$ requires exponential number of requests to value oracle.
+\end{theorem}
+\begin{theorem}[\citet{feige1998threshold}]
+For \textsc{max-k-cover} all constant $\epsilon>0$ each algorithm acquiring $1-\frac{1}{e} + \epsilon$ requires exponential number of requests to value oracle unless $P=NP$.
+\end{theorem}
+\paragraph{Note} Runtime of algorithm is $\order{nk}$. It is possible to acquire $\order{n\lg(\frac{1}{\epsilon})}$ runtime and $1-\frac{1}{e}-\epsilon$ optimality by looking on some subset of $N$ at each step instead of the whole set, 
+
+What happens if $f$ is not monotonic? First of all, does greed algorithm work? Not only it is not optimal, it can be as bad as $\frac{2}{N}$. The idea is to randomize algorithm to prevent it from ``bad'' choices.
+
+
+\paragraph{Greedy algorithm}
+If $f$ is monotonic, there exist an optimal algorithm.
+\begin{algorithm}
+	\caption{}\label{rand_greedy}
+	\begin{algorithmic}[1]
+		\Procedure{Randomized Greedy}{$N$}
+		\State $A \gets \emptyset$
+		\For{$i=1$ to $k$}
+		\State $ M_i \gets \arg\max\limits_{B\subseteq N \: : \: \abs{B} \leq k} \sum_{u\in B} f\qty(A_{i-1} \cup \qty{u} ) - f\qty(A_{i-1})$
+		\State $ A_i \gets \begin{cases}
+		A_{i-1} \cup \qty{u} & \forall u \in M_i \text{ with } P=\frac{1}{k}\\
+		A_{i-1} & \text{ with } P=1-\frac{\abs{M_i}}{k}
+		\end{cases} $
+		\EndFor
+		\State \textbf{return} $A_k$
+		\EndProcedure
+	\end{algorithmic}
+\end{algorithm}
+
+\begin{prop}
+	Given set $S$ and set $A$ such that each element is in $A$ with probability less than $p$
+	\begin{align}
+	\mathbb{E} \qty[f(S\cup A)] \geq (1-p)f(S)
+	\end{align}
+\end{prop}
+\begin{theorem}[\citet{buchbinder2014submodular}]
+	In monotonic case, \cref{rand_greedy} is $1-\frac{1}{e}$ optimal in expectation.
+	\begin{proof}
+		Take a look at $i^{th}$ iteration and condition on previous iterations, denote a chosen element from $M_i$ as $u_i$:
+		\begin{align}
+		\mathbb{E} \qty[f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1}) | A_{i-1} ] &= \frac{1}{k} \sum_{u_i \in M_i} f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1}) \geq \frac{1}{k} \sum_{u_i \in S^*} f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1}) \geq\\&\geq \frac{1}{k} \sum_{u_i \in S^*} f(S^*) - f(A_{i-1})
+		\end{align}
+		
+		If the inequality is right for any $A_{i-1}$ it is right, from tower property, in expectation over $A_{i-1}$:
+		\begin{align}
+		\mathbb{E} \qty[f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1}) ] \geq 	\frac{1}{k} \sum_{u_i \in S^*} f(S^*) - \mathbb{E} \qty[ f(A_{i-1})]
+		\end{align}
+		
+		And thus we can once again solve the recurrence and acquire same result as in \cref{greedy_proof}.
+	\end{proof}
+\end{theorem}
