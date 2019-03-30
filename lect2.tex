@@ -5,7 +5,7 @@
 \end{align}
 
 \paragraph{Greedy algorithm}
-If $f$ is monotonic, there exist an optimal algorithm.
+If $f$ is monotonic, greedy algorithm is an optimal approximating algorithm.
 \begin{algorithm}
 	\caption{Nemhauser-Wolsey-Fisher}\label{greedy}
 	\begin{algorithmic}[1]
@@ -56,13 +56,12 @@ If $f$ is monotonic, there exist an optimal algorithm.
 \begin{theorem}[\citet{feige1998threshold}]
 For \textsc{max-k-cover} all constant $\epsilon>0$ each algorithm acquiring $1-\frac{1}{e} + \epsilon$ requires exponential number of requests to value oracle unless $P=NP$.
 \end{theorem}
-\paragraph{Note} Runtime of algorithm is $\order{nk}$. It is possible to acquire $\order{n\lg(\frac{1}{\epsilon})}$ runtime and $1-\frac{1}{e}-\epsilon$ optimality by looking on some subset of $N$ at each step instead of the whole set, 
+\paragraph{Note} Runtime of algorithm is $\order{nk}$. It is possible to acquire $\order{n\lg(\frac{1}{\epsilon})}$ runtime and $1-\frac{1}{e}-\epsilon$ optimality by looking on some subset of $N$ at each step instead of the whole set. 
+\subsection{Non-monotonic functions}
+What happens if $f$ is not monotonic? First of all, does greed algorithm work? Not only it is not optimal approximation, it can be as bad as $\frac{2}{N}$. However, it can be fixed. The idea is to randomize algorithm to prevent it from ``bad'' choices.
 
-What happens if $f$ is not monotonic? First of all, does greed algorithm work? Not only it is not optimal, it can be as bad as $\frac{2}{N}$. The idea is to randomize algorithm to prevent it from ``bad'' choices.
 
-
-\paragraph{Greedy algorithm}
-If $f$ is monotonic, there exist an optimal algorithm.
+\paragraph{Randomized greedy algorithm}
 \begin{algorithm}
 	\caption{}\label{rand_greedy}
 	\begin{algorithmic}[1]
