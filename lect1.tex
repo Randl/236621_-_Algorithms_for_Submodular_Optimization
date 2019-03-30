@@ -25,12 +25,12 @@ f(A \cup \qty{u }) - f(A) \geq f(B \cup \qty{u }) - f(B)
 		
 		Let $A\subseteq B \subseteq N$ and $u\notin B$. Lets use submodularity property on $A\cup \qty{ u }$ and $B$:
 		\begin{align}
-		f(A\cup \qty{ u }) + f(B) \geq f\qty(A\cup \qty{ u } \cup B) + f\qty(9A\cup \qty{ u }0 \cap B)  = f\qty(B\cup \qty{ u }) + f(B)  
+		f(A\cup \qty{ u }) + f(B) \geq f\qty(A\cup \qty{ u } \cup B) + f\qty((A\cup \qty{ u }) \cap B)  = f\qty(B\cup \qty{ u }) + f(A)  
 		\end{align}
 		Thus
 		
 		\begin{align}
-		f(A\cup \qty{ u }) \geq f\qty(B\cup \qty{ u })  
+		f(A\cup \qty{ u })-f(A) \geq f\qty(B\cup \qty{ u })-f(B)
 		\end{align}
 	\end{proof}
 
