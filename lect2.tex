@@ -35,7 +35,7 @@ If $f$ is monotonic, there exist an optimal algorithm.
 	\begin{proof}
 		For optimal set $S^*$
 		\begin{align}
-		f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1})&\geq \max\limits_{u\in S^*} \qty{f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1})} \geq \frac{1}{k} \sum_{u\in S^*} \qty[f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1})] \geq\\&\geq \frac{1}{k} \qty\bigg(f(A_{i-1} \cup S^*) - f(A_{i-1})) \geq \frac{1}{k} \qty\bigg[f(S^*) - f(A_{i-1})]
+		f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1})&\geq \max\limits_{u\in S^*} \qty{f(A_{i-1} \cup \qty{u}) - f(A_{i-1})} \geq \frac{1}{k} \sum_{u\in S^*} \qty[f(A_{i-1} \cup \qty{u}) - f(A_{i-1})] \geq\\&\geq \frac{1}{k} \qty\bigg(f(A_{i-1} \cup S^*) - f(A_{i-1})) \geq \frac{1}{k} \qty\bigg[f(S^*) - f(A_{i-1})]
 		\end{align}
 		
 		We got a recursion equation:
@@ -91,12 +91,12 @@ If $f$ is monotonic, there exist an optimal algorithm.
 	\begin{proof}
 		Take a look at $i^{th}$ iteration and condition on previous iterations, denote a chosen element from $M_i$ as $u_i$:
 		\begin{align}
-		\mathbb{E} \qty[f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1}) | A_{i-1} ] &= \frac{1}{k} \sum_{u_i \in M_i} f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1}) \geq \frac{1}{k} \sum_{u_i \in S^*} f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1}) \geq\\&\geq \frac{1}{k} \sum_{u_i \in S^*} f(S^*) - f(A_{i-1})
+		\mathbb{E} \qty[f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1}) | A_{i-1} ] &= \frac{1}{k} \sum_{u_i \in M_i} f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1}) \geq \frac{1}{k} \sum_{u_i \in S^*} f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1}) \geq\\&\geq \frac{1}{k} ( f(S^*) - f(A_{i-1}))
 		\end{align}
 		
 		If the inequality is right for any $A_{i-1}$ it is right, from tower property, in expectation over $A_{i-1}$:
 		\begin{align}
-		\mathbb{E} \qty[f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1}) ] \geq 	\frac{1}{k} \sum_{u_i \in S^*} f(S^*) - \mathbb{E} \qty[ f(A_{i-1})]
+		\mathbb{E} \qty[f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1}) ] \geq 	\frac{1}{k} ( f(S^*) - \mathbb{E} \qty[ f(A_{i-1})] )
 		\end{align}
 		
 		And thus we can once again solve the recurrence and acquire same result as in \cref{greedy_proof}.
