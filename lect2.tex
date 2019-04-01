@@ -56,7 +56,7 @@ If $f$ is monotonic, greedy algorithm is an optimal approximating algorithm.
 \begin{theorem}[\citet{feige1998threshold}]
 For \textsc{max-k-cover} all constant $\epsilon>0$ each algorithm acquiring $1-\frac{1}{e} + \epsilon$ requires exponential number of requests to value oracle unless $P=NP$.
 \end{theorem}
-\paragraph{Note} Runtime of algorithm is $\order{nk}$. It is possible to acquire $\order{n\lg(\frac{1}{\epsilon})}$ runtime and $1-\frac{1}{e}-\epsilon$ optimality by looking on some subset of $N$ at each step instead of the whole set. 
+\paragraph{Note} Runtime of \vref{greedy} is $\order{nk}$. It is possible to acquire $\order{n\lg(\frac{1}{\epsilon})}$ runtime and $1-\frac{1}{e}-\epsilon$ optimality by looking on some subset of $N$ at each step instead of the whole set. 
 \subsection{Non-monotonic functions}
 What happens if $f$ is not monotonic? First of all, does greed algorithm work? Not only it is not optimal approximation, it can be as bad as $\frac{2}{N}$. However, it can be fixed. The idea is to randomize algorithm to prevent it from ``bad'' choices.
 
@@ -79,25 +79,19 @@ What happens if $f$ is not monotonic? First of all, does greed algorithm work? N
 	\end{algorithmic}
 \end{algorithm}
 
-\begin{prop}
-	Given set $S$ and set $A$ such that each element is in $A$ with probability less than $p$
-	\begin{align}
-	\mathbb{E} \qty[f(S\cup A)] \geq (1-p)f(S)
-	\end{align}
-\end{prop}
 \begin{theorem}[\citet{buchbinder2014submodular}]
 	In monotonic case, \cref{rand_greedy} is $1-\frac{1}{e}$ optimal in expectation.
 	\begin{proof}
 		Take a look at $i^{th}$ iteration and condition on previous iterations, denote a chosen element from $M_i$ as $u_i$:
 		\begin{align}
-		\mathbb{E} \qty[f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1}) | A_{i-1} ] &= \frac{1}{k} \sum_{u_i \in M_i} f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1}) \geq \frac{1}{k} \sum_{u_i \in S^*} f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1}) \geq\\&\geq \frac{1}{k} ( f(S^*) - f(A_{i-1}))
+		\mathbb{E} \qty\bigg[f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1}) | A_{i-1} ] &= \frac{1}{k} \sum_{u_i \in M_i} f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1}) \geq \frac{1}{k} \qty( f(A_{i-1} \cup S^*) - f(A_{i-1}) ) \geq\\&\geq \frac{1}{k} \qty( f(S^*) - f(A_{i-1}))\geq \frac{1}{k} \qty( f(S^*) - f(A_{i-1}))
 		\end{align}
 		
 		If the inequality is right for any $A_{i-1}$ it is right, from tower property, in expectation over $A_{i-1}$:
 		\begin{align}
-		\mathbb{E} \qty[f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1}) ] \geq 	\frac{1}{k} ( f(S^*) - \mathbb{E} \qty[ f(A_{i-1})] )
+		\mathbb{E} \qty\bigg[f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1}) ] \geq 	\frac{1}{k} \qty( f(S^*) - \mathbb{E} \qty[ f(A_{i-1})] )
 		\end{align}
 		
-		And thus we can once again solve the recurrence and acquire same result as in \cref{greedy_proof}.
+		And thus we can once again solve the recurrence and acquire same result as in \vref{greedy_proof}.
 	\end{proof}
 \end{theorem}

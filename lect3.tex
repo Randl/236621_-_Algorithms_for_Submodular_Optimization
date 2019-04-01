@@ -1,0 +1,175 @@
+\begin{lemma} \label{lem:exp_emptyset}
+	Given  set $B\subseteq N$ such that
+	\begin{align}
+	\forall u \in  N \quad P(u\in B) \leq p
+	\end{align}
+	
+	then
+	\begin{align}
+	\mathbb{E} \qty[f(B)] \geq (1-p)f(\emptyset)
+	\end{align}
+	\begin{proof}
+		WLoG $p(u_1\in B) \geq p(u_2\in B) \geq \dots \geq p(u_n\in B)$. Denote 
+		\begin{align}
+		X_i = \mathds{1}_{u_i \in B}
+		N_i = \bigcup_{j=1}^i u_j
+		\end{align}
+		We can then rewrite
+		\begin{align}
+		f(B) &= f(N_0) + \sum_{i=1}^n X_i\qty\bigg(f(B\cap N_{i}) - f(B\cap N_{i-1}))
+		\end{align}
+		\begin{align}
+		\mathbb{E} \qty[f(B)] &= f(N_0) +\sum_{i=1}^n \mathbb{E} \qty[ X_i\qty\bigg(f(B\cap N_{i}) - f(B\cap N_{i-1}))]\geq\\&\geq f(N_0) +\sum_{i=1}^n \qty\bigg(f(N_{i}) - f(N_{i-1}))\mathbb{E} \qty[ X_i] =f(N_0) +\sum_{i=1}^n \qty\bigg(f(N_{i}) - f(N_{i-1}))p_i =\\&= f(N_0) (1-p_1) + \sum_{i=1}^n f(N_i)\underbrace{ (p_i-p_{i+1})}_{\leq 0} \geq f(N_0) (1-p_1)  \geq f(\emptyset) (1-p)
+		\end{align}
+		
+	\end{proof}
+\end{lemma}
+\begin{lemma} \label{lem:exp}
+	Given set $A\subseteq N$ and set $B\subseteq N$ such that
+	\begin{align}
+	\forall u \in  N \quad P(u\in B) \leq p
+	\end{align}
+	
+	\begin{align}
+	\mathbb{E} \qty[f(A\cup B)] \geq (1-p)f(A)
+	\end{align}
+	
+	\begin{proof}
+		Define
+		\begin{align}
+		g_A(S) = f(A\cup S) 
+		\end{align}
+		Obviously, $g_A$ is also submodular (from diminishing returns). Then, from \vref{lem:exp_emptyset}
+		\begin{align}
+		\mathbb{E} \qty[f(A\cup B)] = \mathbb{E} \qty[g(B)]\geq (1-p)g(\emptyset) = (1-p)f(A)
+		\end{align}
+	\end{proof}
+\end{lemma}
+
+\begin{theorem}[\citet{buchbinder2014submodular}]
+	In non-monotonic case, \vref{rand_greedy} is $\frac{1}{e}$ optimal in expectation.
+	\begin{proof}
+		Similarly to monotonic case, take a look at $i^{th}$ iteration and condition on previous iterations, denote a chosen element from $M_i$ as $u_i$:
+		\begin{align}
+		\mathbb{E} \qty\bigg[f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1}) | A_{i-1} ] &= \frac{1}{k} \sum_{u_i \in M_i} f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1}) \geq \frac{1}{k} \qty(f(A_{i-1} \cup S^*) - f(A_{i-1}) )
+		\end{align}
+		
+		
+		Since
+		\begin{align}
+		P(u\in A_{i-1}) \leq 1 - \qty(1-\frac{1}{k})^{i-1}
+		\end{align}
+		from \vref{lem:exp}
+		\begin{align}
+		\mathbb{E}\qty[f(A_{i-1} \cup S^*)] \geq \qty(1-\frac{1}{k})^{i-1}f(S^*)
+		\end{align}
+		Thus, taking expectation		
+		\begin{align}
+		\mathbb{E} \qty\bigg[f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1}) ] &\geq \frac{1}{k} \qty(f(A_{i-1} \cup S^*) - f(A_{i-1}) ) \geq \frac{1}{k}  \qty[\qty(1-\frac{1}{k})^{i-1}f(S^*) - \mathbb{E} \qty\bigg[f(A_{i-1})] ]
+		\end{align}
+			
+		\begin{align}
+		\mathbb{E} \qty\bigg[f(A_{i} )] &\geq \frac{1}{k} \qty(f(A_{i-1} \cup S^*) - f(A_{i-1}) ) \geq \frac{1}{k}  \qty[\qty(1-\frac{1}{k})^{i-1}f(S^*) - \mathbb{E} \qty\bigg[f(A_{i-1})] ]
+		\end{align}
+		Solving the recurrence we get
+		\begin{align}
+		\mathbb{E} \qty[f(A_ш)] \geq \frac{i}{k} \qty(1-\frac{1}{k})^{k-1} f(S^*) \geq \frac{1}{e}f(S^*) 
+		\end{align}
+		i.e.,
+		\begin{align}
+		\mathbb{E} \qty[f(A_k)] \geq  \qty(1-\frac{1}{k})^{k-1} f(S^*) \geq \frac{1}{e}f(S^*) 
+		\end{align}
+		
+		
+	\end{proof}
+\end{theorem}
+
+\paragraph{Note} \vref{rand_greedy} is not optimal. In addition, the upper bound of the best approximation is $~0.49$.
+\paragraph{Runtime} Runtime of \vref{rand_greedy} is $\order{nk}$.
+
+\section{Maximization of the submodular function without constraints}
+\begin{align}
+\max \: & f(S)
+\end{align}
+\paragraph{Examples}
+\begin{itemize}
+\item \textsc{max-cut}
+\item \textsc{max-directed-cut}
+\item Max Facility Location
+\item \textsc{max-sat} (with all literals in a clause having same sign).
+\end{itemize}
+
+\begin{prop}[\cite{feige2011maximizing}]
+	Algorithm which choose random solution as following: $u\in S$ with probability $\frac{1}{2}$ independently, is $\frac{1}{4}$ approximation in expectation:
+	\begin{align}
+	\mathbb{E}[f(S)] \geq \frac{1}{4} f(S^*)
+	\end{align}
+\end{prop}
+\begin{prop}[\cite{feige2011maximizing}]
+If $f$ is symmetric, the same algorithm is $\frac{1}{2}$ approximation in expectation:
+\begin{align}
+\mathbb{E}[f(S)] \geq \frac{1}{2} f(S^*)
+\end{align}
+\end{prop}
+\begin{prop}[\cite{feige2011maximizing}]
+For any constant $\epsilon>0$ it is impossible to acquire $\qty(\frac{1}{2}+\epsilon)$ approximation in polynomial time, even in  symmetric case.
+\end{prop}
+
+Note that for $\bar{f}(S) = f(\bar{S})$, we can use the same oracle. So a ''conjugate`` algorithm would be start from $N$ and drop elements from it.
+
+
+\begin{algorithm}
+	\caption{}\label{alg:double_greedy}
+	\begin{algorithmic}[1]
+		\Procedure{Double Greedy}{$N$}
+		\State $X \gets \emptyset$, $Y \gets N$
+		\For{$i=1$ to $n$}
+		\State $a_i = f(X_{i-1} \cup \qty{u_i})-f(X_i)$
+		\State $b_i = f(Y_{i-1} \setminus \qty{u_i})-f(Y_i)$
+		\If{$a_i > b_i$}
+		\State $X_i \gets X_{i-1} \cup \qty{u_i}$
+		\State $Y_i \gets Y_{i-1}$
+		\Else
+		\State $X_i \gets X_{i-1}$
+		\State $Y_i \gets Y_{i-1} \setminus \qty{u_i}$
+		\EndIf
+		\EndFor
+		\State \textbf{return} $X_N$
+		\EndProcedure
+	\end{algorithmic}
+\end{algorithm}
+
+\begin{theorem}
+	\vref{alg:double_greedy} is $\frac{1}{3}$ approximation.
+\end{theorem}
+
+
+\begin{algorithm}
+	\caption{}\label{alg:rand_double_greedy}
+	\begin{algorithmic}[1]
+		\Procedure{Randomized Double Greedy}{$N$}
+		\State $X \gets \emptyset$, $Y \gets N$
+		\For{$i=1$ to $n$}
+		\State $a_i = \max \qty{0,f(X_{i-1} \cup \qty{u_i})-f(X_i)}$
+		\State $b_i = \max \qty{f(Y_{i-1} \setminus \qty{u_i})-f(Y_i)}$
+		\State $(X_i,Y_i) \gets\begin{cases}
+		\qty(X_{i-1} \cup \qty{u_i}, Y_i) & \text{with } P= \frac{a_i}{a_i+b_i} \\
+		\qty(X_{i-1} ,Y_{i-1} \setminus \qty{u_i}) & \text{with } P= \frac{b_i}{a_i+b_i} 
+		\end{cases}$
+		
+		\EndFor
+		\State \textbf{return} $X_N$
+		\EndProcedure
+	\end{algorithmic}
+\end{algorithm}
+
+\begin{theorem}[\cite{buchbinder2015tight}]
+	\vref{alg:rand_double_greedy} is $\frac{1}{2}$ approximation in expectation.
+	\begin{proof}
+		Let $S^*$ be an optimal solution and 
+		\begin{align}
+		S^*_i = S^* \cup X_i \cap Y_i
+		\end{align}
+		i.e., optimal solution to which we add everything \cref{alg:rand_double_greedy} added and drop everything it dropped.
+	\end{proof}
+\end{theorem}
