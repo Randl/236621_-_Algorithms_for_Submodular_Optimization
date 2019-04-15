@@ -104,7 +104,7 @@ Let each element of set have price $c_i$ and budget $B$, then
 		\While{$N\neq \emptyset$}
 		\State $x^* \gets \arg \max \qty{ \frac{f(S\cup \qty{x})-f(S)}{c_i}}$
 		\If{$c(S) + c_{x^*} \leq B$}
-		\State $S\to S \cup \qty{x^*}$
+		\State $S\gets S \cup \qty{x^*}$
 		\EndIf
 		\State $N \gets N\setminus \qty{x^*}$
 		\EndWhile

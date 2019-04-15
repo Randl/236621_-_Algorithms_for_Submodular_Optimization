@@ -1,0 +1,122 @@
+\section{Introduction to matroids}
+Matroid is a basic concept in combinatorial optimization. It was first defined by \citet{whitney1935abstract}. 
+\begin{definition}[matroid]
+	Matroid $\mathcal{M}$ is a pair $(E,\mathcal{I})$. $E$ is is a finite set (called the ground set) and $\mathcal{I}\neq \emptyset$ is a family of subsets of $E$ (called the independent sets) with the following properties:
+	\begin{enumerate}
+		\item If $Y\in \mathcal{I}$ then for all $X\subseteq Y$, $X\in \mathcal{I}$.
+		\item If $X,Y\in \mathcal{I}$ and $\abs{Y}>\abs{X}$, then exists $e\in Y\setminus X$, $X\cup \qty{e} \int \mathcal{I}$.
+	\end{enumerate}
+\end{definition}
+
+\paragraph{Notes} All maximal independent sets have same size. Those sets are called basis.
+
+
+\paragraph{Examples}
+\subparagraph{Uniform manifold} 
+\begin{align}
+	\mathcal{M}_{k} = \qty(E, \qty\bigg{X\subseteq E | \abs{X} \leq k})
+\end{align}
+\subparagraph{Linear manifold} 
+Let $A\in \mathbb{R}^{m\times n}$ be a matrix. Let $E$ be a set of columns of $A$. The set $X\subseteq E$ is independent if its elements are independent. Alternatively, for sub-matrix $A_X$ consisting of columns of $A$:
+\begin{align}
+\mathcal{I} = \qty{ X\subset E | \rank(A_x) = \abs{X}}
+\end{align}
+
+
+\subparagraph{Graphic matroids} 
+Let $G=\qty(V_G,E_G)$ be a graph, $E=E_G$ and
+\begin{align}
+\mathcal{I} = \qty{X\subseteq E_G | X \text{ is forest}}
+\end{align}
+\begin{prop}
+	$M=(E_G,\mathcal{I})$ is matroid.
+\end{prop}
+The basis is then spanning trees (or forests if graph is not connected).
+
+\subparagraph{Partition matroid}
+For a set $E$ let $E_1,\dots E_k$ be some partition of $E$. Then
+\begin{align}
+\mathcal{I}= \qty\big{ X\subseteq E \big\vert \forall i=1..k \: \abs{X}\cup E_i  \leq 1  }
+\end{align}
+\begin{prop}
+	$M=(E,\mathcal{I})$ is matroid.
+\end{prop}
+Note that partition matroid encodes constraints of submodular welfare problem.
+
+Constraint of matching in the bipartite graph can be defined as intersection of two partition matroids.
+
+\begin{definition}[Circuit]
+	Circuit in matroid $M=(E,\mathcal{I})$ is a dependent set $X$ such that $X\notin \mathcal{I}$ and for all $x\in X$ $X\setminus \qty{x} \in \mathcal{I}$.
+\end{definition}
+\begin{definition}[Rank function]
+For matroid $M=(E,\mathcal{I})$ rank function $r: 2^{\mathbb{E}} \to \mathbb{N}$ is defined as
+\begin{align}
+r(x) = \max \qty\big{\abs{Y} \big| Y\subset{X}, Y\in \mathcal{I}}
+\end{align}
+\end{definition}
+\begin{definition}[Rank of matroid]
+For matroid $M=(E,\mathcal{I})$ rank of matroid is $\rank(E)$.
+\end{definition}
+\begin{prop}
+	Rank of matroid is submodular function.
+\end{prop}
+
+
+\begin{algorithm}
+	\caption{}\label{alg:matroid_basis}
+	\begin{algorithmic}[1]
+		\Procedure{Greedy}{$E$, $I$}
+		\State $S \gets \emptyset$
+		\For {$e\in E$}
+		\If {$S\cup \qty{x} \in \mathcal{I}$}
+		\State $S\gets S\cup \qty{x}$
+		\EndIf
+		\EndFor
+		\State \textbf{return} $S$
+		\EndProcedure
+	\end{algorithmic}
+\end{algorithm}
+
+\begin{prop}
+	\vref{alg:matroid_basis} returns basis of $E$.
+	\begin{proof}
+		Assume $S$ is not a basis and let $B$ be a basis. Exists $x\in B\setminus S$ such that $S\cup \qty{x}$ is independent. However, since we have not added $x$ to $S$, it got to be dependent with $S$.
+	\end{proof}
+\end{prop}
+
+\paragraph{Question} Given matroid over $E$ (via independence oracle), let weight function $w: E\to \mathbb{R}$ and weight of set be $w(X) = \sum_{x\in X} w(x)$. We want to find independent set (pr basis) of maximal weight.
+
+
+\begin{algorithm}
+	\caption{}\label{alg:matroid_weighted_basis}
+	\begin{algorithmic}[1]
+		\Procedure{Greedy}{$E$, $I$}
+		\State $S \gets \emptyset$
+		\For {$e\in E$ from heaviest to lightest}
+		\If {$S\cup \qty{x} \in \mathcal{I}$}
+		\State $S\gets S\cup \qty{x}$
+		\EndIf
+		\EndFor
+		\State \textbf{return} $S$
+		\EndProcedure
+	\end{algorithmic}
+\end{algorithm}
+\begin{prop}
+	\vref{alg:matroid_weighted_basis} solves the problem of maximal weight basis.
+	\begin{proof}
+		We know that for $k = \rank(M)$, the size of the output of algorithm is $k$ and so is size of optimal solution $S^*$.
+		Lets assume $S$ is not optimal, thus exists $i$ such that $w(e_i^*) > w(e_i)$.
+		
+		At iteration at which we added $e_i$ to $S$. At this iteration $\abs{S}=i-1$. take a look at first $i$ elements of $S^*$: this is independent set, and from definition of matroid, exists $e'$ such that $S$ is independent with $e'$. However, $w(e') \geq w(e^*-i) > w(e_i)$, thus we should have added it beforehand.
+	\end{proof}
+\end{prop}
+
+\section{Continuous extensions of submodular functions} 
+\begin{definition}[Continuous extensions of function]
+	For $f: 2^N \to \mathbb{R}$ extension of $f$ is $F: [0,1]^N \to \mathbb{E}$ such that for all $S\in N$ (denote by $\mathds{1}_S \in \qty{0,1}^N$ indicator of $S$) $F(\mathds{1}_S) = f(S)$.
+\end{definition}
+
+There exist many extensions of submodular functions. In particular, there exist convex and concave extensions of submodular functions. 
+\begin{prop}
+	Evaluating concave extensions of submodular function in some point is NP-hard.
+\end{prop}
