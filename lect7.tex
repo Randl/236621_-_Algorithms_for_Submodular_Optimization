@@ -1,0 +1,97 @@
+
+\begin{prop}
+	Let $f$ be monotonous function. Then for $\vb{x}\in [0,1]^N$, $\mathbb{R}^n \ni \vb{y}>0$ (coordinate-wise), and $g(t)=F(\vb{x}+t\vb{y})$, $g$ is monotonous, i.e., 
+	\begin{align}
+	\pdv{F}{\vb{y}}\geq 0
+	\end{align}
+	In other words, for $i\in N$
+	\begin{align}
+	\pdv{F}{x_i} \geq  0
+	\end{align}
+\end{prop}
+\begin{prop}
+	Let $f$ be submodular function. Then for $\vb{x}\in [0,1]^N$, $\mathbb{R}^n \ni \vb{y}>0$ (coordinate-wise), and $g(t)=F(\vb{x}+t\vb{y})$, $g$ is concave, i.e., 
+	\begin{align}
+	\pdv[2]{F}{\vb{y}}\leq 0
+	\end{align}
+	In other words, for $i,j\in N$
+	\begin{align}
+	\pdv{F}{x_i}{x_j}\leq 0
+	\end{align}
+\end{prop}
+
+\section{Matroid constraints}
+Let $\mathcal{M}=(E,\mathcal{I})$ be a matroid.
+\begin{align}
+\max \: & f(S)\\
+\st & S\in \mathcal{I}
+\end{align}
+
+Let 
+\begin{align}
+\mathcal{P}_\mathcal{M} = \qty{z\in [0,1]^N \Big\vert \forall S\subseteq N \: \sum_{i \in S}z_i\leq \rank(S)}
+\end{align}
+
+\begin{algorithm}
+	\caption{}\label{alg:cont_greedy}
+	\begin{algorithmic}[1]
+		\Procedure{Continuous Greedy}{$N$}
+		\State $\vb{y}(0) \gets \vb{0}$
+		\For{$t'\in (0,1)$}
+		\State $\vb{x}(t') \gets \arg \max\limits_{\vb{x} \in \mathcal{P}_\mathcal{M}} \qty{\vb{x}\vdot \grad{F\qty(\vb{y}(t'))}} $
+		\State $\pdv{\vb{y}}{t}\qty(t') \gets \vb{x}(t') $
+		\EndFor
+		\State \textbf{return} $\vb{y}(1)$
+		\EndProcedure
+	\end{algorithmic}
+\end{algorithm}
+
+\begin{lemma}
+	For $\vb{x}\in [0,1]^N$
+	\begin{align}
+	\sum_{i \in S} F\qty(\max\qty{\vb{x}, \mathds{1}_i})-F(\vb{x}) \geq F\qty(\max\qty{\vb{x}, \mathds{1}_{S}})-F(\vb{x})
+	\end{align}
+	\begin{proof}
+		Denote by $D_{\vb{x}}$ random distribution of taking each element independently with probability $x_i$, i.e.,
+		\begin{align}
+		F(\vb{x}) = \mathbb{E}_{R\sim D_{\vb{x}}} [f(R)]
+		\end{align}
+		Then
+		\begin{align}
+		\sum_{i \in S} F\qty(\max\qty{\vb{x}, \mathds{1}_i})-F(\vb{x}) &= \sum_{i \in S} \mathbb{E}_{R\sim D_{\max\qty{\vb{x}, \mathds{1}_i}}} [f(R)] - \mathbb{E}_{R\sim D_{\vb{x}}} [f(R)] = \sum_{i \in S}\mathbb{E}_{R\sim D_{\vb{x}}}\qty[f(R\cup \qty{i}) - f(R)] =\\&= \mathbb{E}_{R\sim D_{\vb{x}}}\qty[\sum_{i \in S} f(R\cup \qty{i}) - f(R)] \geq \mathbb{E}_{R\sim D_{\vb{x}}}\qty[f(R\cup S) - f(R)] = F\qty(\max\qty{\vb{x}, \mathds{1}_{S}})-F(\vb{x})
+		\end{align}
+	\end{proof}
+\end{lemma}
+\begin{theorem}[\citet{calinescu2011maximizing}]
+	For monotonous submodular $f$,
+	\begin{align}
+	F(\vb{y}(1)) \geq \qty(1-\frac{1}{\epsilon})f(S^*)
+	\end{align}
+	where $\vb{y}(t)$ is output of \vref{alg:cont_greedy}:
+	\begin{align}
+	\vb{y}(t) = \int_0^t \vb{x}(t') \dd{t'}
+	\end{align}
+	and $S^*$ is optimal solution of
+	\begin{align}
+	\max \: & f(S)\\
+	\st & S\in \mathcal{I}
+	\end{align}
+	\begin{proof}
+		Lets bound $\pdv{F}{t} (\vb{y}(t'))$:
+		\begin{align}
+		\pdv{F}{t} (\vb{y}(t')) &=  \grad{F} \vdot \pdv{y}{t} =  \grad{F\qty(\vb{y}(t'))} \vdot \vb{x}(t') \geq \grad{F\qty(\vb{y}(t'))} \vdot \mathds{1}_{S^*}= \sum_{i \in S^*} \qty(\grad{F\qty(\vb{y}(t'))})_i \stackrel{\text{concave}}{\geq} \sum_{i \in S^*} \frac{F\qty(\max\qty{\vb{y}, \mathds{1}_i})-F(\vb{y})}{1-\vb{y}_i} \geq\\&\geq \sum_{i \in S^*} F\qty(\max\qty{\vb{y}, \mathds{1}_i})-F(\vb{y}) \geq F\qty(\max\qty{\vb{y}, \mathds{1}_{S^*}})-F(\vb{y}) \geq f(S^*)-F(\vb{y})
+		\end{align}
+		where $\max$ is coordinate-wise maximum.
+		We got
+		\begin{align}
+			F(\vb{y}(0)) &\geq 0 \\
+			\pdv{F}{t} &\geq f(S^*) - F(\vb{y})
+		\end{align}
+		with solution $F(\vb{y}(t)) \geq \qty(1-e^{-t}) f(S^*)$, i.e., 
+		\begin{align}
+		F(1) \geq \qty(1-\frac{1}{\epsilon})f(S^*)
+		\end{align}
+	\end{proof}
+	%i.e., \vref{alg:cont_greedy} is $ \qty(1-\frac{1}{\epsilon})$-optimal.
+\end{theorem}
+\paragraph{Note} $\grad F$ can be estimated efficiently with random sampling.
