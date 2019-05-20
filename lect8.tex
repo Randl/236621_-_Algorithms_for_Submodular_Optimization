@@ -1,0 +1,105 @@
+
+\begin{algorithm}
+	\caption{}\label{alg:measured_cont_greedy}
+	\begin{algorithmic}[1]
+		\Procedure{Measured Continuous Greedy}{$N$}
+		\State $\vb{y}(0) \gets \vb{0}$
+		\For{$t'\in (0,1)$}
+		\State $\vb{x}(t') \gets \arg \max\limits_{\vb{z} \in \mathcal{P}_\mathcal{M}} \qty{\sum_{i \in N} z_i\cdot \qty( F\qty(\max\qty{\vb{y}, \mathds{1}_i})-F(\vb{y}))} $
+		\State $\qty(\pdv{\vb{y}}{t})_i\qty(t') \gets \vb{x}_i(t') \qty(1-\vb{y}_i(t'))$
+		\EndFor
+		\State \textbf{return} $\vb{y}(1)$
+		\EndProcedure
+	\end{algorithmic}
+\end{algorithm}
+
+\begin{lemma} \label{bound_random}
+	For set $S\subseteq N$ and vector $\vb{z}$ such that $\norm{z}_\infty \leq p$
+	\begin{align}
+	F(\max\qty{\mathds{1}_S , \vb{z}}) \geq (1-p) f(S)
+	\end{align}
+	\begin{proof}
+		\begin{align}
+		F(\max\qty{\mathds{1}_S , \vb{z}}) \geq f_L(\max\qty{\mathds{1}_S , \vb{z}}) \geq (1-p)f(S)
+		\end{align}
+	\end{proof}
+\end{lemma}
+\begin{theorem}[\citet{feldman2011unified}]
+	For submodular $f$,
+	\begin{align}
+	F(\vb{y}(1)) \geq \qty(1-\frac{1}{\epsilon})f(S^*)
+	\end{align}
+	where $\vb{y}(t)$ is output of \vref{alg:measured_cont_greedy}:
+	\begin{align}
+	\vb{y}(t) = \int_0^t \vb{x}(t') \dd{t'}
+	\end{align}
+	and $S^*$ is optimal solution of
+	\begin{align}
+	\max \: & f(S)\\
+	\st & S\in \mathcal{I}
+	\end{align}
+	\begin{proof}
+		Lets bound $\pdv{F}{t} (\vb{y}(t'))$:
+		\begin{align}
+		\pdv{F}{t} (\vb{y}(t')) &=  \grad{F} \vdot \pdv{y}{t} =  \grad{F\qty(\vb{y}(t'))} \vdot \vb{x}(t') \stackrel{F \text{is multilinear}}{=} \sum_{i \in N} \frac{F\qty(\max\qty{\vb{y}, \mathds{1}_i})-F(\vb{y})}{1-\vb{y}_i}\cdot \vb{x}(t') \cdot   \qty(1-\vb{y}_i(t')) =\\&=
+		\qty\big[F\qty(\max\qty{\vb{y}, \mathds{1}_i})-F(\vb{y})]\cdot \vb{x}(t') \geq \sum_{i \in S^*} F\qty(\max\qty{\vb{y}, \mathds{1}_i})-F(\vb{y}) \geq F\qty(\max\qty{\vb{y}, \mathds{1}_{S^*}})-F(\vb{y})
+		\end{align}
+		where $\max$ is coordinate-wise maximum.
+		
+		Since
+		\begin{align}
+		\pdv{y_i}{t} \leq 1-y_1
+		\end{align}
+		we get
+		\begin{align}
+			y_i \leq 1-e^{-t}
+		\end{align}
+		From \ref{bound_random} we got
+		\begin{align}
+		\pdv{F}{t} (\vb{y}(t')) &\geq F\qty(\max\qty{\vb{y}, \mathds{1}_{S^*}})-F(\vb{y}) \geq e^{-t} f(S^*) - F(\vb{y})
+		\end{align}
+		Solving differential inequality
+		\begin{align}
+		F(\vb{y}(0)) &\geq 0 \\
+		\pdv{F}{t} &\geq f(S^*) - F(\vb{y})
+		\end{align}
+		we acquire the solution $F(\vb{y}(t)) \geq te^{-t} f(S^*)$ with maximum in $t=1$:
+		\begin{align}
+		F(1) \geq \frac{1}{\epsilon}f(S^*)
+		\end{align}
+		
+		Note that now $\vb{y}$ is not a linear combination of elements of polytope, but rather something which is at most linear combination.
+	\end{proof}
+	%i.e., \vref{alg:cont_greedy} is $ \qty(1-\frac{1}{\epsilon})$-optimal.
+\end{theorem}
+
+\paragraph{Note} It is known that $\frac{1}{e}$ is not optimal, but rather at least $0.372$ \cite{ene2016constrained}.
+
+\paragraph{Rounding of the fractional solution}
+Remember the submodular welfare problem. We define polytope
+\begin{align}
+\mathcal{P}_M = \qty{ \vb{z} \in [0,1]^N \big\vert \sum_{j=1}^k z_{i,j} \leq 1}
+\end{align}
+Then an intuitive way to round the vector in polytope is just sample from random variable $Z_i$:
+\begin{align}
+P(Z_i= j) = z_{i,j}
+\end{align}
+with $Z_i$ independent. Denote by $S$ the set acquired by this rounding.
+\begin{prop}
+	\begin{align}
+	\mathbb{E}\qty[f(S)] \geq F(\vb{z})
+	\end{align}
+\end{prop}
+
+\paragraph{Note} For submodular welfare with $k$ players we can get $1-\qty(1-\frac{1}{k})^k$ approximation, by running \vref{alg:measured_cont_greedy} and stopping after $t=1$.
+
+
+\paragraph{Pipage rounding}
+We choose two components of vector $\vb{z}$, $z_i$ and $z_j$ and move mass from $z_i$ to $z_j$ such that
+\begin{itemize}
+	\item At least one of  $z_i$ and $z_j$ becomes integer
+	\item Total value isn't reduced (due to concavity in two variables)
+	\item New vector is still in $\mathcal{P}_M$. 
+\end{itemize}
+\paragraph{Swap rounding}
+Decompose $\vb{z}$ as a convex combination over basis. From two vectors in combination we create a new one: there exists $x\in B_i \setminus B_j$ and $y\in B_j \setminus B_i$ such that $B_i \setminus \qty{x} \cup \qty{y}$ and $B_j \setminus \qty{y} \cup \qty{x}$ is a basis.
