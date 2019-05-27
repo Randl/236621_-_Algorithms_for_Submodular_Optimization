@@ -38,17 +38,25 @@
 % Prevent overflowing lines due to hard-to-break entities
 \sloppy 
 % Colors for the hyperref package
+%%Link setup
+\definecolor{mydarkblue}{rgb}{0,0.08,0.45}
 \definecolor{urlcolor}{rgb}{0,.145,.698}
 \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
-\definecolor{citecolor}{rgb}{.12,.54,.11}
 % Setup hyperref package
-\hypersetup{
+\hypersetup{ %
+	pdftitle={Algorithms for Submodular Optimization},
+	pdfauthor={Evgenii Zheltonozhskii},
+	pdfsubject={},
+	pdfkeywords={},
+	pdfborder=0 0 0,
+	pdfpagemode=UseNone,
 	breaklinks=true,  % so long urls are correctly broken across lines
 	colorlinks=true,
 	urlcolor=urlcolor,
 	linkcolor=linkcolor,
-	citecolor=citecolor,
-}
+	citecolor=mydarkblue,
+	filecolor=mydarkblue,
+	pdfview=FitH}
 
 
 \renewcommand*{\backref}[1]{} % for backref < 1.33 necessary
@@ -110,13 +118,8 @@
 
 %\usepackage{babel}[english]
 %opening
-\title{ 	236621 - Algorithms for Submodular Optimization}
-\author{Roy Schwartz}
-% njc860@gmail.com
-% Amado 707
-% https://sites.google.com/site/njcrawfordacademic/
-% David Williams Probability with Martingales
-% Rick Derret Probability Theory and examples
+\title{236621 -- Algorithms for Submodular Optimization}
+\author{Notes of lectures by Roy Schwartz\\written by Evgenii Zheltonozhskii}
 
 
 \parindent=0em
@@ -125,9 +128,7 @@
 
 \maketitle
 
-\begin{abstract}
-
-\end{abstract}
+%\begin{abstract}\end{abstract}
 
 %\tableofcontents
 \input{lect1.tex}
@@ -138,6 +139,7 @@
 \input{lect6.tex}
 \input{lect7.tex}
 \input{lect8.tex}
+\input{lect9.tex}
 
 
 \bibliographystyle{plainnat}

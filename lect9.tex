@@ -1,0 +1,96 @@
+\paragraph{Note} There exists effective algorithm to find, given $\vb{x}$, a convex combination of basis $\qty{B_1, B_2, \dots, B_n}$.
+
+
+
+\begin{algorithm}
+	\caption{}\label{alg:merge_basis}
+	\begin{algorithmic}[1]
+		\Procedure{Merge Basis}{$\beta_1, B_1, \beta_2, B_2$}
+		\While{$B_1\neq B_2$}
+		\State $i\in B_1, j\in B_2$ such that $i \in B_1\setminus B_2, j\in B_2\setminus B_1$
+		\State $\qty(B_1, B_2) = \begin{cases}
+		\qty(B_1, B_2\setminus \qty{j} \cup \qty{i})& \text{w.p. } \frac{\beta_2}{\beta_1+\beta_2}\\
+		\qty(B_1\setminus \qty{i} \cup \qty{j}, B_2)& \text{w.p. } \frac{\beta_1}{\beta_1+\beta_2}\\
+		\end{cases}$
+		\EndWhile
+		\State \textbf{return} $B_1$
+		\EndProcedure
+	\end{algorithmic}
+\end{algorithm}
+
+
+\begin{algorithm}
+	\caption{}\label{alg:swap_rounding}
+	\begin{algorithmic}[1]
+		\Procedure{Swap Round}{$x=\sum_{l =1}^n \beta_l \mathds{1}_{B_l}$}
+		\State $C_1=B_1$
+		\For{$k=1..n-1$}
+		\State $C_{k+1} = \mathrm{Merge Basis}\qty(\sum_{l =1}^k \beta_l, C_k, \beta_{k+1}, B_{k+1})$
+		\EndFor
+		\State \textbf{return} $C_n$
+		\EndProcedure
+	\end{algorithmic}
+\end{algorithm}
+
+\paragraph{Swap rounding}
+Decompose $\vb{z}$ as a convex combination over basis. From two vectors in combination we create a new one: there exists $x\in B_i \setminus B_j$ and $y\in B_j \setminus B_i$ such that $B_i \setminus \qty{x} \cup \qty{y}$ and $B_j \setminus \qty{y} \cup \qty{x}$ is a basis.
+
+\begin{theorem}[\citet{chekuri2010dependent}]
+	\begin{proof}
+		What is value of $\vb{x}$ after one iteration of basis merge? To simpilfy, assume $\beta_1=\beta_2=\frac{1}{m}$. The expectation is
+		\begin{align}
+			\mathbb{E} [F(\vb{x}')] = \frac{1}{2} F(\vb{x} + \beta_1\qty(\mathbb{1}_i)+ \frac{1}{m}\qty(\mathbb{1}_i-\mathbb{1}_j))+\frac{1}{2} F(\vb{x} + \beta_1\qty(\mathbb{1}_i)+ \frac{1}{m}\qty(\mathbb{1}_j-\mathbb{1}_i))
+		\end{align}
+		Define
+		\begin{align}
+		g(s) = F\qty(\vb{x}+s\qty(\mathbb{1}_i-\mathbb{1}_j))
+		\end{align}
+		Then, from convexity
+		\begin{align}
+		\mathbb{E} [F(\vb{x}')] = \frac{1}{2}g\qty(\frac{1}{m})+\frac{1}{2}g\qty(-\frac{1}{m}) \geq g(0) = F(\vb{x})
+		\end{align}
+	\end{proof}
+\end{theorem}
+
+
+\section{Complexity of unconstrained submodular optimization}
+\begin{theorem}
+	For all $\epsilon>0$ exists submodular function such that random algorithm that achieves  $\qty(\frac{1}{2}+\epsilon)$ approximation in expectation requires at least $e^{\frac{1}{8}\epsilon^2 N}$ queries to value oracle.
+	\begin{proof}
+		We'll show two submodular functions such that
+		\begin{itemize}
+			\item Ratio between values is approximately 2.
+			\item The functions can be distinguished only with exponential number of queries to value oracles.
+		\end{itemize}
+	
+	Let $g(S) = \abs{S} \qty(n-\abs{S})$ be a cut size of clique.
+	
+	To define $f$ suppose there is partition of $N$ into two sets of equal size: $C\cup D+N$, $\abs{C}=\abs{D}=\frac{n}{2}$. 
+	
+	Denote for $S'\subseteq N$, denote  $k=\abs{S\cap C}$ and $l=\abs{S\cap D}$. Then define
+	\begin{align}
+	f(S) = \begin{cases}
+	\abs{S} \qty(n-\abs{S}) & \abs{k-l} \leq \epsilon n\\
+	\abs{k} \qty(n-2l) + l(n-2k) - \order{\epsilon n^2}& \abs{k-l} \geq \epsilon n\\
+	\end{cases}
+	\end{align}
+	where we added $\order{\epsilon n^2}$ term to make $f$ submodular.
+	\end{proof}
+
+	The optimal value of $g$ is $\frac{n^2}{4}$. For $f$, if $S=C$, $f(S)=\qty(\frac{1}{2}-\epsilon)n^2$.
+	
+	The choice of sets $C,D$ is random and unknown to algorithm. Define 
+	\begin{align}
+	Y_i = \begin{cases}
+	1 & i\in C\\
+	-1 & i\in D
+	\end{cases}
+	\end{align}
+	Then $k-l = \sum_{i \in S} Y_i$, and $P(Y_i=1)=P(Y_i=-1)=\frac{1}{2}$. We know that for independent $-1\leq Y_i\leq 1$ such that $\mathbb{E} [Y_i] = 0$ then
+	\begin{align}
+		P\qty(\sum_{i =1}^n Y_i > \lambda) \leq e^{-\frac{1}{2}\frac{\lambda^2}{n}}
+	\end{align}
+	In our case, we want to bound $P\qty(\abs{\sum_{i =1}^n Y_i} > \epsilon n)$.
+\end{theorem}
+
+\paragraph{Note} There exists a general method called ``symmetry gap'' \cite{vondrak2013symmetry} to proof complexity results on submodular optimization.
