@@ -1,0 +1,52 @@
+\section{Submodular minimization}
+Simplest minimization problems are unconstrained ones
+\begin{align}
+\min\limits_{S\subseteq N} \qty{f(S)}
+\end{align}
+which generalizes \textsc{min-cut}, \textsc{min-s-t-cut}. \citet{iwata2001combinatorial} have extended the dual maximal flow problem to general unconstrained submodular minimization.
+
+\subsection{Continuous relaxation}
+% Lovasz
+The Lovasz extension together with convex minimization can be used to minimize submodular function \cite{grotschel1981ellipsoid}. Since Lovasz extension is convex, we can easily minimize it. Now we only need to round it. Choose $\theta \sim U[0,1]$ and output $\qty{i: x^*_i \geq \theta}$. By definition
+\begin{align}
+\mathbb{E}_\theta \qty[f\qty(\qty{i: x^*_i \geq \theta})] = f_L(\bar{X}^*)
+\end{align}
+\paragraph{Note}
+For any $\theta$, $\qty{i: x^*_i \geq \theta}$ got to be optimal, since any solution can not be better than optimum.
+\subsection{Cardinality constraint}
+Even for monotone $f$, the best known algorithm has $\tilde{\mathcal{O}}(\sqrt{n})$ \cite{svitkina2011submodular}.
+
+\section{Multiway partition}
+Given  the graph $G=(V,E)$, set of terminals $V\supseteq T = \qty{t_1, t_2, \dots, t_k}$, and weight function $w: E\to \mathbb{R}_+$. We want to find $F\subseteq E$ such that in $G_F = (V, E\setminus F)$ there is no path from $t_i$ to $t_j$, minimizing $\sum_{e\in F} w_e$.
+
+On the other hand, we want to partition graph into $k$ parts, each of which contains one terminal with minimal weight of connecting weights.
+
+
+\begin{algorithm}
+	\caption{}\label{alg:naive_multicut}
+	\begin{algorithmic}[1]
+		\Procedure{Partition}{$\qty{t_1,\dots, t_k}$}
+		\For{$i=1..k$}
+		\State $F_i \gets$ minimal cut between $t_1$ and $\qty{t_2,\dots, t_k}$.
+		\EndFor
+		\State \textbf{return} $\bigcup_{i=1}^k F_i$
+		\EndProcedure
+	\end{algorithmic}
+\end{algorithm}
+
+\begin{lemma}
+	Output of \vref{alg:naive_multicut} is always legal.
+\end{lemma}
+\begin{lemma}
+\vref{alg:naive_multicut} provides 2-approximation of multicut.
+\begin{proof}
+	For optimal solution $S^*$,
+	\begin{align}
+	\sum_{e\in F_i} w_e \leq \sum_{e\in \delta(S^*_i)} w_e
+	\end{align}
+	Thus, four output $S$
+	\begin{align}
+	f(S)  \leq \sum_i \sum_{e\in \delta(S^*_i)} w_e \leq 2f(S^*)
+	\end{align}
+\end{proof}
+\end{lemma}
