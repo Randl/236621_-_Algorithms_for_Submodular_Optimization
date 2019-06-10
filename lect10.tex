@@ -5,7 +5,7 @@ Simplest minimization problems are unconstrained ones
 \end{align}
 which generalizes \textsc{min-cut}, \textsc{min-s-t-cut}. \citet{iwata2001combinatorial} have extended the dual maximal flow problem to general unconstrained submodular minimization.
 
-\subsection{Continuous relaxation}
+\subsubsection{Continuous relaxation}
 % Lovasz
 The Lovasz extension together with convex minimization can be used to minimize submodular function \cite{grotschel1981ellipsoid}. Since Lovasz extension is convex, we can easily minimize it. Now we only need to round it. Choose $\theta \sim U[0,1]$ and output $\qty{i: x^*_i \geq \theta}$. By definition
 \begin{align}
@@ -13,10 +13,10 @@ The Lovasz extension together with convex minimization can be used to minimize s
 \end{align}
 \paragraph{Note}
 For any $\theta$, $\qty{i: x^*_i \geq \theta}$ got to be optimal, since any solution can not be better than optimum.
-\subsection{Cardinality constraint}
-Even for monotone $f$, the best known algorithm has $\tilde{\mathcal{O}}(\sqrt{n})$ \cite{svitkina2011submodular}.
+\subsubsection{Cardinality constraint}
+Even for monotone $f$, the best known algorithm has $\tilde{\mathcal{O}}(\sqrt{n})$-approximation \cite{svitkina2011submodular}.
 
-\section{Multiway partition}
+\subsection{Multiway partition}
 Given  the graph $G=(V,E)$, set of terminals $V\supseteq T = \qty{t_1, t_2, \dots, t_k}$, and weight function $w: E\to \mathbb{R}_+$. We want to find $F\subseteq E$ such that in $G_F = (V, E\setminus F)$ there is no path from $t_i$ to $t_j$, minimizing $\sum_{e\in F} w_e$.
 
 On the other hand, we want to partition graph into $k$ parts, each of which contains one terminal with minimal weight of connecting weights.
@@ -44,7 +44,7 @@ On the other hand, we want to partition graph into $k$ parts, each of which cont
 	\begin{align}
 	\sum_{e\in F_i} w_e \leq \sum_{e\in \delta(S^*_i)} w_e
 	\end{align}
-	Thus, four output $S$
+	Thus, for output of \vref{alg:naive_multicut} $S$
 	\begin{align}
 	f(S)  \leq \sum_i \sum_{e\in \delta(S^*_i)} w_e \leq 2f(S^*)
 	\end{align}

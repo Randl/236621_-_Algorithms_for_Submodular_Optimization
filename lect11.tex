@@ -1,0 +1,102 @@
+\subsection{Submodular multiway partition}
+Given the world $N$ and $N\supset T = \qty{t_1, t_2,\dots t_k}$ and submodular $f:2^N \to \mathbb{R}_+$, we want to find partition of $N$ into $\qty{S_1, \dots S_k}$ such that $t_i\in S_i$ and minimize
+\begin{align}
+\sum_{i=1}^k f(S_k)
+\end{align}
+\paragraph{Examples}
+\begin{itemize}
+	\item Multiway cut: $f$ if cut function of undirected graph. 
+	\item Hypergraph multiway cut
+	\begin{itemize}
+		\item Each hyperedge cost is number of groups it is present in:
+		\begin{align}
+		f(S) = \sum_{\substack{e \in E\\0\leq\abs{e\cap S} \leq \abs{e}}} w_e
+		\end{align}
+		\item Each hyperedge cost is $w_e$ if it is cut and $0$ otherwise. In this case, for each edge we choose a vertex $u_e\in e$:
+		\begin{align}
+		f(S) = \sum_{\substack{e \in E\\u_e\in S\\\abs{e\cap S} \leq \abs{e}}} w_e
+		\end{align}
+	\end{itemize}
+\end{itemize}
+
+For symmetric $f$ there exists $1.5$-approximation and for general case there exists $2$-approximation.
+
+\paragraph{Relaxation of the problem}
+Define for each vertex $u$ variable $x(u,i)$:
+\begin{align}
+	x(u,i) &\geq 0\\
+	\sum_{i=1}^k x(u,i) = 1
+\end{align}
+Our goal is
+\begin{align}
+\min &\sum_{i=1}^k f_L(\vb{x}_i)\\
+\st & \sum_{i=1}^k x(u,i) = 1\\
+& x(t_i,i) = 1\\
+& x(u,i) \geq 0
+\end{align}
+
+Denote by $\vb{x}_i \in [0,1]^N$ such that $(\vb{x}_i)_u = x(u,i)$. We can solve the relaxed problem (since it is convex problem). But how do we round the solution?
+
+Choose threshold $\theta \in [0,1]$ and define $A_i(\theta) = \qty{u| x(u,i) \geq \theta}$. Then, for example, if $\theta \sim U[0,1]$
+\begin{align}
+\mathbb{E} [f(A_i(\theta))] = f_L(\vb{x}_i)
+\end{align}
+
+There are two ``problems'' we want to fix: $A_i(\theta) \cap A_j(\theta) \neq \emptyset $ and $\bigcup_i A_i(\theta) \neq N$.
+
+Let $A$, $B$ such that $A\cap B \neq \emptyset $. In symmetric case
+\begin{align}
+f(A)+f(B) = f(N\setminus A) + f(B) \geq f((N\setminus A) \cup B) + f((N\setminus A) \cap B) = f(A\cap B) + f(B\setminus A)
+\end{align}
+
+Since
+\begin{align}
+\frac{1}{2}[f(A\setminus B) + f(B)] + \frac{1}{2}[f(B\setminus A) + f(A)] \leq f(A) + f(B)
+\end{align}
+at least one of choices $\qty{A\setminus B, B}$ and $\qty{B\setminus A, A}$ is at least as good as $\qty{A,B}$. This action is called uncrossing. By repeating the process we will get disjoint sets.
+
+Now, denote $A(\theta) = \bigcup_i A_i(\theta)$ and $V(\theta) = N \setminus A(\theta)$. What would be value of output:
+\begin{align}
+\sum_{i=1}^{k-1} f(A_i(\theta)) + f(A_k(\theta) \cup f(V(\theta))) \leq \sum_{i=1}^k f(A_i(\theta)) + f(V(\theta))
+\end{align}
+Thus we only need to bound $f(V(\theta))$:
+\begin{align}
+\mathbb{E}_\theta [f(V(\theta))] \leq \alpha \sum_{i=1}^{k} f_L(\vb{x}_i) 
+\end{align}
+Naively, in symmetric case, we could bound by
+\begin{align}
+f(V(\theta)) = f(A(\theta)) \leq \sum_{i=1}^{k} f(A_i(\theta))  
+\end{align}
+which provides $2$-approximation.
+\begin{theorem} \label{th:delta_bound}
+	For each $\frac{1}{2} \leq \delta \leq 1$
+	\begin{align}
+	\sum_{i=1}]^k \int_0^\delta f(A_i(\theta)) \dd{\theta} \geq \int_0^1 f(V(\theta)) \dd{\theta} + \int_0^\delta f(A(\theta))\dd{\theta}
+	\end{align}
+	\begin{proof}
+	\end{proof}
+\end{theorem}
+\begin{theorem}[\citet{chekuri2011approximation}]
+	There exist $1.5$-approximation for symmetric submodular multiway partition.
+	\begin{proof}
+	For symmetric $f$, we choose $\delta = 1$ in \cref{th:delta_bound}, and get:
+	\begin{align}
+	\sum_{i=1}]^k \int_0^1 f(A_i(\theta)) \dd{\theta} &\geq \int_0^1 f(V(\theta)) \dd{\theta} + \int_0^1 f(A(\theta))\dd{\theta} = 2\int_0^1 f(V(\theta)) \dd{\theta}\\ 
+	2\mathbb{E}_\theta f(V(\theta)) &\leq  \mathbb{E}_\theta  \sum_{i=1}]^k  f(A_i(\theta)) =  \sum_{i=1}^{k} f(A_i(\theta))  
+	\end{align}
+	i.e., $\alpha = \frac{1}{2}$ and we got $1.5$-approximation.
+	\end{proof}
+\end{theorem}
+
+\begin{theorem}[\citet{chekuri2011approximation}]
+	There exist $2$-approximation for submodular multiway partition.
+		\begin{proof}
+If $f$ is not symmetric, we can choose $\theta\sim U[0.5,1]$, $A_i$ will be guaranteed to be disjoint. In this case
+\begin{align}
+\mathbb{E}_\theta \qty[\sum_{i=1}^{k-1} f(A_i(\theta)) + f(A_k(\theta) \cup f(V(\theta))) ] &\leq\mathbb{E}_\theta \qty[\sum_{i=1}^{k} f(A_i(\theta))  f(f(V(\theta))) ] = \sum_{i=1}^k \int_{\frac{1}{2}}^{1} 2 f(A_i(\theta))\dd{\theta} + \int_{\frac{1}{2}}^{1} 2 f(V(\theta)) \dd{\theta}  =\\&=
+ 2\qty[\sum_{i=1}^k f_L(\vb{x}_i) - \sum_{i=1}^k \int_0^{\frac{1}{2}}  f(A_i(\theta))\dd{\theta} + \int_{\frac{1}{2}}^{1}  f(V(\theta)) \dd{\theta}] \stackrel{\ref{th:delta_bound}}{\leq} 2 \sum_{i=1}^k f_L(\vb{x}_i)
+\end{align}	\end{proof}
+\end{theorem}
+
+\paragraph{Lower bounds} For symmetric problem, it is unknown whether $\frac{3}{2} - \frac{1}{k}$ is optimal. The known lower bound is $\approx 1.26$.
+
