@@ -1,0 +1,31 @@
+\subsection{Submodular covering problems}
+\subsubsection{Submodular vertex cover}
+For graph $G=(V,E)$ and submodular $f: 2^V \to \mathbb{R}_+$. The goal is to find $A\subset V$, such that $G$ is vertex cover (i.e., for $ (u,v)\in E$, $u\in A$ or $v\in A$) and $f(A)$.
+
+For each vertex define variable $x_i$, and the relaxation is 
+\begin{align} \label{eq:scp_relax}
+\min &  f_L(\vb{x}) \\ 
+\st \forall (u,v)\in E \:&x_u+x_v \geq 1 \\
+\st \forall u \in V \:&0\leq x_u \leq 1 
+\end{align}
+
+\begin{prop}
+	There exists half-integer optimum of \vref{eq:scp_relax}, i.e., $\forall v\in V$ $x_v^k \in \qty{0,\frac{1}{2}, 1}$. It is possible to find it efficiently.
+\end{prop}
+
+\begin{prop}
+	Given half-integer optimal solution, 
+	\begin{align}
+	A = \qty{ u \big\vert x^*_u \geq \frac{1}{2} }
+	\end{align}
+	is 2-approximation of submodular vertex cover.
+	\begin{proof}
+		\begin{align}
+			f_L(vb{x}^*) = \frac{1}{2} f(A) + \frac{1}{2} f\qty(\qty{u|x^*_u=1}) \leq  \frac{1}{2} f(A)
+		\end{align}
+	\end{proof}
+\end{prop}
+
+\begin{prop}
+	Under unique games conjecture, 2-approximation is optimal.
+\end{prop}
