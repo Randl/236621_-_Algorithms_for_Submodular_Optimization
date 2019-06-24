@@ -84,7 +84,7 @@ which provides $2$-approximation.
 		\end{align}
 		for elementwise maximum and minimum. Since
 		\begin{align}
-		\min\qty{x_1, x_2} + \min\qty{\max\qty{x_1, x_2} , x_3} +\dots + \min\qty{\max\qty{x_1, x_2, \dots, x_{n-1}} , x_n} \max\qty{x_1, x_2, \dots, x_{n}} = \sum x_i
+		\min\qty{x_1, x_2} + \min\qty{\max\qty{x_1, x_2} , x_3} +\dots + \min\qty{\max\qty{x_1, x_2, \dots, x_{n-1}} , x_n} +\max\qty{x_1, x_2, \dots, x_{n}} = \sum x_i
 		\end{align}
 		we get
 		\begin{align}
@@ -134,7 +134,7 @@ which provides $2$-approximation.
 	\begin{proof}
 	For symmetric $f$, we choose $\delta = 1$ in \cref{th:delta_bound}, and get:
 	\begin{align}
-	\sum_{i=1}]^k \int_0^1 f(A_i(\theta)) \dd{\theta} &\geq \int_0^1 f(V(\theta)) \dd{\theta} + \int_0^1 f(A(\theta))\dd{\theta} = 2\int_0^1 f(V(\theta)) \dd{\theta}\\ 
+	\sum_{i=1}^k \int_0^1 f(A_i(\theta)) \dd{\theta} &\geq \int_0^1 f(V(\theta)) \dd{\theta} + \int_0^1 f(A(\theta))\dd{\theta} = 2\int_0^1 f(V(\theta)) \dd{\theta}\\ 
 	2\mathbb{E}_\theta f(V(\theta)) &\leq  \mathbb{E}_\theta  \sum_{i=1}]^k  f(A_i(\theta)) =  \sum_{i=1}^{k} f(A_i(\theta))  
 	\end{align}
 	i.e., $\alpha = \frac{1}{2}$ and we got $1.5$-approximation.

@@ -1,0 +1,57 @@
+\subsubsection{Submodular set cover }
+Given $n$ elements $\qty{1,\dots, n}$ and $m$ subsets $S_1,\dots, S_m \subseteq \qty{1, \dots, n}$ with submodular function $f: 2^{1,\dots, m} \to \mathbb{R}_+$. The goal is to find cover $X\subseteq \qty{S_1, \dots, S_m}$ which minimizes $f(X)$.
+
+
+\paragraph{Greedy algorithm}
+At each step we choose set which minimizes
+\begin{align}
+V_i(S_j) = \frac{f\qty(X_{i-1} \cup \qty{S_j})-f\qty(X_{i-1} )}{\abs{\bigcup_{k\in X_{i-1}\cup \qty{S_j}} S_k} - \abs{\bigcup_{k\in X_{i-1}} S_k }}
+\end{align}
+This algorithm gives $\log(n)$ approximation in case of weighted or regular set cover.
+
+\subparagraph{Example}
+Let 
+\begin{align}
+S_j &= \qty{j}\\
+S_{n-1} &= \qty{1,2,\dots, n}\\
+f(X) &= \min \qty{ \abs{X}, n-\abs{X}, 1}
+\end{align}
+In this case the optimal solution is $X = \qty{S_1, \dots, S_n}$ while the algorithm will choose $X = \qty{S_{n+1}}$
+\paragraph{Frequency}
+We define frequency of the elements as 
+\begin{align}
+\eta_i = \abs{\qty{j: i \in S_j}}
+\end{align}
+and frequency of input is $\max\limits_i \eta_i$.
+
+Similarly to vertex cover, we'll define relaxed problem
+\begin{align} \label{eq:ssp_relax}
+\min \quad&  f_L(\vb{x}) \\ 
+\st \forall i \in \qty{1,2,\dots, n} \quad&\sum_{j: i\in S_j} x_j \geq 1 \\
+\forall \forall i \in \qty{1,2,\dots, n} \quad&0\leq x_i \leq 1 
+\end{align}
+ and we can find optimal solution $\vb{x}^*$. We define solution in the following way:
+ \begin{align}
+ X = \qty{S_j: x_j^* \geq \frac{1}{\eta}}
+ \end{align}
+ 
+ Obviously the solution is feasible.
+ \begin{prop}[\citet{iwata2009submodular}]
+ 	The solution is $\eta$-approximation
+ 	\begin{proof}
+ 		If $f$ is symmetric,
+ 		\begin{align}
+ 		f(X) = f_L(\mathds{1}_X) \leq f_L\qty( \min \qty{ \eta \cdot \vb{x}^*, \mathds{1} }) \leq \eta \cdot f_L(\vb{x}^*)
+ 		\end{align}
+ 		
+ 		If $f$ is not monotonic we can ``monotonize'':
+ 		\begin{align}
+ 		\tilde{f}(A) = \min \qty\big{f(B): A\subseteq B \subseteq \qty{1, \dots, m}}
+ 		\end{align}
+ 		Take a look at
+ 		\begin{align}
+ 		\tilde{X} = \arg \min\limits_T \qty{f(T) : X\subseteq T}
+ 		\end{align}
+ 		we can use the proof of monotonic case with $\tilde{f}$ and show that the algorithm is $\eta$-approximation even if $f$ is not monotonic.
+ 	\end{proof}
+ \end{prop}

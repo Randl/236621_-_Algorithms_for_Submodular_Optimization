@@ -4,16 +4,62 @@ For graph $G=(V,E)$ and submodular $f: 2^V \to \mathbb{R}_+$. The goal is to fin
 
 For each vertex define variable $x_i$, and the relaxation is 
 \begin{align} \label{eq:scp_relax}
-\min &  f_L(\vb{x}) \\ 
-\st \forall (u,v)\in E \:&x_u+x_v \geq 1 \\
-\st \forall u \in V \:&0\leq x_u \leq 1 
+\min \quad&  f_L(\vb{x}) \\ 
+\st \forall (u,v)\in E \quad&x_u+x_v \geq 1 \\
+\forall u \in V \quad&0\leq x_u \leq 1 
 \end{align}
 
-\begin{prop}
+\begin{prop}[\citet{iwata2009submodular}]
 	There exists half-integer optimum of \vref{eq:scp_relax}, i.e., $\forall v\in V$ $x_v^k \in \qty{0,\frac{1}{2}, 1}$. It is possible to find it efficiently.
+	\begin{proof}
+		Let $\vb{x}^*$ be the optimum of \vref{eq:scp_relax}. Assume 
+		\begin{align}
+		x^*_{u_1} \geq x^*_{u_2} \geq \dots \geq x^*_{u_n}
+		\end{align}
+		We can rewrite
+		\begin{align}
+		f_L(\vb{x}^*) = (1-x^*_{u_1}) \cdot f(\emptyset) + (x^*_{u_1}-x^*_{u_2})f(\qty{u_1}) + \dots + x^*_{u_n} f(N)
+		\end{align}
+		We can now write optimization problem as a linear programming problem:
+		\begin{align} \label{eq:scp_relax_linear}
+		\min \quad&  (1-x_{u_1}) \cdot f(\emptyset) + (x_{u_1}-x_{u_2})f(\qty{u_1}) + \dots + x_{u_n} f(N) \\ 
+		\st  \quad&x_{u_1} \geq x_{u_2} \geq \dots \geq x_{u_n} \\
+		\forall (u,v)\in E \quad&x_u+x_v \geq 1 \\
+		\forall u \in V \quad&0\leq x_u \leq 1 
+		\end{align}
+		Obviously the optimal value of \vref{eq:scp_relax_linear} is less or equal than the optimal value of \vref{eq:scp_relax}.
+		
+		Let $\vb{x}^*$ be the optimal solution of \vref{eq:scp_relax_linear}. Define
+		\begin{align}
+		V^- &= \qty{ u : 0 < x^*_u <\frac{1}{2} }\\
+		V^+ &= \qty{ u : \frac{1}{2} < x^*_u <1 }\\
+		\end{align}
+		Now define two new solutions:
+		\begin{align}
+		y_u &= \begin{cases}
+		x^*_u + \epsilon & u \in V^+\\
+		x^*_u - \epsilon & u \in V^-\\
+		x^*_u & \text{otherwise}\\
+		\end{cases}\\
+		z_u &= \begin{cases}
+		x^*_u - \epsilon & u \in V^+\\
+		x^*_u + \epsilon & u \in V^-\\
+		x^*_u & \text{otherwise}\\
+		\end{cases}
+		\end{align}
+		Since $\vb{x}^* = \frac{\vb{y}+\vb{z}}{2}$, the value of at least one of $\vb{y}$, $\vb{z}$ is not worse than value of $\vb{x}^*$ (from linearity). In particular, both are $\vb{y}$, $\vb{z}$ have same value as $\vb{x}^*$, since $\vb{x}^*$ is optimal.
+		
+		We can choose $\epsilon$ such that $y$, $z$ are non-negative and less than $1$.
+		
+		For edge constrain, it is impossible that $u,v \in V^-$. If $x_u+x_v=1$, both $y$ and $z$ doesn't change value of $x_u+x_v$. If $x_u+x_v>1$, there exists $\epsilon$, such that edge constrain is still fulfilled.
+		
+		Similarly, order constraints are fulfilled for small enough $\epsilon$.
+		
+		Since $\vb{y}$ moves values towards $0$ and $1$ and $\vb{z}$, we choose feasible $\epsilon$ such that one of values in $\vb{y}$ or $\vb{z}$ becomes half-integer, thus increasing number of half-integer elements in optimal solution, until we arrive to half-integer solution.
+	\end{proof}
 \end{prop}
 
-\begin{prop}
+\begin{prop}[\citet{iwata2009submodular}]
 	Given half-integer optimal solution, 
 	\begin{align}
 	A = \qty{ u \big\vert x^*_u \geq \frac{1}{2} }
@@ -21,11 +67,11 @@ For each vertex define variable $x_i$, and the relaxation is
 	is 2-approximation of submodular vertex cover.
 	\begin{proof}
 		\begin{align}
-			f_L(vb{x}^*) = \frac{1}{2} f(A) + \frac{1}{2} f\qty(\qty{u|x^*_u=1}) \leq  \frac{1}{2} f(A)
+			f_L(\vb{x}^*) = \frac{1}{2} f(A) + \frac{1}{2} f\qty(\qty{u|x^*_u=1}) \leq  \frac{1}{2} f(A)
 		\end{align}
 	\end{proof}
 \end{prop}
 
-\begin{prop}
+\begin{prop}[\citet{khot2008vertex}]
 	Under unique games conjecture, 2-approximation is optimal.
 \end{prop}
