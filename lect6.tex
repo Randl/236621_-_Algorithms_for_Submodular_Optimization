@@ -46,7 +46,7 @@ f^-(x)  = \min\limits_{D_x}  \mathbb{E}_{R\sim D_x} [f(R)]
 		\end{align} 
 		By definition,
 		\begin{align}
-		f^+(z) \geq  \mathbb{E}_{R\sim\lambda \alpha_S + (1-\lambda) \beta_S} [f(R)] = \sum_{S \subseteq N} P(R=S) f(S) = \sum_{S \subseteq N} \qty[\lambda \alpha_S + (1-\lambda) \beta_S]f(S) = \lambda f^+(x) + (1-\lambda) f^+(y)
+		f^+(z) &\geq  \mathbb{E}_{R\sim\lambda \alpha_S + (1-\lambda) \beta_S} [f(R)] = \sum_{S \subseteq N} P(R=S) f(S) =\\&= \sum_{S \subseteq N} \qty[\lambda \alpha_S + (1-\lambda) \beta_S]f(S) = \lambda f^+(x) + (1-\lambda) f^+(y)
 		\end{align}
 	\end{proof}
 \end{prop}
@@ -84,7 +84,7 @@ f^-(x)  = \min\limits_{D_x}  \mathbb{E}_{R\sim D_x} [f(R)]
 		
 		What happens to $\sum_{S \subseteq N} \alpha_S \abs{S}^2$?
 		\begin{align}
-		\abs{A\cup B}^2 + \abs{A\cap B}^2 &= \qty(\abs{A} + \abs{B\setminus A})^2 + \qty(\abs{B} - \abs{B\setminus A})^2 = \abs{A}^2+\abs{B}^2 + 2\abs{B\setminus A} \qty(\abs{A} - \abs{B} + \abs{B\setminus A}) =\\&= \abs{A}^2+\abs{B}^2 + 2\abs{B\setminus A}\underbrace{ \qty(\abs{A\cup B} - \abs{B})}_{>0} >  \abs{A}^2+\abs{B}^2
+		\abs{A\cup B}^2 + \abs{A\cap B}^2 &= \qty(\abs{A} + \abs{B\setminus A})^2 + \qty(\abs{B} - \abs{B\setminus A})^2 =\\&= \abs{A}^2+\abs{B}^2 + 2\abs{B\setminus A} \cdot \qty\big(\abs{A} - \abs{B} + \abs{B\setminus A}) =\\&= \abs{A}^2+\abs{B}^2 + 2\abs{B\setminus A}\underbrace{ \qty(\abs{A\cup B} - \abs{B})}_{>0} >  \abs{A}^2+\abs{B}^2
 		\end{align}
 		
 		Thus, if we choose the set which maximizes $\sum_{S \subseteq N} \alpha_S \abs{S}^2$, there are no two sets $A,B$ such that $A\not\subseteq B$ and $B \not\subseteq A$, i.e., support is the chain.

@@ -71,7 +71,7 @@ which provides $2$-approximation.
 \begin{lemma}\label{th:delta_lemma}
 	For all $\frac{1}{2} \leq \delta \leq 1$
 	\begin{align}
-	\int_0^1 f(V(\theta)) \dd{\theta} &\leq \int_0^\delta f(A_1(\theta) \cap A_2(\theta)) \dd{\theta} + \int_0^\delta f\qty(\qty\bigg[A_1(\theta) \cup A_2(\theta)] \cap A_3(\theta)) \dd{\theta} +\\&+ \dots + \int_0^\delta f\qty(\qty\bigg[A_1(\theta) \cup A_2(\theta) \cup \dots \cup A_{k-1}] \cap A_k(\theta)) \dd{\theta} = \sum_{i=1}^{k-1} \int_0^\delta f\qty(\qty\bigg[ \bigcup_{j=1}^{i} A_j(\theta)] \cap A_{i+1}(\theta)) \dd{\theta} 
+	\int_0^1 f(V(\theta)) \dd{\theta} &\leq \int_0^\delta f(A_1(\theta) \cap A_2(\theta)) \dd{\theta} + \int_0^\delta f\qty(\qty\bigg[A_1(\theta) \cup A_2(\theta)] \cap A_3(\theta)) \dd{\theta} +\\&+ \dots + \int_0^\delta f\qty(\qty\bigg[A_1(\theta) \cup A_2(\theta) \cup \dots \cup A_{k-1}] \cap A_k(\theta)) \dd{\theta} =\\&= \sum_{i=1}^{k-1} \int_0^\delta f\qty(\qty\bigg[ \bigcup_{j=1}^{i} A_j(\theta)] \cap A_{i+1}(\theta)) \dd{\theta} 
 	\end{align}
 	\begin{proof}
 		First assume $\delta=1$, then
@@ -84,7 +84,7 @@ which provides $2$-approximation.
 		\end{align}
 		for elementwise maximum and minimum. Since
 		\begin{align}
-		\min\qty{x_1, x_2} + \min\qty{\max\qty{x_1, x_2} , x_3} +\dots + \min\qty{\max\qty{x_1, x_2, \dots, x_{n-1}} , x_n} +\max\qty{x_1, x_2, \dots, x_{n}} = \sum x_i
+		&\min\qty{x_1, x_2} + \min\qty{\max\qty{x_1, x_2} , x_3} +\dots +\\+& \min\qty{\max\qty{x_1, x_2, \dots, x_{n-1}} , x_n} +\max\qty{x_1, x_2, \dots, x_{n}} = \sum x_i
 		\end{align}
 		we get
 		\begin{align}
@@ -97,7 +97,7 @@ which provides $2$-approximation.
 		\end{align}
 		Now, assuming $f(\emptyset) = 0$, we can rewrite
 		\begin{align}
-		\int_0^1 f\qty(\qty\bigg[ \bigcup_{j=1}^{i} A_j(\theta)] \cap A_{i+1}(\theta)) \dd{\theta} = \int_0^\delta f\qty(\qty\bigg[ \bigcup_{j=1}^{i} A_j(\theta)] \cap A_{i+1}(\theta)) \dd{\theta} + \int_\delta^1 f\qty(\qty[ \bigcup_{j=1}^{i} A_j(\theta)] \cap A_{i+1}(\theta)) \dd{\theta}
+		\int_0^1 f\qty(\qty\bigg[ \bigcup_{j=1}^{i} A_j(\theta)] \cap A_{i+1}(\theta)) \dd{\theta} &= \int_0^\delta f\qty(\qty\bigg[ \bigcup_{j=1}^{i} A_j(\theta)] \cap A_{i+1}(\theta)) \dd{\theta} +\\&+ \int_\delta^1 f\qty(\qty[ \bigcup_{j=1}^{i} A_j(\theta)] \cap A_{i+1}(\theta)) \dd{\theta}
 		\end{align}
 		However, since we are on simplex, for $\delta>\frac{1}{2}$, $\qty\bigg[ \bigcup_{j=1}^{i} A_j(\theta)] \cap A_{i+1}(\theta)) =\emptyset$.
 	\end{proof}
@@ -125,7 +125,7 @@ which provides $2$-approximation.
 	\begin{proof}
 		Thus, substituting \vref{th:delta_lemma} into \vref{th:delta_lemma2}
 		\begin{align}
-		\sum_{i=1}^k \int_0^\delta f(A_i(\theta)) \dd{\theta} &\geq \sum_{i=1}^{k-1} \int_0^\delta f\qty(\qty\bigg[ \bigcup_{j=1}^{i} A_j(\theta)] \cap A_{i+1}(\theta))  +  f\qty(\bigcup_{i=1}^k A_i(\theta) )\dd{\theta}  \geq \int_0^1 f(V(\theta)) \dd{\theta} + \int_0^\delta f\qty(A(\theta) ) \dd{\theta}
+		\sum_{i=1}^k \int_0^\delta f(A_i(\theta)) \dd{\theta} &\geq \sum_{i=1}^{k-1} \int_0^\delta f\qty(\qty\bigg[ \bigcup_{j=1}^{i} A_j(\theta)] \cap A_{i+1}(\theta))  +  f\qty(\bigcup_{i=1}^k A_i(\theta) )\dd{\theta}  \geq\\&\geq \int_0^1 f(V(\theta)) \dd{\theta} + \int_0^\delta f\qty(A(\theta) ) \dd{\theta}
 		\end{align}
 	\end{proof}
 \end{theorem}
@@ -146,8 +146,8 @@ which provides $2$-approximation.
 		\begin{proof}
 If $f$ is not symmetric, we can choose $\theta\sim U[0.5,1]$, $A_i$ will be guaranteed to be disjoint. In this case
 \begin{align}
-\mathbb{E}_\theta \qty[\sum_{i=1}^{k-1} f(A_i(\theta)) + f(A_k(\theta) \cup f(V(\theta))) ] &\leq\mathbb{E}_\theta \qty[\sum_{i=1}^{k} f(A_i(\theta))  f(f(V(\theta))) ] = \sum_{i=1}^k \int_{\frac{1}{2}}^{1} 2 f(A_i(\theta))\dd{\theta} + \int_{\frac{1}{2}}^{1} 2 f(V(\theta)) \dd{\theta}  =\\&=
- 2\qty[\sum_{i=1}^k f_L(\vb{x}_i) - \sum_{i=1}^k \int_0^{\frac{1}{2}}  f(A_i(\theta))\dd{\theta} + \int_{\frac{1}{2}}^{1}  f(V(\theta)) \dd{\theta}] \stackrel{\text{Th. }\ref{th:delta_bound}}{\leq} 2 \sum_{i=1}^k f_L(\vb{x}_i)
+\mathbb{E}_\theta \qty[\sum_{i=1}^{k-1} f(A_i(\theta)) + f(A_k(\theta) \cup f(V(\theta))) ] &\leq\mathbb{E}_\theta \qty[\sum_{i=1}^{k} f(A_i(\theta))  f(f(V(\theta))) ] =\\&= \sum_{i=1}^k \int_{\frac{1}{2}}^{1} 2 f(A_i(\theta))\dd{\theta} + \int_{\frac{1}{2}}^{1} 2 f(V(\theta)) \dd{\theta}  =\\&=
+ 2\qty[\sum_{i=1}^k f_L(\vb{x}_i) - \sum_{i=1}^k \int_0^{\frac{1}{2}}  f(A_i(\theta))\dd{\theta} + \int_{\frac{1}{2}}^{1}  f(V(\theta)) \dd{\theta}] \stackrel{\text{Th. }\ref{th:delta_bound}}{\leq}\\&\leq 2 \sum_{i=1}^k f_L(\vb{x}_i)
 \end{align}	\end{proof}
 \end{theorem}
 

@@ -84,7 +84,7 @@ What happens if $f$ is not monotonic? First of all, does greed algorithm work? N
 	\begin{proof}
 		Take a look at $i^{th}$ iteration and condition on previous iterations, denote a chosen element from $M_i$ as $u_i$:
 		\begin{align}
-		\mathbb{E} \qty\bigg[f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1}) | A_{i-1} ] &= \frac{1}{k} \sum_{u_i \in M_i} f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1}) \geq \frac{1}{k} \qty( f(A_{i-1} \cup S^*) - f(A_{i-1}) ) \geq\\&\geq \frac{1}{k} \qty( f(S^*) - f(A_{i-1}))\geq \frac{1}{k} \qty( f(S^*) - f(A_{i-1}))
+		\mathbb{E} \qty\bigg[f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1}) | A_{i-1} ] &= \frac{1}{k} \sum_{u_i \in M_i} f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1}) \geq\\&\geq \frac{1}{k} \qty( f(A_{i-1} \cup S^*) - f(A_{i-1}) ) \geq\\&\geq \frac{1}{k} \qty( f(S^*) - f(A_{i-1}))\geq \frac{1}{k} \qty( f(S^*) - f(A_{i-1}))
 		\end{align}
 		
 		If the inequality is right for any $A_{i-1}$ it is right, from tower property, in expectation over $A_{i-1}$:

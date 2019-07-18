@@ -58,7 +58,7 @@ Let
 		\end{align}
 		Then
 		\begin{align}
-		\sum_{i \in S} F\qty(\max\qty{\vb{x}, \mathds{1}_i})-F(\vb{x}) &= \sum_{i \in S} \mathbb{E}_{R\sim D_{\max\qty{\vb{x}, \mathds{1}_i}}} [f(R)] - \mathbb{E}_{R\sim D_{\vb{x}}} [f(R)] = \sum_{i \in S}\mathbb{E}_{R\sim D_{\vb{x}}}\qty[f(R\cup \qty{i}) - f(R)] =\\&= \mathbb{E}_{R\sim D_{\vb{x}}}\qty[\sum_{i \in S} f(R\cup \qty{i}) - f(R)] \geq \mathbb{E}_{R\sim D_{\vb{x}}}\qty[f(R\cup S) - f(R)] = F\qty(\max\qty{\vb{x}, \mathds{1}_{S}})-F(\vb{x})
+		\sum_{i \in S} F\qty(\max\qty{\vb{x}, \mathds{1}_i})-F(\vb{x}) &= \sum_{i \in S} \mathbb{E}_{R\sim D_{\max\qty{\vb{x}, \mathds{1}_i}}} [f(R)] - \mathbb{E}_{R\sim D_{\vb{x}}} [f(R)] = \sum_{i \in S}\mathbb{E}_{R\sim D_{\vb{x}}}\qty[f(R\cup \qty{i}) - f(R)] =\\&= \mathbb{E}_{R\sim D_{\vb{x}}}\qty[\sum_{i \in S} f(R\cup \qty{i}) - f(R)] \geq \mathbb{E}_{R\sim D_{\vb{x}}}\qty[f(R\cup S) - f(R)] =\\&= F\qty(\max\qty{\vb{x}, \mathds{1}_{S}})-F(\vb{x})
 		\end{align}
 	\end{proof}
 \end{lemma}
@@ -79,7 +79,7 @@ Let
 	\begin{proof}
 		Lets bound $\pdv{F}{t} (\vb{y}(t'))$:
 		\begin{align}
-		\pdv{F}{t} (\vb{y}(t')) &=  \grad{F} \vdot \pdv{y}{t} =  \grad{F\qty(\vb{y}(t'))} \vdot \vb{x}(t') \geq \grad{F\qty(\vb{y}(t'))} \vdot \mathds{1}_{S^*}= \sum_{i \in S^*} \qty(\grad{F\qty(\vb{y}(t'))})_i \stackrel{F \text{is multilinear}}{\geq} \sum_{i \in S^*} \frac{F\qty(\max\qty{\vb{y}, \mathds{1}_i})-F(\vb{y})}{1-\vb{y}_i} \geq\\&\geq \sum_{i \in S^*} F\qty(\max\qty{\vb{y}, \mathds{1}_i})-F(\vb{y}) \geq F\qty(\max\qty{\vb{y}, \mathds{1}_{S^*}})-F(\vb{y}) \geq f(S^*)-F(\vb{y})
+		\pdv{F}{t} (\vb{y}(t')) &=  \grad{F} \vdot \pdv{y}{t} =  \grad{F\qty(\vb{y}(t'))} \vdot \vb{x}(t') \geq \grad{F\qty(\vb{y}(t'))} \vdot \mathds{1}_{S^*}= \sum_{i \in S^*} \qty(\grad{F\qty(\vb{y}(t'))})_i \stackrel{F \text{is multilinear}}{\geq}\\&\geq \sum_{i \in S^*} \frac{F\qty(\max\qty{\vb{y}, \mathds{1}_i})-F(\vb{y})}{1-\vb{y}_i} \geq \sum_{i \in S^*} F\qty(\max\qty{\vb{y}, \mathds{1}_i})-F(\vb{y}) \geq\\&\geq F\qty(\max\qty{\vb{y}, \mathds{1}_{S^*}})-F(\vb{y}) \geq f(S^*)-F(\vb{y})
 		\end{align}
 		where $\max$ is coordinate-wise maximum.
 		We got

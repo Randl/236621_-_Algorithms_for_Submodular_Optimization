@@ -1,4 +1,5 @@
 \documentclass[]{article}
+
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
@@ -9,19 +10,31 @@
 \usepackage{mathtools}
 \usepackage{centernot} % not parallel, etc.
 \usepackage{lmodern}
-\usepackage{morewrites}
-\usepackage{xcolor,sectsty} % colorful sections
-\usepackage[left=10mm, top=10mm, right=10mm, bottom=20mm, nohead]{geometry}
-%\usepackage{bigints}
+%\usepackage{morewrites}
+\usepackage{xcolor}
+\usepackage{sectsty} % colorful sections
+\usepackage[left=2.5cm,right=2.5cm,top=2.0cm,bottom=2.0cm]{geometry}
+\usepackage{bigints}
 \usepackage{dsfont} %mathbb 1
 \usepackage{esint} % beatiful integrals
 \usepackage{physics}
 \usepackage{amsthm} % theorems
+\usepackage{natbib}
+\usepackage{nicefrac} % nice fraction
+\usepackage{cancel}
+\usepackage[scaled=.98,sups,osf]{XCharter}% lining figures in math, osf in text
+\usepackage[libertine,vvarbb,scaled=1.07]{newtxmath}
+\usepackage{bm}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 \usepackage{algorithmicx}
-\usepackage{natbib}
 
+
+\usepackage{wrapfig}
+\usepackage[protrusion=true,tracking=true,expansion,final]{microtype}      % microtypography %kerning=true,
+\usepackage{xcolor} %colors
+\usepackage{booktabs} % for professional tables
+\usepackage{subcaption}
 
 \usepackage{varioref} % references to show page
 \usepackage[pagebackref]{hyperref}
@@ -34,14 +47,36 @@
 \usepackage[T1]{fontenc}
 % Nicer default font (+ math font) than Computer Modern for most use cases
 % \usepackage{mathpazo} % problems with greek vectors
-\usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+%\usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+
+
+%%FIGHT OVERFILL%%
+\tolerance=1000
+\hbadness=2000
+\vbadness=\maxdimen
 % Prevent overflowing lines due to hard-to-break entities
 \sloppy 
+
+%%FIGURES CONTROL%%
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\textfraction}{.2}
+\renewcommand{\bottomfraction}{.6}
+\renewcommand{\dbltopfraction}{.95}
+\renewcommand{\floatpagefraction}{0.98}
+\renewcommand{\dblfloatpagefraction}{0.95}
+\setcounter{dbltopnumber}{1}   
+\setcounter{topnumber}{1}   
+\setcounter{bottomnumber}{1} 
+\setcounter{totalnumber}{4}
+
+
 % Colors for the hyperref package
-%%Link setup
-\definecolor{mydarkblue}{rgb}{0,0.08,0.45}
 \definecolor{urlcolor}{rgb}{0,.145,.698}
+\definecolor{mydarkblue}{rgb}{0,0.08,0.45}
 \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+\definecolor{citecolor}{rgb}{.12,.54,.11}
+% Setup hyperref package
+
 % Setup hyperref package
 \hypersetup{ %
 	pdftitle={Algorithms for Submodular Optimization},
@@ -57,8 +92,6 @@
 	citecolor=mydarkblue,
 	filecolor=mydarkblue,
 	pdfview=FitH}
-
-
 \renewcommand*{\backref}[1]{} % for backref < 1.33 necessary
 \renewcommand*{\backrefalt}[4]{%
 	\ifcase #1 %
@@ -69,6 +102,7 @@
 	(cited on pp. #2)%
 	\fi
 }
+
 
 
 \DeclareFontFamily{OMX}{lmex}{}
@@ -120,14 +154,12 @@
 \newcommand{\st}{\text{s.t.} \:}
 
 
-%%%%%  COMMENTS
-\newcommand\ez[1]{\textcolor{magenta}{(\textbf{Evgenii}: #1)}} % Will paint the text in magenta
-
-%\usepackage{babel}[english]
 %opening
 \title{236621 -- Algorithms for Submodular Optimization}
 \author{Notes of lectures by Roy Schwartz\\written by Evgenii Zheltonozhskii}
 
+%%%%%  COMMENTS
+\newcommand\ez[1]{\textcolor{magenta}{(\textbf{Evgenii}: #1)}} % Will paint the text in magenta
 
 \parindent=0em
 \begin{document}
