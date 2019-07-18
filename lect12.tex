@@ -5,8 +5,8 @@ For graph $G=(V,E)$ and submodular $f: 2^V \to \mathbb{R}_+$. The goal is to fin
 For each vertex define variable $x_i$, and the relaxation is 
 \begin{align} \label{eq:scp_relax}
 \min \quad&  f_L(\vb{x}) \\ 
-\st \forall (u,v)\in E \quad&x_u+x_v \geq 1 \\
-\forall u \in V \quad&0\leq x_u \leq 1 
+\st \forall (u,v)\in E \quad&x_u+x_v \geqslant 1 \\
+\forall u \in V \quad&0\leqslant x_u \leqslant 1 
 \end{align}
 
 \begin{prop}[\citet{iwata2009submodular}]
@@ -14,7 +14,7 @@ For each vertex define variable $x_i$, and the relaxation is
 	\begin{proof}
 		Let $\vb{x}^*$ be the optimum of \vref{eq:scp_relax}. Assume 
 		\begin{align}
-		x^*_{u_1} \geq x^*_{u_2} \geq \dots \geq x^*_{u_n}
+		x^*_{u_1} \geqslant x^*_{u_2} \geqslant \dots \geqslant x^*_{u_n}
 		\end{align}
 		We can rewrite
 		\begin{align}
@@ -23,9 +23,9 @@ For each vertex define variable $x_i$, and the relaxation is
 		We can now write optimization problem as a linear programming problem:
 		\begin{align} \label{eq:scp_relax_linear}
 		\min \quad&  (1-x_{u_1}) \cdot f(\emptyset) + (x_{u_1}-x_{u_2})f(\qty{u_1}) + \dots + x_{u_n} f(N) \\ 
-		\st  \quad&x_{u_1} \geq x_{u_2} \geq \dots \geq x_{u_n} \\
-		\forall (u,v)\in E \quad&x_u+x_v \geq 1 \\
-		\forall u \in V \quad&0\leq x_u \leq 1 
+		\st  \quad&x_{u_1} \geqslant x_{u_2} \geqslant \dots \geqslant x_{u_n} \\
+		\forall (u,v)\in E \quad&x_u+x_v \geqslant 1 \\
+		\forall u \in V \quad&0\leqslant x_u \leqslant 1 
 		\end{align}
 		Obviously the optimal value of \vref{eq:scp_relax_linear} is less or equal than the optimal value of \vref{eq:scp_relax}.
 		
@@ -62,12 +62,12 @@ For each vertex define variable $x_i$, and the relaxation is
 \begin{prop}[\citet{iwata2009submodular}]
 	Given half-integer optimal solution, 
 	\begin{align}
-	A = \qty{ u \big\vert x^*_u \geq \frac{1}{2} }
+	A = \qty{ u \big\vert x^*_u \geqslant \frac{1}{2} }
 	\end{align}
 	is 2-approximation of submodular vertex cover.
 	\begin{proof}
 		\begin{align}
-			f_L(\vb{x}^*) = \frac{1}{2} f(A) + \frac{1}{2} f\qty(\qty{u|x^*_u=1}) \leq  \frac{1}{2} f(A)
+			f_L(\vb{x}^*) = \frac{1}{2} f(A) + \frac{1}{2} f\qty(\qty{u|x^*_u=1}) \leqslant  \frac{1}{2} f(A)
 		\end{align}
 	\end{proof}
 \end{prop}

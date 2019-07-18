@@ -2,21 +2,21 @@
 \begin{prop}
 	Let $f$ be monotonous function. Then for $\vb{x}\in [0,1]^N$, $\mathbb{R}^n \ni \vb{y}>0$ (coordinate-wise), and $g(t)=F(\vb{x}+t\vb{y})$, $g$ is monotonous, i.e., 
 	\begin{align}
-	\pdv{F}{\vb{y}}\geq 0
+	\pdv{F}{\vb{y}}\geqslant 0
 	\end{align}
 	In other words, for $i\in N$
 	\begin{align}
-	\pdv{F}{x_i} \geq  0
+	\pdv{F}{x_i} \geqslant  0
 	\end{align}
 \end{prop}
 \begin{prop}
 	Let $f$ be submodular function. Then for $\vb{x}\in [0,1]^N$, $\mathbb{R}^n \ni \vb{y}>0$ (coordinate-wise), and $g(t)=F(\vb{x}+t\vb{y})$, $g$ is concave, i.e., 
 	\begin{align}
-	\pdv[2]{F}{\vb{y}}\leq 0
+	\pdv[2]{F}{\vb{y}}\leqslant 0
 	\end{align}
 	In other words, for $i,j\in N$
 	\begin{align}
-	\pdv{F}{x_i}{x_j}\leq 0
+	\pdv{F}{x_i}{x_j}\leqslant 0
 	\end{align}
 \end{prop}
 
@@ -29,7 +29,7 @@ Let $\mathcal{M}=(E,\mathcal{I})$ be a matroid.
 
 Let 
 \begin{align}
-\mathcal{P}_\mathcal{M} = \qty{z\in [0,1]^N \Big\vert \forall S\subseteq N \: \sum_{i \in S}z_i\leq \rank(S)}
+\mathcal{P}_\mathcal{M} = \qty{z\in [0,1]^N \Big\vert \forall S\subseteq N \: \sum_{i \in S}z_i\leqslant \rank(S)}
 \end{align}
 
 \begin{algorithm}
@@ -49,7 +49,7 @@ Let
 \begin{lemma}
 	For $\vb{x}\in [0,1]^N$
 	\begin{align}
-	\sum_{i \in S} F\qty(\max\qty{\vb{x}, \mathds{1}_i})-F(\vb{x}) \geq F\qty(\max\qty{\vb{x}, \mathds{1}_{S}})-F(\vb{x})
+	\sum_{i \in S} F\qty(\max\qty{\vb{x}, \mathds{1}_i})-F(\vb{x}) \geqslant F\qty(\max\qty{\vb{x}, \mathds{1}_{S}})-F(\vb{x})
 	\end{align}
 	\begin{proof}
 		Denote by $D_{\vb{x}}$ random distribution of taking each element independently with probability $x_i$, i.e.,
@@ -58,14 +58,14 @@ Let
 		\end{align}
 		Then
 		\begin{align}
-		\sum_{i \in S} F\qty(\max\qty{\vb{x}, \mathds{1}_i})-F(\vb{x}) &= \sum_{i \in S} \mathbb{E}_{R\sim D_{\max\qty{\vb{x}, \mathds{1}_i}}} [f(R)] - \mathbb{E}_{R\sim D_{\vb{x}}} [f(R)] = \sum_{i \in S}\mathbb{E}_{R\sim D_{\vb{x}}}\qty[f(R\cup \qty{i}) - f(R)] =\\&= \mathbb{E}_{R\sim D_{\vb{x}}}\qty[\sum_{i \in S} f(R\cup \qty{i}) - f(R)] \geq \mathbb{E}_{R\sim D_{\vb{x}}}\qty[f(R\cup S) - f(R)] =\\&= F\qty(\max\qty{\vb{x}, \mathds{1}_{S}})-F(\vb{x})
+		\sum_{i \in S} F\qty(\max\qty{\vb{x}, \mathds{1}_i})-F(\vb{x}) &= \sum_{i \in S} \mathbb{E}_{R\sim D_{\max\qty{\vb{x}, \mathds{1}_i}}} [f(R)] - \mathbb{E}_{R\sim D_{\vb{x}}} [f(R)] = \sum_{i \in S}\mathbb{E}_{R\sim D_{\vb{x}}}\qty[f(R\cup \qty{i}) - f(R)] =\\&= \mathbb{E}_{R\sim D_{\vb{x}}}\qty[\sum_{i \in S} f(R\cup \qty{i}) - f(R)] \geqslant \mathbb{E}_{R\sim D_{\vb{x}}}\qty[f(R\cup S) - f(R)] =\\&= F\qty(\max\qty{\vb{x}, \mathds{1}_{S}})-F(\vb{x})
 		\end{align}
 	\end{proof}
 \end{lemma}
 \begin{theorem}[\citet{calinescu2011maximizing}]
 	For monotonous submodular $f$,
 	\begin{align}
-	F(\vb{y}(1)) \geq \qty(1-\frac{1}{\epsilon})f(S^*)
+	F(\vb{y}(1)) \geqslant \qty(1-\frac{1}{\epsilon})f(S^*)
 	\end{align}
 	where $\vb{y}(t)$ is output of \vref{alg:cont_greedy}:
 	\begin{align}
@@ -79,17 +79,17 @@ Let
 	\begin{proof}
 		Lets bound $\pdv{F}{t} (\vb{y}(t'))$:
 		\begin{align}
-		\pdv{F}{t} (\vb{y}(t')) &=  \grad{F} \vdot \pdv{y}{t} =  \grad{F\qty(\vb{y}(t'))} \vdot \vb{x}(t') \geq \grad{F\qty(\vb{y}(t'))} \vdot \mathds{1}_{S^*}= \sum_{i \in S^*} \qty(\grad{F\qty(\vb{y}(t'))})_i \stackrel{F \text{is multilinear}}{\geq}\\&\geq \sum_{i \in S^*} \frac{F\qty(\max\qty{\vb{y}, \mathds{1}_i})-F(\vb{y})}{1-\vb{y}_i} \geq \sum_{i \in S^*} F\qty(\max\qty{\vb{y}, \mathds{1}_i})-F(\vb{y}) \geq\\&\geq F\qty(\max\qty{\vb{y}, \mathds{1}_{S^*}})-F(\vb{y}) \geq f(S^*)-F(\vb{y})
+		\pdv{F}{t} (\vb{y}(t')) &=  \grad{F} \vdot \pdv{y}{t} =  \grad{F\qty(\vb{y}(t'))} \vdot \vb{x}(t') \geqslant \grad{F\qty(\vb{y}(t'))} \vdot \mathds{1}_{S^*}= \sum_{i \in S^*} \qty(\grad{F\qty(\vb{y}(t'))})_i \stackrel{F \text{is multilinear}}{\geqslant}\\&\geqslant \sum_{i \in S^*} \frac{F\qty(\max\qty{\vb{y}, \mathds{1}_i})-F(\vb{y})}{1-\vb{y}_i} \geqslant \sum_{i \in S^*} F\qty(\max\qty{\vb{y}, \mathds{1}_i})-F(\vb{y}) \geqslant\\&\geqslant F\qty(\max\qty{\vb{y}, \mathds{1}_{S^*}})-F(\vb{y}) \geqslant f(S^*)-F(\vb{y})
 		\end{align}
 		where $\max$ is coordinate-wise maximum.
 		We got
 		\begin{align}
-			F(\vb{y}(0)) &\geq 0 \\
-			\pdv{F}{t} &\geq f(S^*) - F(\vb{y})
+			F(\vb{y}(0)) &\geqslant 0 \\
+			\pdv{F}{t} &\geqslant f(S^*) - F(\vb{y})
 		\end{align}
-		with solution $F(\vb{y}(t)) \geq \qty(1-e^{-t}) f(S^*)$, i.e., 
+		with solution $F(\vb{y}(t)) \geqslant \qty(1-e^{-t}) f(S^*)$, i.e., 
 		\begin{align}
-		F(1) \geq \qty(1-\frac{1}{\epsilon})f(S^*)
+		F(1) \geqslant \qty(1-\frac{1}{\epsilon})f(S^*)
 		\end{align}
 	\end{proof}
 	%i.e., \vref{alg:cont_greedy} is $ \qty(1-\frac{1}{\epsilon})$-optimal.

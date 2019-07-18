@@ -3,8 +3,8 @@
 	\begin{proof}
 		From diminishing returns:
 		\begin{align}
-		f(X_{i-1} \cup \qty{u_i})-f(X_{i-1}) \geq f(Y_i) - f(Y_{i-1} \setminus \qty{u_i})  \\
-		f(X_{i-1} \cup \qty{u_i})-f(X_{i-1}) + f(Y_i) - f(Y_{i-1} \setminus \qty{u_i}) \geq 0
+		f(X_{i-1} \cup \qty{u_i})-f(X_{i-1}) \geqslant f(Y_i) - f(Y_{i-1} \setminus \qty{u_i})  \\
+		f(X_{i-1} \cup \qty{u_i})-f(X_{i-1}) + f(Y_i) - f(Y_{i-1} \setminus \qty{u_i}) \geqslant 0
 		\end{align}
 		Thus at least one of  $f(X_{i-1} \cup \qty{u_i})-f(X_{i-1}) $ and  $f(Y_{i-1} \setminus \qty{u_i}) - f(Y_i)$ is greater than $0$.
 	\end{proof}
@@ -20,7 +20,7 @@
 	
 	For all $i$:
 	\begin{align}
-	f(S^*_{i-1}) - f(S^*_i) \leq f(X_i) - f(X_{i-1})+f(Y_i) - f(Y_{i-1}) 
+	f(S^*_{i-1}) - f(S^*_i) \leqslant f(X_i) - f(X_{i-1})+f(Y_i) - f(Y_{i-1}) 
 	\end{align}
 \end{lemma}
 
@@ -33,7 +33,7 @@
 	
 	For all $i$:
 	\begin{align}
-	\mathbb{E} \qty\bigg[f(S^*_{i-1}) - f(S^*_i)] \leq \frac{1}{2} \mathbb{E} \qty\bigg[f(X_i) - f(X_{i-1})+f(Y_i) - f(Y_{i-1}) ]
+	\mathbb{E} \qty\bigg[f(S^*_{i-1}) - f(S^*_i)] \leqslant \frac{1}{2} \mathbb{E} \qty\bigg[f(X_i) - f(X_{i-1})+f(Y_i) - f(Y_{i-1}) ]
 	\end{align}
 	
 	\begin{proof}
@@ -47,14 +47,14 @@
 		\begin{itemize}
 			\item If $u_i \notin S^*$, in particular, $u_i \notin S^*_{i-1}$:
 			\begin{align}
-			\mathbb{E} \qty[f(S^*_{i-1})-f(S^*_{i}) ] &= \frac{a_i}{a_{i} + b_{i}} \qty(f(S^*_{i-1}) -f(S^*_{i-1}\cup \qty{u_i})) \stackrel{S^*_{i-1} \subseteq Y_{i-1}\setminus \qty{u_i}}{\leq }\\&\leq \frac{a_i}{a_{i} + b_{i}} \qty(f(Y^*_{i-1}\setminus \qty{u_i}) -f(Y^*_{i-1})) \leq \frac{a_i b_i}{a_i+b_i}
+			\mathbb{E} \qty[f(S^*_{i-1})-f(S^*_{i}) ] &= \frac{a_i}{a_{i} + b_{i}} \qty(f(S^*_{i-1}) -f(S^*_{i-1}\cup \qty{u_i})) \stackrel{S^*_{i-1} \subseteq Y_{i-1}\setminus \qty{u_i}}{\leqslant }\\&\leqslant \frac{a_i}{a_{i} + b_{i}} \qty(f(Y^*_{i-1}\setminus \qty{u_i}) -f(Y^*_{i-1})) \leqslant \frac{a_i b_i}{a_i+b_i}
 			\end{align}
 			\item If $u_i \in S^*$, in particular, $u_i \in S^*_{i-1}$:
 			\begin{align}
-			\mathbb{E} \qty[f(S^*_{i-1})-f(S^*_{i}) ] &= \frac{b_i}{a_{i} + b_{i}} \qty(f(S^*_{i-1}) -f(S^*_{i-1}\setminus \qty{u_i})) \stackrel{X_{i-1} \subseteq S^*_{i-1} \setminus \qty{u_i}}{\leq }\\&\leq \frac{b_i}{a_{i} + b_{i}} \qty(f(X^*_{i-1}\cup \qty{u_i}) -f(X^*_{i-1})) \leq \frac{a_i b_i}{a_i+b_i}
+			\mathbb{E} \qty[f(S^*_{i-1})-f(S^*_{i}) ] &= \frac{b_i}{a_{i} + b_{i}} \qty(f(S^*_{i-1}) -f(S^*_{i-1}\setminus \qty{u_i})) \stackrel{X_{i-1} \subseteq S^*_{i-1} \setminus \qty{u_i}}{\leqslant }\\&\leqslant \frac{b_i}{a_{i} + b_{i}} \qty(f(X^*_{i-1}\cup \qty{u_i}) -f(X^*_{i-1})) \leqslant \frac{a_i b_i}{a_i+b_i}
 			\end{align}
 		\end{itemize}
-		And since $a_i^2-2a_ib_i+b_i^2 = (a_i-b_i)^2 \geq 0$ (and by tower property), we get the required.
+		And since $a_i^2-2a_ib_i+b_i^2 = (a_i-b_i)^2 \geqslant 0$ (and by tower property), we get the required.
 		
 	\end{proof}
 \end{lemma}
@@ -69,12 +69,12 @@
 		\end{align}
 		Then
 		\begin{align}
-		\mathbb{E} \qty\bigg[f(S^*_{0}) - f(S^*_n)] &\leq \frac{1}{2} \mathbb{E} \qty\bigg[f(X_n) - f(X_{0})+f(Y_n) - f(Y_{0}) ]\\
-		\mathbb{E} \qty\bigg[f(S^*) - f(S_{alg})] &\leq \frac{1}{2} \mathbb{E} \qty\bigg[2S_{alg} - f(X_{0}) - f(Y_{0}) ]\stackrel{f(S)\geq 0}{\leq} \mathbb{E} \qty\bigg[S_{alg} ]
+		\mathbb{E} \qty\bigg[f(S^*_{0}) - f(S^*_n)] &\leqslant \frac{1}{2} \mathbb{E} \qty\bigg[f(X_n) - f(X_{0})+f(Y_n) - f(Y_{0}) ]\\
+		\mathbb{E} \qty\bigg[f(S^*) - f(S_{alg})] &\leqslant \frac{1}{2} \mathbb{E} \qty\bigg[2S_{alg} - f(X_{0}) - f(Y_{0}) ]\stackrel{f(S)\geqslant 0}{\leqslant} \mathbb{E} \qty\bigg[S_{alg} ]
 		\end{align}
 		Thus
 		\begin{align}
-		\mathbb{E} \qty[S_{alg} ] \geq\frac{1}{2}\mathbb{E} \qty[f(S^*)] 
+		\mathbb{E} \qty[S_{alg} ] \geqslant\frac{1}{2}\mathbb{E} \qty[f(S^*)] 
 		\end{align}
 		
 	\end{proof}
@@ -92,7 +92,7 @@
 Let each element of set have price $c_i$ and budget $B$, then
 \begin{align}
 \max \: & f(S)\\
-\st & \sum_{i \in S} c_i \leq B
+\st & \sum_{i \in S} c_i \leqslant B
 \end{align}
 
 
@@ -103,7 +103,7 @@ Let each element of set have price $c_i$ and budget $B$, then
 		\State $S \gets \emptyset$
 		\While{$N\neq \emptyset$}
 		\State $x^* \gets \arg \max \qty{ \frac{f(S\cup \qty{x})-f(S)}{c_i}}$
-		\If{$c(S) + c_{x^*} \leq B$}
+		\If{$c(S) + c_{x^*} \leqslant B$}
 		\State $S\gets S \cup \qty{x^*}$
 		\EndIf
 		\State $N \gets N\setminus \qty{x^*}$
@@ -121,7 +121,7 @@ Note that this is generalization of cardinality constraint.
 	\begin{algorithmic}[1]
 		\Procedure{Optimized Density Greedy}{$N$}
 		\State $S_1 \gets$ output of \vref{alg:knapsack_greedy}
-		\State $S_2 \gets \qty{\arg\max\limits_{\substack{i\in N\\c_i \leq B}} f(i)}$
+		\State $S_2 \gets \qty{\arg\max\limits_{\substack{i\in N\\c_i \leqslant B}} f(i)}$
 		\State \textbf{return} $\arg\max\limits_{S\in \qty{S_1,S_2}} f(S)$
 		\EndProcedure
 	\end{algorithmic}

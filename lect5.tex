@@ -14,7 +14,7 @@ Matroid is a basic concept in combinatorial optimization. It was first defined b
 \paragraph{Examples}
 \subparagraph{Uniform manifold} 
 \begin{align}
-	\mathcal{M}_{k} = \qty(E, \qty\bigg{X\subseteq E | \abs{X} \leq k})
+	\mathcal{M}_{k} = \qty(E, \qty\bigg{X\subseteq E | \abs{X} \leqslant k})
 \end{align}
 \subparagraph{Linear manifold} 
 Let $A\in \mathbb{R}^{m\times n}$ be a matrix. Let $E$ be a set of columns of $A$. The set $X\subseteq E$ is independent if its elements are independent. Alternatively, for sub-matrix $A_X$ consisting of columns of $A$:
@@ -36,7 +36,7 @@ The basis is then spanning trees (or forests if graph is not connected).
 \subparagraph{Partition matroid}
 For a set $E$ let $E_1,\dots E_k$ be some partition of $E$. Then
 \begin{align}
-\mathcal{I}= \qty\big{ X\subseteq E \big\vert \forall i=1..k \: \abs{X}\cup E_i  \leq 1  }
+\mathcal{I}= \qty\big{ X\subseteq E \big\vert \forall i=1..k \: \abs{X}\cup E_i  \leqslant 1  }
 \end{align}
 \begin{prop}
 	$M=(E,\mathcal{I})$ is matroid.
@@ -107,7 +107,7 @@ For matroid $M=(E,\mathcal{I})$ rank of matroid is $\rank(E)$.
 		We know that for $k = \rank(M)$, the size of the output of algorithm is $k$ and so is size of optimal solution $S^*$.
 		Lets assume $S$ is not optimal, thus exists $i$ such that $w(e_i^*) > w(e_i)$.
 		
-		At iteration at which we added $e_i$ to $S$. At this iteration $\abs{S}=i-1$. take a look at first $i$ elements of $S^*$: this is independent set, and from definition of matroid, exists $e'$ such that $S$ is independent with $e'$. However, $w(e') \geq w(e^*-i) > w(e_i)$, thus we should have added it beforehand.
+		At iteration at which we added $e_i$ to $S$. At this iteration $\abs{S}=i-1$. take a look at first $i$ elements of $S^*$: this is independent set, and from definition of matroid, exists $e'$ such that $S$ is independent with $e'$. However, $w(e') \geqslant w(e^*-i) > w(e_i)$, thus we should have added it beforehand.
 	\end{proof}
 \end{prop}
 

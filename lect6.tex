@@ -27,7 +27,7 @@ f^-(x)  = \min\limits_{D_x}  \mathbb{E}_{R\sim D_x} [f(R)]
 		\end{align}
 		concave property is fulfilled:
 		\begin{align}
-		f^=(z) \geq \lambda f^+(x) +  (1-\lambda)f^+(y) 
+		f^=(z) \geqslant \lambda f^+(x) +  (1-\lambda)f^+(y) 
 		\end{align}
 		Let $\qty{\alpha_S}_{S\subseteq N}$ be a distribution which defined $f(x)$: $P(R = S) = \alpha_S$, which fulfills:
 		\begin{align}
@@ -46,7 +46,7 @@ f^-(x)  = \min\limits_{D_x}  \mathbb{E}_{R\sim D_x} [f(R)]
 		\end{align} 
 		By definition,
 		\begin{align}
-		f^+(z) &\geq  \mathbb{E}_{R\sim\lambda \alpha_S + (1-\lambda) \beta_S} [f(R)] = \sum_{S \subseteq N} P(R=S) f(S) =\\&= \sum_{S \subseteq N} \qty[\lambda \alpha_S + (1-\lambda) \beta_S]f(S) = \lambda f^+(x) + (1-\lambda) f^+(y)
+		f^+(z) &\geqslant  \mathbb{E}_{R\sim\lambda \alpha_S + (1-\lambda) \beta_S} [f(R)] = \sum_{S \subseteq N} P(R=S) f(S) =\\&= \sum_{S \subseteq N} \qty[\lambda \alpha_S + (1-\lambda) \beta_S]f(S) = \lambda f^+(x) + (1-\lambda) f^+(y)
 		\end{align}
 	\end{proof}
 \end{prop}
@@ -57,7 +57,7 @@ f^-(x)  = \min\limits_{D_x}  \mathbb{E}_{R\sim D_x} [f(R)]
 
 \begin{definition}[Lovasz extension]
 	\begin{align}
-	f_L(x) = \mathbb{E}_{\theta \sim [0,1]} [f\qty\big(\qty{i: x_i \geq \theta})]
+	f_L(x) = \mathbb{E}_{\theta \sim [0,1]} [f\qty\big(\qty{i: x_i \geqslant \theta})]
 	\end{align}
 \end{definition}
 
@@ -71,14 +71,14 @@ f^-(x)  = \min\limits_{D_x}  \mathbb{E}_{R\sim D_x} [f(R)]
 		
 		Note that there is unique distribution that conserves marginal values and its support is chain: the Lovasz distribution. 
 		
-		Lets show how we can ''fix`` the distribution $\alpha_S$ which support is not a chain (uncrossing). Suppose there are $A,B$ such that $\alpha_A\geq \alpha_B >0$ and $A\not\subseteq B$ and  $B\not\subseteq A$.
+		Lets show how we can ''fix`` the distribution $\alpha_S$ which support is not a chain (uncrossing). Suppose there are $A,B$ such that $\alpha_A\geqslant \alpha_B >0$ and $A\not\subseteq B$ and  $B\not\subseteq A$.
 		For that, lets reduce the probability of $A$ and $B$ by $\alpha_B$, and increase probability of $A\cap B$ and $A\cup B$ by $\alpha_B$.
 		
 		Does the new distribution conserve marginal values? For all of cases $x\in A\cap B$, $x\in A\setminus B$ and $x\in B\setminus A$, the probability did not change.
 		
 		What happened to $\mathbb{E} [f(R)]$? From submodularity,
 		\begin{align}
-		f(A) + f(B) \geq f(A\cap B) + f(A\cup B)
+		f(A) + f(B) \geqslant f(A\cap B) + f(A\cup B)
 		\end{align}
 		and since we removed LHS and added RHS multiplied same constant, the expectation can not grow.
 		

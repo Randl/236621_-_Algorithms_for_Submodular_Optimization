@@ -27,12 +27,12 @@ and frequency of input is $\max\limits_i \eta_i$.
 Similarly to vertex cover, we'll define relaxed problem
 \begin{align} \label{eq:ssp_relax}
 \min \quad&  f_L(\vb{x}) \\ 
-\st \forall i \in \qty{1,2,\dots, n} \quad&\sum_{j: i\in S_j} x_j \geq 1 \\
-\forall \forall i \in \qty{1,2,\dots, n} \quad&0\leq x_i \leq 1 
+\st \forall i \in \qty{1,2,\dots, n} \quad&\sum_{j: i\in S_j} x_j \geqslant 1 \\
+\forall \forall i \in \qty{1,2,\dots, n} \quad&0\leqslant x_i \leqslant 1 
 \end{align}
  and we can find optimal solution $\vb{x}^*$. We define solution in the following way:
  \begin{align}
- X = \qty{S_j: x_j^* \geq \frac{1}{\eta}}
+ X = \qty{S_j: x_j^* \geqslant \frac{1}{\eta}}
  \end{align}
  
  Obviously the solution is feasible.
@@ -41,7 +41,7 @@ Similarly to vertex cover, we'll define relaxed problem
  	\begin{proof}
  		If $f$ is symmetric,
  		\begin{align}
- 		f(X) = f_L(\mathds{1}_X) \leq f_L\qty( \min \qty{ \eta \cdot \vb{x}^*, \mathds{1} }) \leq \eta \cdot f_L(\vb{x}^*)
+ 		f(X) = f_L(\mathds{1}_X) \leqslant f_L\qty( \min \qty{ \eta \cdot \vb{x}^*, \mathds{1} }) \leqslant \eta \cdot f_L(\vb{x}^*)
  		\end{align}
  		
  		If $f$ is not monotonic we can ``monotonize'':

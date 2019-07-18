@@ -3,7 +3,7 @@ We are looking on $f: 2^N \to \mathbb{R}$ for some set $N = \qty{1, \dots n }$
 \begin{definition}
 	$f$ is submodular if 
 	\begin{align}
-	f(A)+f(B) \geq f(A\cap B) + f(A\cup B)
+	f(A)+f(B) \geqslant f(A\cap B) + f(A\cup B)
 	\end{align}
 \end{definition}
 
@@ -14,7 +14,7 @@ We are looking on $f: 2^N \to \mathbb{R}$ for some set $N = \qty{1, \dots n }$
 \begin{definition}[Diminishing returns]
 $f$ has diminishing returns if for $A\subseteq B$
 \begin{align}
-f(A \cup \qty{u }) - f(A) \geq f(B \cup \qty{u }) - f(B)
+f(A \cup \qty{u }) - f(A) \geqslant f(B \cup \qty{u }) - f(B)
 \end{align}
 \end{definition}
 
@@ -25,12 +25,12 @@ f(A \cup \qty{u }) - f(A) \geq f(B \cup \qty{u }) - f(B)
 		
 		Let $A\subseteq B \subseteq N$ and $u\notin B$. Lets use submodularity property on $A\cup \qty{ u }$ and $B$:
 		\begin{align}
-		f(A\cup \qty{ u }) + f(B) \geq f\qty(A\cup \qty{ u } \cup B) + f\qty((A\cup \qty{ u }) \cap B)  = f\qty(B\cup \qty{ u }) + f(A)  
+		f(A\cup \qty{ u }) + f(B) \geqslant f\qty(A\cup \qty{ u } \cup B) + f\qty((A\cup \qty{ u }) \cap B)  = f\qty(B\cup \qty{ u }) + f(A)  
 		\end{align}
 		Thus
 		
 		\begin{align}
-		f(A\cup \qty{ u })-f(A) \geq f\qty(B\cup \qty{ u })-f(B)
+		f(A\cup \qty{ u })-f(A) \geqslant f\qty(B\cup \qty{ u })-f(B)
 		\end{align}
 	\end{proof}
 
@@ -43,16 +43,16 @@ Basis: $\abs{A\cup B} - \abs{A\cap B} = 0$, then $A=B$, and then submodular prop
 
 Step: assume $\abs{A\cup B} - \abs{A\cap B} = k$. WLOG let $u\in A$ such that $u\notin B$.
 \begin{align}
-f(A) + f(B) = f(A) - f(A \setminus \qty{u}) + f(A \setminus  \qty{u}) + f(B) \geq\\\geq  f(A) - f(A \setminus \qty{u}) + f(A \setminus  \qty{u} \cup B) + f(A \setminus  \qty{u}  \cap B) \geq\\\geq f(A\cup B) -  f(A\cup B \setminus \qty{ u }) + f(A  \cup B \setminus  \qty{u} ) + f(A  \cap B) = f(A\cup B) + f(A\cap B)
+f(A) + f(B) = f(A) - f(A \setminus \qty{u}) + f(A \setminus  \qty{u}) + f(B) \geqslant\\\geqslant  f(A) - f(A \setminus \qty{u}) + f(A \setminus  \qty{u} \cup B) + f(A \setminus  \qty{u}  \cap B) \geqslant\\\geqslant f(A\cup B) -  f(A\cup B \setminus \qty{ u }) + f(A  \cup B \setminus  \qty{u} ) + f(A  \cap B) = f(A\cup B) + f(A\cap B)
 \end{align}
 \end{prop}
 
 \begin{definition}[Monotonous function]
-	$f$ is non-decreasing monotonous if $\forall A\subseteq B \subseteq N$, $f(A) \leq f(B)$.
+	$f$ is non-decreasing monotonous if $\forall A\subseteq B \subseteq N$, $f(A) \leqslant f(B)$.
 \end{definition}
 
 \begin{definition}[Symmetric function]
-	$f$ is symmetric if $\forall S \subseteq N$, $f(S) \leq f(N\setminus S)$.
+	$f$ is symmetric if $\forall S \subseteq N$, $f(S) \leqslant f(N\setminus S)$.
 \end{definition}
 \begin{definition}[Normalized function]
 $f$ is normalized if $f(\emptyset) = 0$.
@@ -112,7 +112,7 @@ $f$ is submodular and there is size constraint:
 
 \begin{align}
 \max \: & f(S)\\
-\st & \abs{S} \leq k
+\st & \abs{S} \leqslant k
 \end{align}
 . It generalizes \textsc{max-k-cover}.
 

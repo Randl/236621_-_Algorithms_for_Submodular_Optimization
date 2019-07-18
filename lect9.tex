@@ -47,7 +47,7 @@ Decompose $\vb{z}$ as a convex combination over basis. From two vectors in combi
 		\end{align}
 		Then, from convexity
 		\begin{align}
-		\mathbb{E} [F(\vb{x}')] = \frac{1}{2}g\qty(\frac{1}{m})+\frac{1}{2}g\qty(-\frac{1}{m}) \geq g(0) = F(\vb{x})
+		\mathbb{E} [F(\vb{x}')] = \frac{1}{2}g\qty(\frac{1}{m})+\frac{1}{2}g\qty(-\frac{1}{m}) \geqslant g(0) = F(\vb{x})
 		\end{align}
 	\end{proof}
 \end{theorem}
@@ -70,8 +70,8 @@ Decompose $\vb{z}$ as a convex combination over basis. From two vectors in combi
 	Denote for $S'\subseteq N$, denote  $k=\abs{S\cap C}$ and $l=\abs{S\cap D}$. Then define
 	\begin{align}
 	f(S) = \begin{cases}
-	\abs{S} \qty(n-\abs{S}) & \abs{k-l} \leq \epsilon n\\
-	\abs{k} \qty(n-2l) + l(n-2k) - \underbrace{\qty(\epsilon^2 n^2 - 2\epsilon n \abs{k-l})}_{\order{\epsilon n^2}}& \abs{k-l} \geq \epsilon n\\
+	\abs{S} \qty(n-\abs{S}) & \abs{k-l} \leqslant \epsilon n\\
+	\abs{k} \qty(n-2l) + l(n-2k) - \underbrace{\qty(\epsilon^2 n^2 - 2\epsilon n \abs{k-l})}_{\order{\epsilon n^2}}& \abs{k-l} \geqslant \epsilon n\\
 	\end{cases}
 	\end{align}
 	where we added $\order{\epsilon n^2}$ term to make $f$ submodular.
@@ -86,13 +86,13 @@ Decompose $\vb{z}$ as a convex combination over basis. From two vectors in combi
 	-1 & i\in D
 	\end{cases}
 	\end{align}
-	Then $k-l = \sum_{i \in S} Y_i$, and $P(Y_i=1)=P(Y_i=-1)=\frac{1}{2}$. We know that for independent $-1\leq Y_i\leq 1$ such that $\mathbb{E} [Y_i] = 0$ then
+	Then $k-l = \sum_{i \in S} Y_i$, and $P(Y_i=1)=P(Y_i=-1)=\frac{1}{2}$. We know that for independent $-1\leqslant Y_i\leqslant 1$ such that $\mathbb{E} [Y_i] = 0$ then
 	\begin{align}
-		P\qty(\sum_{i =1}^n Y_i > \lambda) \leq e^{-\frac{1}{2}\frac{\lambda^2}{n}}
+		P\qty(\sum_{i =1}^n Y_i > \lambda) \leqslant e^{-\frac{1}{2}\frac{\lambda^2}{n}}
 	\end{align}
 	In our case, we want to bound $P\qty(\abs{\sum_{i \in S} Y_i} > \epsilon n)$. To remove the dependence we define $Z_i$ to be independent variables. Then
 	\begin{align}
-	P\qty(\abs{\sum_{i \in S} Y_i} > \epsilon n) &= 	P\qty(\abs{\sum_{i \in S} Z_i} > \epsilon n | \sum_{i\in N} Z_i = 0)  = \frac{P(\abs{\sum_{i \in S} Z_i} > \epsilon n , \sum_{i\in N} Z_i = 0)}{P\qty(\sum_{i\in N} Z_i = 0)} \leq\\&\leq \frac{P(\abs{\sum_{i \in S} Z_i} > \epsilon n)}{P\qty(\sum_{i\in N} Z_i = 0)} \leq \frac{2e^{-\frac{1}{2} \frac{\epsilon^2 N^2}{\abs{S}}}}{\frac{1}{2N+1}} \leq 2(2N+1)e^{-\frac{1}{2} \epsilon^2 N} \leq e^{-\frac{1}{4} \epsilon^2 N}
+	P\qty(\abs{\sum_{i \in S} Y_i} > \epsilon n) &= 	P\qty(\abs{\sum_{i \in S} Z_i} > \epsilon n | \sum_{i\in N} Z_i = 0)  = \frac{P(\abs{\sum_{i \in S} Z_i} > \epsilon n , \sum_{i\in N} Z_i = 0)}{P\qty(\sum_{i\in N} Z_i = 0)} \leqslant\\&\leqslant \frac{P(\abs{\sum_{i \in S} Z_i} > \epsilon n)}{P\qty(\sum_{i\in N} Z_i = 0)} \leqslant \frac{2e^{-\frac{1}{2} \frac{\epsilon^2 N^2}{\abs{S}}}}{\frac{1}{2N+1}} \leqslant 2(2N+1)e^{-\frac{1}{2} \epsilon^2 N} \leqslant e^{-\frac{1}{4} \epsilon^2 N}
 	\end{align}
 	
 	To bound the probability to get at least one non-balanced query, we'll use union bound. Even for exponential number of queries, the probability to get one such query is exponentially small.

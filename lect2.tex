@@ -1,7 +1,7 @@
 \section{Maximization of the submodular function with cardinality constraints}
 \begin{align}
 \max \: & f(S)\\
-\st & \abs{S} \leq k
+\st & \abs{S} \leqslant k
 \end{align}
 
 \paragraph{Greedy algorithm}
@@ -22,11 +22,11 @@ If $f$ is monotonic, greedy algorithm is an optimal approximating algorithm.
 \begin{lemma}
 	For submodular $f: 2^N \to \mathbb{R}_+$,
 	\begin{align}
-	f(A\cup B) - f(A) \leq \sum_{b_i \in B} f(A\cup \qty{b_i}) - f(A)
+	f(A\cup B) - f(A) \leqslant \sum_{b_i \in B} f(A\cup \qty{b_i}) - f(A)
 	\end{align}
 	\begin{proof}
 		\begin{align}
-		f(A\cup B) - f(A) = \sum_i f(A \cup \qty{b_1, \dots b_{i-1}} \cup \qty{b_i} ) - f(A \cup \qty{b_1, \dots b_{i-1}})\leq \sum_i f(A \cup \qty{b_i}) - f(A)
+		f(A\cup B) - f(A) = \sum_i f(A \cup \qty{b_1, \dots b_{i-1}} \cup \qty{b_i} ) - f(A \cup \qty{b_1, \dots b_{i-1}})\leqslant \sum_i f(A \cup \qty{b_i}) - f(A)
 		\end{align}
 	\end{proof}
 \end{lemma}
@@ -35,16 +35,16 @@ If $f$ is monotonic, greedy algorithm is an optimal approximating algorithm.
 	\begin{proof}
 		For optimal set $S^*$
 		\begin{align}
-		f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1})&\geq \max\limits_{u\in S^*} \qty{f(A_{i-1} \cup \qty{u}) - f(A_{i-1})} \geq \frac{1}{k} \sum_{u\in S^*} \qty[f(A_{i-1} \cup \qty{u}) - f(A_{i-1})] \geq\\&\geq \frac{1}{k} \qty\bigg(f(A_{i-1} \cup S^*) - f(A_{i-1})) \geq \frac{1}{k} \qty\bigg[f(S^*) - f(A_{i-1})]
+		f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1})&\geqslant \max\limits_{u\in S^*} \qty{f(A_{i-1} \cup \qty{u}) - f(A_{i-1})} \geqslant \frac{1}{k} \sum_{u\in S^*} \qty[f(A_{i-1} \cup \qty{u}) - f(A_{i-1})] \geqslant\\&\geqslant \frac{1}{k} \qty\bigg(f(A_{i-1} \cup S^*) - f(A_{i-1})) \geqslant \frac{1}{k} \qty\bigg[f(S^*) - f(A_{i-1})]
 		\end{align}
 		
 		We got a recursion equation:
 		\begin{align}
-		f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1})\geq \frac{1}{k} \qty\bigg[f(S^*) - f(A_{i-1})]
+		f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1})\geqslant \frac{1}{k} \qty\bigg[f(S^*) - f(A_{i-1})]
 		\end{align}
 		We can solve the recursion and acquire
 		\begin{align}
-		f(A_{k}) \geq \qty(1-\qty(1-\frac{1}{k})^k)f(S^*) + \qty(1-\frac{1}{k})^k f(A_0) \geq \qty(1-\frac{1}{e}) f(S^*) 
+		f(A_{k}) \geqslant \qty(1-\qty(1-\frac{1}{k})^k)f(S^*) + \qty(1-\frac{1}{k})^k f(A_0) \geqslant \qty(1-\frac{1}{e}) f(S^*) 
 		\end{align}
 		
 	\end{proof}
@@ -68,7 +68,7 @@ What happens if $f$ is not monotonic? First of all, does greed algorithm work? N
 		\Procedure{Randomized Greedy}{$N$}
 		\State $A \gets \emptyset$
 		\For{$i=1$ to $k$}
-		\State $ M_i \gets \arg\max\limits_{B\subseteq N \: : \: \abs{B} \leq k} \sum_{u\in B} f\qty(A_{i-1} \cup \qty{u} ) - f\qty(A_{i-1})$
+		\State $ M_i \gets \arg\max\limits_{B\subseteq N \: : \: \abs{B} \leqslant k} \sum_{u\in B} f\qty(A_{i-1} \cup \qty{u} ) - f\qty(A_{i-1})$
 		\State $ A_i \gets \begin{cases}
 		A_{i-1} \cup \qty{u} & \forall u \in M_i \text{ with } P=\frac{1}{k}\\
 		A_{i-1} & \text{ with } P=1-\frac{\abs{M_i}}{k}
@@ -84,12 +84,12 @@ What happens if $f$ is not monotonic? First of all, does greed algorithm work? N
 	\begin{proof}
 		Take a look at $i^{th}$ iteration and condition on previous iterations, denote a chosen element from $M_i$ as $u_i$:
 		\begin{align}
-		\mathbb{E} \qty\bigg[f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1}) | A_{i-1} ] &= \frac{1}{k} \sum_{u_i \in M_i} f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1}) \geq\\&\geq \frac{1}{k} \qty( f(A_{i-1} \cup S^*) - f(A_{i-1}) ) \geq\\&\geq \frac{1}{k} \qty( f(S^*) - f(A_{i-1}))\geq \frac{1}{k} \qty( f(S^*) - f(A_{i-1}))
+		\mathbb{E} \qty\bigg[f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1}) | A_{i-1} ] &= \frac{1}{k} \sum_{u_i \in M_i} f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1}) \geqslant\\&\geqslant \frac{1}{k} \qty( f(A_{i-1} \cup S^*) - f(A_{i-1}) ) \geqslant\\&\geqslant \frac{1}{k} \qty( f(S^*) - f(A_{i-1}))\geqslant \frac{1}{k} \qty( f(S^*) - f(A_{i-1}))
 		\end{align}
 		
 		If the inequality is right for any $A_{i-1}$ it is right, from tower property, in expectation over $A_{i-1}$:
 		\begin{align}
-		\mathbb{E} \qty\bigg[f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1}) ] \geq 	\frac{1}{k} \qty( f(S^*) - \mathbb{E} \qty[ f(A_{i-1})] )
+		\mathbb{E} \qty\bigg[f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1}) ] \geqslant 	\frac{1}{k} \qty( f(S^*) - \mathbb{E} \qty[ f(A_{i-1})] )
 		\end{align}
 		
 		And thus we can once again solve the recurrence and acquire same result as in \vref{greedy_proof}.

@@ -1,15 +1,15 @@
 \begin{lemma} \label{lem:exp_emptyset}
 	Given  set $B\subseteq N$ such that
 	\begin{align}
-	\forall u \in  N \quad P(u\in B) \leq p
+	\forall u \in  N \quad P(u\in B) \leqslant p
 	\end{align}
 	
 	then
 	\begin{align}
-	\mathbb{E} \qty[f(B)] \geq (1-p)f(\emptyset)
+	\mathbb{E} \qty[f(B)] \geqslant (1-p)f(\emptyset)
 	\end{align}
 	\begin{proof}
-		WLoG $p(u_1\in B) \geq p(u_2\in B) \geq \dots \geq p(u_n\in B)$. Denote 
+		WLoG $p(u_1\in B) \geqslant p(u_2\in B) \geqslant \dots \geqslant p(u_n\in B)$. Denote 
 		\begin{align}
 		X_i = \mathds{1}_{u_i \in B}
 		N_i = \bigcup_{j=1}^i u_j
@@ -19,7 +19,7 @@
 		f(B) &= f(N_0) + \sum_{i=1}^n X_i\qty\bigg(f(B\cap N_{i}) - f(B\cap N_{i-1}))
 		\end{align}
 		\begin{align}
-		\mathbb{E} \qty[f(B)] &= f(N_0) +\sum_{i=1}^n \mathbb{E} \qty[ X_i\qty\bigg(f(B\cap N_{i}) - f(B\cap N_{i-1}))]\geq\\&\geq f(N_0) +\sum_{i=1}^n \qty\bigg(f(N_{i}) - f(N_{i-1}))\mathbb{E} \qty[ X_i] =f(N_0) +\sum_{i=1}^n \qty\bigg(f(N_{i}) - f(N_{i-1}))p_i =\\&= f(N_0) (1-p_1) + \sum_{i=1}^n f(N_i)\underbrace{ (p_i-p_{i+1})}_{\leq 0} \geq f(N_0) (1-p_1)  \geq f(\emptyset) (1-p)
+		\mathbb{E} \qty[f(B)] &= f(N_0) +\sum_{i=1}^n \mathbb{E} \qty[ X_i\qty\bigg(f(B\cap N_{i}) - f(B\cap N_{i-1}))]\geqslant\\&\geqslant f(N_0) +\sum_{i=1}^n \qty\bigg(f(N_{i}) - f(N_{i-1}))\mathbb{E} \qty[ X_i] =f(N_0) +\sum_{i=1}^n \qty\bigg(f(N_{i}) - f(N_{i-1}))p_i =\\&= f(N_0) (1-p_1) + \sum_{i=1}^n f(N_i)\underbrace{ (p_i-p_{i+1})}_{\leqslant 0} \geqslant f(N_0) (1-p_1)  \geqslant f(\emptyset) (1-p)
 		\end{align}
 		
 	\end{proof}
@@ -27,11 +27,11 @@
 \begin{lemma} \label{lem:exp}
 	Given set $A\subseteq N$ and set $B\subseteq N$ such that
 	\begin{align}
-	\forall u \in  N \quad P(u\in B) \leq p
+	\forall u \in  N \quad P(u\in B) \leqslant p
 	\end{align}
 	
 	\begin{align}
-	\mathbb{E} \qty[f(A\cup B)] \geq (1-p)f(A)
+	\mathbb{E} \qty[f(A\cup B)] \geqslant (1-p)f(A)
 	\end{align}
 	
 	\begin{proof}
@@ -41,7 +41,7 @@
 		\end{align}
 		Obviously, $g_A$ is also submodular (from diminishing returns). Then, from \vref{lem:exp_emptyset}
 		\begin{align}
-		\mathbb{E} \qty[f(A\cup B)] = \mathbb{E} \qty[g(B)]\geq (1-p)g(\emptyset) = (1-p)f(A)
+		\mathbb{E} \qty[f(A\cup B)] = \mathbb{E} \qty[g(B)]\geqslant (1-p)g(\emptyset) = (1-p)f(A)
 		\end{align}
 	\end{proof}
 \end{lemma}
@@ -51,33 +51,33 @@
 	\begin{proof}
 		Similarly to monotonic case, take a look at $i^{th}$ iteration and condition on previous iterations, denote a chosen element from $M_i$ as $u_i$:
 		\begin{align}
-		\mathbb{E} \qty\bigg[f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1}) | A_{i-1} ] &= \frac{1}{k} \sum_{u_i \in M_i} f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1}) \geq \frac{1}{k} \qty(f(A_{i-1} \cup S^*) - f(A_{i-1}) )
+		\mathbb{E} \qty\bigg[f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1}) | A_{i-1} ] &= \frac{1}{k} \sum_{u_i \in M_i} f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1}) \geqslant \frac{1}{k} \qty(f(A_{i-1} \cup S^*) - f(A_{i-1}) )
 		\end{align}
 		
 		
 		Since
 		\begin{align}
-		P(u\in A_{i-1}) \leq 1 - \qty(1-\frac{1}{k})^{i-1}
+		P(u\in A_{i-1}) \leqslant 1 - \qty(1-\frac{1}{k})^{i-1}
 		\end{align}
 		from \vref{lem:exp}
 		\begin{align}
-		\mathbb{E}\qty[f(A_{i-1} \cup S^*)] \geq \qty(1-\frac{1}{k})^{i-1}f(S^*)
+		\mathbb{E}\qty[f(A_{i-1} \cup S^*)] \geqslant \qty(1-\frac{1}{k})^{i-1}f(S^*)
 		\end{align}
 		Thus, taking expectation		
 		\begin{align}
-		\mathbb{E} \qty\bigg[f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1}) ] &\geq \frac{1}{k} \qty(f(A_{i-1} \cup S^*) - f(A_{i-1}) ) \geq \frac{1}{k}  \qty[\qty(1-\frac{1}{k})^{i-1}f(S^*) - \mathbb{E} \qty\bigg[f(A_{i-1})] ]
+		\mathbb{E} \qty\bigg[f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1}) ] &\geqslant \frac{1}{k} \qty(f(A_{i-1} \cup S^*) - f(A_{i-1}) ) \geqslant \frac{1}{k}  \qty[\qty(1-\frac{1}{k})^{i-1}f(S^*) - \mathbb{E} \qty\bigg[f(A_{i-1})] ]
 		\end{align}
 			
 		\begin{align}
-		\mathbb{E} \qty\bigg[f(A_{i} )] &\geq \frac{1}{k} \qty(f(A_{i-1} \cup S^*) - f(A_{i-1}) ) \geq \frac{1}{k}  \qty[\qty(1-\frac{1}{k})^{i-1}f(S^*) - \mathbb{E} \qty\bigg[f(A_{i-1})] ]
+		\mathbb{E} \qty\bigg[f(A_{i} )] &\geqslant \frac{1}{k} \qty(f(A_{i-1} \cup S^*) - f(A_{i-1}) ) \geqslant \frac{1}{k}  \qty[\qty(1-\frac{1}{k})^{i-1}f(S^*) - \mathbb{E} \qty\bigg[f(A_{i-1})] ]
 		\end{align}
 		Solving the recurrence we get
 		\begin{align}
-		\mathbb{E} \qty[f(A_i)] \geq \frac{i}{k} \qty(1-\frac{1}{k})^{k-1} f(S^*) \geq \frac{1}{e}f(S^*) 
+		\mathbb{E} \qty[f(A_i)] \geqslant \frac{i}{k} \qty(1-\frac{1}{k})^{k-1} f(S^*) \geqslant \frac{1}{e}f(S^*) 
 		\end{align}
 		i.e.,
 		\begin{align}
-		\mathbb{E} \qty[f(A_k)] \geq  \qty(1-\frac{1}{k})^{k-1} f(S^*) \geq \frac{1}{e}f(S^*) 
+		\mathbb{E} \qty[f(A_k)] \geqslant  \qty(1-\frac{1}{k})^{k-1} f(S^*) \geqslant \frac{1}{e}f(S^*) 
 		\end{align}
 		
 		
@@ -102,13 +102,13 @@
 \begin{prop}[\cite{feige2011maximizing}]
 	Algorithm which choose random solution as following: $u\in S$ with probability $\frac{1}{2}$ independently, is $\frac{1}{4}$ approximation in expectation:
 	\begin{align}
-	\mathbb{E}[f(S)] \geq \frac{1}{4} f(S^*)
+	\mathbb{E}[f(S)] \geqslant \frac{1}{4} f(S^*)
 	\end{align}
 \end{prop}
 \begin{prop}[\cite{feige2011maximizing}]
 If $f$ is symmetric, the same algorithm is $\frac{1}{2}$ approximation in expectation:
 \begin{align}
-\mathbb{E}[f(S)] \geq \frac{1}{2} f(S^*)
+\mathbb{E}[f(S)] \geqslant \frac{1}{2} f(S^*)
 \end{align}
 \end{prop}
 \begin{prop}[\cite{feige2011maximizing}]

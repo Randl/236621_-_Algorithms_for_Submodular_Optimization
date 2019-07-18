@@ -14,20 +14,20 @@
 \end{algorithm}
 
 \begin{lemma} \label{bound_random}
-	For set $S\subseteq N$ and vector $\vb{z}$ such that $\norm{z}_\infty \leq p$
+	For set $S\subseteq N$ and vector $\vb{z}$ such that $\norm{z}_\infty \leqslant p$
 	\begin{align}
-	F(\max\qty{\mathds{1}_S , \vb{z}}) \geq (1-p) f(S)
+	F(\max\qty{\mathds{1}_S , \vb{z}}) \geqslant (1-p) f(S)
 	\end{align}
 	\begin{proof}
 		\begin{align}
-		F(\max\qty{\mathds{1}_S , \vb{z}}) \geq f_L(\max\qty{\mathds{1}_S , \vb{z}}) \geq (1-p)f(S)
+		F(\max\qty{\mathds{1}_S , \vb{z}}) \geqslant f_L(\max\qty{\mathds{1}_S , \vb{z}}) \geqslant (1-p)f(S)
 		\end{align}
 	\end{proof}
 \end{lemma}
 \begin{theorem}[\citet{feldman2011unified}]
 	For submodular $f$,
 	\begin{align}
-	F(\vb{y}(1)) \geq \qty(1-\frac{1}{\epsilon})f(S^*)
+	F(\vb{y}(1)) \geqslant \qty(1-\frac{1}{\epsilon})f(S^*)
 	\end{align}
 	where $\vb{y}(t)$ is output of \vref{alg:measured_cont_greedy}:
 	\begin{align}
@@ -42,30 +42,30 @@
 		Lets bound $\pdv{F}{t} (\vb{y}(t'))$:
 		\begin{align}
 		\pdv{F}{t} (\vb{y}(t')) &=  \grad{F} \vdot \pdv{y}{t} =  \grad{F\qty(\vb{y}(t'))} \vdot \vb{x}(t') \stackrel{F \text{is multilinear}}{=} \sum_{i \in N} \frac{F\qty(\max\qty{\vb{y}, \mathds{1}_i})-F(\vb{y})}{1-\vb{y}_i}\cdot \vb{x}(t') \cdot   \qty(1-\vb{y}_i(t')) =\\&=
-		\qty\big[F\qty(\max\qty{\vb{y}, \mathds{1}_i})-F(\vb{y})]\cdot \vb{x}(t') \geq \sum_{i \in S^*} F\qty(\max\qty{\vb{y}, \mathds{1}_i})-F(\vb{y}) \geq F\qty(\max\qty{\vb{y}, \mathds{1}_{S^*}})-F(\vb{y})
+		\qty\big[F\qty(\max\qty{\vb{y}, \mathds{1}_i})-F(\vb{y})]\cdot \vb{x}(t') \geqslant \sum_{i \in S^*} F\qty(\max\qty{\vb{y}, \mathds{1}_i})-F(\vb{y}) \geqslant F\qty(\max\qty{\vb{y}, \mathds{1}_{S^*}})-F(\vb{y})
 		\end{align}
 		where $\max$ is coordinate-wise maximum.
 		
 		Since
 		\begin{align}
-		\pdv{y_i}{t} \leq 1-y_1
+		\pdv{y_i}{t} \leqslant 1-y_1
 		\end{align}
 		we get
 		\begin{align}
-			y_i \leq 1-e^{-t}
+			y_i \leqslant 1-e^{-t}
 		\end{align}
 		From \ref{bound_random} we got
 		\begin{align}
-		\pdv{F}{t} (\vb{y}(t')) &\geq F\qty(\max\qty{\vb{y}, \mathds{1}_{S^*}})-F(\vb{y}) \geq e^{-t} f(S^*) - F(\vb{y})
+		\pdv{F}{t} (\vb{y}(t')) &\geqslant F\qty(\max\qty{\vb{y}, \mathds{1}_{S^*}})-F(\vb{y}) \geqslant e^{-t} f(S^*) - F(\vb{y})
 		\end{align}
 		Solving differential inequality
 		\begin{align}
-		F(\vb{y}(0)) &\geq 0 \\
-		\pdv{F}{t} &\geq f(S^*) - F(\vb{y})
+		F(\vb{y}(0)) &\geqslant 0 \\
+		\pdv{F}{t} &\geqslant f(S^*) - F(\vb{y})
 		\end{align}
-		we acquire the solution $F(\vb{y}(t)) \geq te^{-t} f(S^*)$ with maximum in $t=1$:
+		we acquire the solution $F(\vb{y}(t)) \geqslant te^{-t} f(S^*)$ with maximum in $t=1$:
 		\begin{align}
-		F(1) \geq \frac{1}{\epsilon}f(S^*)
+		F(1) \geqslant \frac{1}{\epsilon}f(S^*)
 		\end{align}
 		
 		Note that now $\vb{y}$ is not a linear combination of elements of polytope, but rather something which is at most linear combination.
@@ -78,7 +78,7 @@
 \paragraph{Rounding of the fractional solution}
 Remember the submodular welfare problem. We define polytope
 \begin{align}
-\mathcal{P}_M = \qty{ \vb{z} \in [0,1]^N \big\vert \sum_{j=1}^k z_{i,j} \leq 1}
+\mathcal{P}_M = \qty{ \vb{z} \in [0,1]^N \big\vert \sum_{j=1}^k z_{i,j} \leqslant 1}
 \end{align}
 Then an intuitive way to round the vector in polytope is just sample from random variable $Z_i$:
 \begin{align}
@@ -87,7 +87,7 @@ P(Z_i= j) = z_{i,j}
 with $Z_i$ independent. Denote by $S$ the set acquired by this rounding.
 \begin{prop}
 	\begin{align}
-	\mathbb{E}\qty[f(S)] \geq F(\vb{z})
+	\mathbb{E}\qty[f(S)] \geqslant F(\vb{z})
 	\end{align}
 \end{prop}
 

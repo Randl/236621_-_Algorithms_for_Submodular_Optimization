@@ -7,12 +7,12 @@ which generalizes \textsc{min-cut}, \textsc{min-s-t-cut}. \citet{iwata2001combin
 
 \subsubsection{Continuous relaxation}
 % Lovasz
-The Lovasz extension together with convex minimization can be used to minimize submodular function \cite{grotschel1981ellipsoid}. Since Lovasz extension is convex, we can easily minimize it. Now we only need to round it. Choose $\theta \sim U[0,1]$ and output $\qty{i: x^*_i \geq \theta}$. By definition
+The Lovasz extension together with convex minimization can be used to minimize submodular function \cite{grotschel1981ellipsoid}. Since Lovasz extension is convex, we can easily minimize it. Now we only need to round it. Choose $\theta \sim U[0,1]$ and output $\qty{i: x^*_i \geqslant \theta}$. By definition
 \begin{align}
-\mathbb{E}_\theta \qty[f\qty(\qty{i: x^*_i \geq \theta})] = f_L(\bar{X}^*)
+\mathbb{E}_\theta \qty[f\qty(\qty{i: x^*_i \geqslant \theta})] = f_L(\bar{X}^*)
 \end{align}
 \paragraph{Note}
-For any $\theta$, $\qty{i: x^*_i \geq \theta}$ got to be optimal, since any solution can not be better than optimum.
+For any $\theta$, $\qty{i: x^*_i \geqslant \theta}$ got to be optimal, since any solution can not be better than optimum.
 \subsubsection{Cardinality constraint}
 Even for monotone $f$, the best known algorithm has $\tilde{\mathcal{O}}(\sqrt{n})$-approximation \cite{svitkina2011submodular}.
 
@@ -42,11 +42,11 @@ On the other hand, we want to partition graph into $k$ parts, each of which cont
 \begin{proof}
 	For optimal solution $S^*$,
 	\begin{align}
-	\sum_{e\in F_i} w_e \leq \sum_{e\in \delta(S^*_i)} w_e
+	\sum_{e\in F_i} w_e \leqslant \sum_{e\in \delta(S^*_i)} w_e
 	\end{align}
 	Thus, for $S$, the output of \vref{alg:naive_multicut} 
 	\begin{align}
-	f(S)  \leq \sum_i \sum_{e\in \delta(S^*_i)} w_e \leq 2f(S^*)
+	f(S)  \leqslant \sum_i \sum_{e\in \delta(S^*_i)} w_e \leqslant 2f(S^*)
 	\end{align}
 \end{proof}
 \end{lemma}

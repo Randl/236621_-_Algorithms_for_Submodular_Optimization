@@ -10,11 +10,11 @@ Given the world $N$ and $N\supset T = \qty{t_1, t_2,\dots t_k}$ and submodular $
 	\begin{itemize}
 		\item Each hyperedge cost is number of groups it is present in:
 		\begin{align}
-		f(S) = \sum_{\substack{e \in E\\0\leq\abs{e\cap S} \leq \abs{e}}} w_e
+		f(S) = \sum_{\substack{e \in E\\0\leqslant\abs{e\cap S} \leqslant \abs{e}}} w_e
 		\end{align}
 		\item Each hyperedge cost is $w_e$ if it is cut and $0$ otherwise. In this case, for each edge we choose a vertex $u_e\in e$:
 		\begin{align}
-		f(S) = \sum_{\substack{e \in E\\u_e\in S\\\abs{e\cap S} \leq \abs{e}}} w_e
+		f(S) = \sum_{\substack{e \in E\\u_e\in S\\\abs{e\cap S} \leqslant \abs{e}}} w_e
 		\end{align}
 	\end{itemize}
 \end{itemize}
@@ -24,7 +24,7 @@ For symmetric $f$ there exists $1.5$-approximation and for general case there ex
 \paragraph{Relaxation of the problem}
 Define for each vertex $u$ variable $x(u,i)$:
 \begin{align}
-	x(u,i) &\geq 0\\
+	x(u,i) &\geqslant 0\\
 	\sum_{i=1}^k x(u,i) &= 1
 \end{align}
 Our goal is
@@ -32,12 +32,12 @@ Our goal is
 \min &\sum_{i=1}^k f_L(\vb{x}_i)\\
 \st & \sum_{i=1}^k x(u,i) = 1\\
 & x(t_i,i) = 1\\
-& x(u,i) \geq 0
+& x(u,i) \geqslant 0
 \end{align}
 
 Denote by $\vb{x}_i \in [0,1]^N$ such that $(\vb{x}_i)_u = x(u,i)$. We can solve the relaxed problem (since it is convex problem). But how do we round the solution?
 
-Choose threshold $\theta \in [0,1]$ and define $A_i(\theta) = \qty{u| x(u,i) \geq \theta}$. Then, for example, if $\theta \sim U[0,1]$
+Choose threshold $\theta \in [0,1]$ and define $A_i(\theta) = \qty{u| x(u,i) \geqslant \theta}$. Then, for example, if $\theta \sim U[0,1]$
 \begin{align}
 \mathbb{E} [f(A_i(\theta))] = f_L(\vb{x}_i)
 \end{align}
@@ -46,32 +46,32 @@ There are two ``problems'' we want to fix: $A_i(\theta) \cap A_j(\theta) \neq \e
 
 Let $A$, $B$ such that $A\cap B \neq \emptyset $. In symmetric case
 \begin{align}
-f(A)+f(B) = f(N\setminus A) + f(B) \geq f((N\setminus A) \cup B) + f((N\setminus A) \cap B) = f(A\cap B) + f(B\setminus A)
+f(A)+f(B) = f(N\setminus A) + f(B) \geqslant f((N\setminus A) \cup B) + f((N\setminus A) \cap B) = f(A\cap B) + f(B\setminus A)
 \end{align}
 
 Since
 \begin{align}
-\frac{1}{2}[f(A\setminus B) + f(B)] + \frac{1}{2}[f(B\setminus A) + f(A)] \leq f(A) + f(B)
+\frac{1}{2}[f(A\setminus B) + f(B)] + \frac{1}{2}[f(B\setminus A) + f(A)] \leqslant f(A) + f(B)
 \end{align}
 at least one of choices $\qty{A\setminus B, B}$ and $\qty{B\setminus A, A}$ is at least as good as $\qty{A,B}$. This action is called uncrossing. By repeating the process we will get disjoint sets.
 
 Now, denote $A(\theta) = \bigcup_i A_i(\theta)$ and $V(\theta) = N \setminus A(\theta)$. What would be value of output:
 \begin{align}
-\sum_{i=1}^{k-1} f(A_i(\theta)) + f(A_k(\theta) \cup f(V(\theta))) \leq \sum_{i=1}^k f(A_i(\theta)) + f(V(\theta))
+\sum_{i=1}^{k-1} f(A_i(\theta)) + f(A_k(\theta) \cup f(V(\theta))) \leqslant \sum_{i=1}^k f(A_i(\theta)) + f(V(\theta))
 \end{align}
 Thus we only need to bound $f(V(\theta))$:
 \begin{align}
-\mathbb{E}_\theta [f(V(\theta))] \leq \alpha \sum_{i=1}^{k} f_L(\vb{x}_i) 
+\mathbb{E}_\theta [f(V(\theta))] \leqslant \alpha \sum_{i=1}^{k} f_L(\vb{x}_i) 
 \end{align}
 Naively, in symmetric case, we could bound by
 \begin{align}
-f(V(\theta)) = f(A(\theta)) \leq \sum_{i=1}^{k} f(A_i(\theta))  
+f(V(\theta)) = f(A(\theta)) \leqslant \sum_{i=1}^{k} f(A_i(\theta))  
 \end{align}
 which provides $2$-approximation.
 \begin{lemma}\label{th:delta_lemma}
-	For all $\frac{1}{2} \leq \delta \leq 1$
+	For all $\frac{1}{2} \leqslant \delta \leqslant 1$
 	\begin{align}
-	\int_0^1 f(V(\theta)) \dd{\theta} &\leq \int_0^\delta f(A_1(\theta) \cap A_2(\theta)) \dd{\theta} + \int_0^\delta f\qty(\qty\bigg[A_1(\theta) \cup A_2(\theta)] \cap A_3(\theta)) \dd{\theta} +\\&+ \dots + \int_0^\delta f\qty(\qty\bigg[A_1(\theta) \cup A_2(\theta) \cup \dots \cup A_{k-1}] \cap A_k(\theta)) \dd{\theta} =\\&= \sum_{i=1}^{k-1} \int_0^\delta f\qty(\qty\bigg[ \bigcup_{j=1}^{i} A_j(\theta)] \cap A_{i+1}(\theta)) \dd{\theta} 
+	\int_0^1 f(V(\theta)) \dd{\theta} &\leqslant \int_0^\delta f(A_1(\theta) \cap A_2(\theta)) \dd{\theta} + \int_0^\delta f\qty(\qty\bigg[A_1(\theta) \cup A_2(\theta)] \cap A_3(\theta)) \dd{\theta} +\\&+ \dots + \int_0^\delta f\qty(\qty\bigg[A_1(\theta) \cup A_2(\theta) \cup \dots \cup A_{k-1}] \cap A_k(\theta)) \dd{\theta} =\\&= \sum_{i=1}^{k-1} \int_0^\delta f\qty(\qty\bigg[ \bigcup_{j=1}^{i} A_j(\theta)] \cap A_{i+1}(\theta)) \dd{\theta} 
 	\end{align}
 	\begin{proof}
 		First assume $\delta=1$, then
@@ -80,7 +80,7 @@ which provides $2$-approximation.
 		\end{align}
 		where
 		\begin{align}
-		\vb{y}_i = \min \qty{\vb{x}_{i+1},\max\limits_{1\leq j \leq i} \vb{x}_j  }
+		\vb{y}_i = \min \qty{\vb{x}_{i+1},\max\limits_{1\leqslant j \leqslant i} \vb{x}_j  }
 		\end{align}
 		for elementwise maximum and minimum. Since
 		\begin{align}
@@ -88,12 +88,12 @@ which provides $2$-approximation.
 		\end{align}
 		we get
 		\begin{align}
-		\sum_{i=1}^{k-1} \vb{y}_i + \max\limits_{1\leq j \leq k} \vb{x}_j  = \vb{1}
+		\sum_{i=1}^{k-1} \vb{y}_i + \max\limits_{1\leqslant j \leqslant k} \vb{x}_j  = \vb{1}
 		\end{align}
 		
 		On the other hand, since $(1-\theta)$ is also uniform 
 		\begin{align}
-		\int_{0}^1 f(V(\theta)) \dd{\theta}= f_L\qty(\vb{1} - \max\limits_{1\leq j \leq k} \vb{x}_j) = f_L\qty(\sum_{i=1}^{k-1} \vb{y}_i)= (k-1)f_L\qty(\frac{1}{k-1}\sum_{i=1}^{k-1} \vb{y}_i) \stackrel{\text{convex}}{\leq} \sum_{i=1}^{k-1}f_L\qty( \vb{y}_i)
+		\int_{0}^1 f(V(\theta)) \dd{\theta}= f_L\qty(\vb{1} - \max\limits_{1\leqslant j \leqslant k} \vb{x}_j) = f_L\qty(\sum_{i=1}^{k-1} \vb{y}_i)= (k-1)f_L\qty(\frac{1}{k-1}\sum_{i=1}^{k-1} \vb{y}_i) \stackrel{\text{convex}}{\leqslant} \sum_{i=1}^{k-1}f_L\qty( \vb{y}_i)
 		\end{align}
 		Now, assuming $f(\emptyset) = 0$, we can rewrite
 		\begin{align}
@@ -104,7 +104,7 @@ which provides $2$-approximation.
 \end{lemma}
 \begin{lemma}\label{th:delta_lemma2}
 	\begin{align}
-	\sum_{i=1}^k f(A_i(\theta)) &\geq f(A_1(\theta) \cap A_2(\theta)) + f\qty(\qty\bigg[A_1(\theta) \cup A_2(\theta)] \cap A_3(\theta)) +\\&+ \dots + f\qty(\qty\bigg[A_1(\theta) \cup A_2(\theta) \cup \dots \cup A_{k-1}] \cap A_k(\theta)) + f\qty(\bigcup_{i=1}^k A_i(\theta) ) 
+	\sum_{i=1}^k f(A_i(\theta)) &\geqslant f(A_1(\theta) \cap A_2(\theta)) + f\qty(\qty\bigg[A_1(\theta) \cup A_2(\theta)] \cap A_3(\theta)) +\\&+ \dots + f\qty(\qty\bigg[A_1(\theta) \cup A_2(\theta) \cup \dots \cup A_{k-1}] \cap A_k(\theta)) + f\qty(\bigcup_{i=1}^k A_i(\theta) ) 
 	\end{align}
 	\begin{proof}
 		By induction. Basis. For $k=2$:
@@ -113,19 +113,19 @@ which provides $2$-approximation.
 		\end{align}
 		Step
 		\begin{align}
-			\sum_{i=1}^k f(A_i(\theta)) &\geq \sum_{i=1}^{k-2} f\qty(\bigcup_{j=1}^i A_j(\theta) \cap A_{i+1}(\theta)) + f\qty(\bigcup_{j=1}^{k-1} A_{j}(\theta)) + f(A_k(\theta)) \geq\\&\geq  \sum_{i=1}^{k-1} f\qty(\bigcup_{j=1}^i A_j(\theta) \cap A_{i+1}(\theta))+ f\qty(\bigcup_{j=1}^{k} A_{j}(\theta))  
+			\sum_{i=1}^k f(A_i(\theta)) &\geqslant \sum_{i=1}^{k-2} f\qty(\bigcup_{j=1}^i A_j(\theta) \cap A_{i+1}(\theta)) + f\qty(\bigcup_{j=1}^{k-1} A_{j}(\theta)) + f(A_k(\theta)) \geqslant\\&\geqslant  \sum_{i=1}^{k-1} f\qty(\bigcup_{j=1}^i A_j(\theta) \cap A_{i+1}(\theta))+ f\qty(\bigcup_{j=1}^{k} A_{j}(\theta))  
 		\end{align}
 	\end{proof}
 \end{lemma}
 \begin{theorem} \label{th:delta_bound}
-	For all $\frac{1}{2} \leq \delta \leq 1$
+	For all $\frac{1}{2} \leqslant \delta \leqslant 1$
 	\begin{align}
-	\sum_{i=1}^k \int_0^\delta f(A_i(\theta)) \dd{\theta} \geq \int_0^1 f(V(\theta)) \dd{\theta} + \int_0^\delta f(A(\theta))\dd{\theta}
+	\sum_{i=1}^k \int_0^\delta f(A_i(\theta)) \dd{\theta} \geqslant \int_0^1 f(V(\theta)) \dd{\theta} + \int_0^\delta f(A(\theta))\dd{\theta}
 	\end{align}
 	\begin{proof}
 		Thus, substituting \vref{th:delta_lemma} into \vref{th:delta_lemma2}
 		\begin{align}
-		\sum_{i=1}^k \int_0^\delta f(A_i(\theta)) \dd{\theta} &\geq \sum_{i=1}^{k-1} \int_0^\delta f\qty(\qty\bigg[ \bigcup_{j=1}^{i} A_j(\theta)] \cap A_{i+1}(\theta))  +  f\qty(\bigcup_{i=1}^k A_i(\theta) )\dd{\theta}  \geq\\&\geq \int_0^1 f(V(\theta)) \dd{\theta} + \int_0^\delta f\qty(A(\theta) ) \dd{\theta}
+		\sum_{i=1}^k \int_0^\delta f(A_i(\theta)) \dd{\theta} &\geqslant \sum_{i=1}^{k-1} \int_0^\delta f\qty(\qty\bigg[ \bigcup_{j=1}^{i} A_j(\theta)] \cap A_{i+1}(\theta))  +  f\qty(\bigcup_{i=1}^k A_i(\theta) )\dd{\theta}  \geqslant\\&\geqslant \int_0^1 f(V(\theta)) \dd{\theta} + \int_0^\delta f\qty(A(\theta) ) \dd{\theta}
 		\end{align}
 	\end{proof}
 \end{theorem}
@@ -134,8 +134,8 @@ which provides $2$-approximation.
 	\begin{proof}
 	For symmetric $f$, we choose $\delta = 1$ in \cref{th:delta_bound}, and get:
 	\begin{align}
-	\sum_{i=1}^k \int_0^1 f(A_i(\theta)) \dd{\theta} &\geq \int_0^1 f(V(\theta)) \dd{\theta} + \int_0^1 f(A(\theta))\dd{\theta} = 2\int_0^1 f(V(\theta)) \dd{\theta}\\ 
-	2\mathbb{E}_\theta f(V(\theta)) &\leq  \mathbb{E}_\theta  \sum_{i=1}]^k  f(A_i(\theta)) =  \sum_{i=1}^{k} f(A_i(\theta))  
+	\sum_{i=1}^k \int_0^1 f(A_i(\theta)) \dd{\theta} &\geqslant \int_0^1 f(V(\theta)) \dd{\theta} + \int_0^1 f(A(\theta))\dd{\theta} = 2\int_0^1 f(V(\theta)) \dd{\theta}\\ 
+	2\mathbb{E}_\theta f(V(\theta)) &\leqslant  \mathbb{E}_\theta  \sum_{i=1}]^k  f(A_i(\theta)) =  \sum_{i=1}^{k} f(A_i(\theta))  
 	\end{align}
 	i.e., $\alpha = \frac{1}{2}$ and we got $1.5$-approximation.
 	\end{proof}
@@ -146,8 +146,8 @@ which provides $2$-approximation.
 		\begin{proof}
 If $f$ is not symmetric, we can choose $\theta\sim U[0.5,1]$, $A_i$ will be guaranteed to be disjoint. In this case
 \begin{align}
-\mathbb{E}_\theta \qty[\sum_{i=1}^{k-1} f(A_i(\theta)) + f(A_k(\theta) \cup f(V(\theta))) ] &\leq\mathbb{E}_\theta \qty[\sum_{i=1}^{k} f(A_i(\theta))  f(f(V(\theta))) ] =\\&= \sum_{i=1}^k \int_{\frac{1}{2}}^{1} 2 f(A_i(\theta))\dd{\theta} + \int_{\frac{1}{2}}^{1} 2 f(V(\theta)) \dd{\theta}  =\\&=
- 2\qty[\sum_{i=1}^k f_L(\vb{x}_i) - \sum_{i=1}^k \int_0^{\frac{1}{2}}  f(A_i(\theta))\dd{\theta} + \int_{\frac{1}{2}}^{1}  f(V(\theta)) \dd{\theta}] \stackrel{\text{Th. }\ref{th:delta_bound}}{\leq}\\&\leq 2 \sum_{i=1}^k f_L(\vb{x}_i)
+\mathbb{E}_\theta \qty[\sum_{i=1}^{k-1} f(A_i(\theta)) + f(A_k(\theta) \cup f(V(\theta))) ] &\leqslant\mathbb{E}_\theta \qty[\sum_{i=1}^{k} f(A_i(\theta))  f(f(V(\theta))) ] =\\&= \sum_{i=1}^k \int_{\frac{1}{2}}^{1} 2 f(A_i(\theta))\dd{\theta} + \int_{\frac{1}{2}}^{1} 2 f(V(\theta)) \dd{\theta}  =\\&=
+ 2\qty[\sum_{i=1}^k f_L(\vb{x}_i) - \sum_{i=1}^k \int_0^{\frac{1}{2}}  f(A_i(\theta))\dd{\theta} + \int_{\frac{1}{2}}^{1}  f(V(\theta)) \dd{\theta}] \stackrel{\text{Th. }\ref{th:delta_bound}}{\leqslant}\\&\leqslant 2 \sum_{i=1}^k f_L(\vb{x}_i)
 \end{align}	\end{proof}
 \end{theorem}
 
