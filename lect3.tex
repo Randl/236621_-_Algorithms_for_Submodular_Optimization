@@ -111,12 +111,13 @@ If $f$ is symmetric, the same algorithm is $\frac{1}{2}$ approximation in expect
 \mathbb{E}[f(S)] \geqslant \frac{1}{2} f(S^*)
 \end{align}
 \end{prop}
-\begin{prop}[\cite{feige2011maximizing}]
+\begin{prop}[\cite{feige2011maximizing}] \label{prop:eps_max}
 For any constant $\epsilon>0$ it is impossible to acquire $\qty(\frac{1}{2}+\epsilon)$ approximation in polynomial time, even in  symmetric case.
 \end{prop}
 
 Note that for $\bar{f}(S) = f(\bar{S})$, we can use the same oracle. So a ''conjugate`` algorithm would be start from $N$ and drop elements from it.
 
+\paragraph{Note} \cref{prop:eps_max} is only appliciable for our model, where we query the black-box submodular function $f$. A better-than-$\nicefrac{1}{2}$ approximation might be achieved in a model of computation requiring an explicit representation of $f(S)$. For example, best known approximation of \textsc{max-cut} is $0.878$, by using  semidefinite programming \cite{goemans1995improved}.
 
 \begin{algorithm}
 	\caption{}\label{alg:double_greedy}
