@@ -35,18 +35,17 @@ If $f$ is monotonic, greedy algorithm is an optimal approximating algorithm.
 	\begin{proof}
 		For optimal set $S^*$
 		\begin{align}
-		f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1})&\geqslant \max\limits_{u\in S^*} \qty{f(A_{i-1} \cup \qty{u}) - f(A_{i-1})} \geqslant \frac{1}{k} \sum_{u\in S^*} \qty[f(A_{i-1} \cup \qty{u}) - f(A_{i-1})] \geqslant\\&\geqslant \frac{1}{k} \qty\bigg(f(A_{i-1} \cup S^*) - f(A_{i-1})) \geqslant \frac{1}{k} \qty\bigg[f(S^*) - f(A_{i-1})]
+		f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1})&\geqslant \max\limits_{u\in S^*} \qty{f(A_{i-1} \cup \qty{u}) - f(A_{i-1})} \geqslant \frac{1}{k} \sum_{u\in S^*} \qty[f(A_{i-1} \cup \qty{u}) - f(A_{i-1})] \geqslant\\&\geqslant \frac{1}{k} \qty\bigg(f(A_{i-1} \cup S^*) - f(A_{i-1})) \geqslant \frac{1}{k} \qty\bigg[f(S^*) - f(A_{i-1})].
 		\end{align}
 		
 		We got a recursion equation:
 		\begin{align}
-		f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1})\geqslant \frac{1}{k} \qty\bigg[f(S^*) - f(A_{i-1})]
+		f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1})\geqslant \frac{1}{k} \qty\bigg[f(S^*) - f(A_{i-1})].
 		\end{align}
 		We can solve the recursion and acquire
 		\begin{align}
-		f(A_{k}) \geqslant \qty(1-\qty(1-\frac{1}{k})^k)f(S^*) + \qty(1-\frac{1}{k})^k f(A_0) \geqslant \qty(1-\frac{1}{e}) f(S^*) 
-		\end{align}
-		
+		f(A_{k}) \geqslant \qty(1-\qty(1-\frac{1}{k})^k)f(S^*) + \qty(1-\frac{1}{k})^k f(A_0) \geqslant \qty(1-\frac{1}{e}) f(S^*).
+		\end{align}		
 	\end{proof}
 \end{prop}
 
@@ -56,9 +55,9 @@ If $f$ is monotonic, greedy algorithm is an optimal approximating algorithm.
 \begin{theorem}[\citet{feige1998threshold}]
 For \textsc{max-k-cover} all constant $\epsilon>0$ each algorithm acquiring $1-\frac{1}{e} + \epsilon$ requires exponential number of requests to value oracle unless $P=NP$.
 \end{theorem}
-\paragraph{Note} Runtime of \vref{greedy} is $\order{nk}$. It is possible to acquire $\order{n\lg(\frac{1}{\epsilon})}$ runtime and $1-\frac{1}{e}-\epsilon$ optimality by looking on some subset of $N$ at each step instead of the whole set. 
+\paragraph{Note} Runtime of \vref{greedy} is $\order{nk}$. It is possible to acquire $\order{n\lg\qty(\frac{1}{\epsilon})}$ runtime and $1-\frac{1}{e}-\epsilon$ optimality by looking on some subset of $N$ at each step instead of the whole set. 
 \subsection{Non-monotonic functions}
-What happens if $f$ is not monotonic? First of all, does greed algorithm work? Not only it is not optimal approximation, it can be as bad as $\frac{2}{N}$. However, it can be fixed. The idea is to randomize algorithm to prevent it from ``bad'' choices.
+What happens if $f$ is not monotonic? First of all, does greed algorithm work? Not only it is not optimal approximation, it can be as bad as $\nicefrac{2}{N}$. However, it can be fixed. The idea is to randomize algorithm to prevent it from ``bad'' choices.
 
 
 \paragraph{Randomized greedy algorithm}
@@ -84,7 +83,7 @@ What happens if $f$ is not monotonic? First of all, does greed algorithm work? N
 	\begin{proof}
 		Take a look at $i^{th}$ iteration and condition on previous iterations, denote a chosen element from $M_i$ as $u_i$:
 		\begin{align}
-		\mathbb{E} \qty\bigg[f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1}) | A_{i-1} ] &= \frac{1}{k} \sum_{u_i \in M_i} f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1}) \geqslant\\&\geqslant \frac{1}{k} \qty( f(A_{i-1} \cup S^*) - f(A_{i-1}) ) \geqslant\\&\geqslant \frac{1}{k} \qty( f(S^*) - f(A_{i-1}))\geqslant \frac{1}{k} \qty( f(S^*) - f(A_{i-1}))
+		\mathbb{E} \qty\bigg[f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1}) | A_{i-1} ] &= \frac{1}{k} \sum_{u_i \in M_i} f(A_{i-1} \cup \qty{u_i}) - f(A_{i-1}) \geqslant\\&\geqslant \frac{1}{k} \qty( f(A_{i-1} \cup S^*) - f(A_{i-1}) ) \geqslant\\&\geqslant \frac{1}{k} \qty( f(S^*) - f(A_{i-1}))\geqslant \frac{1}{k} \qty( f(S^*) - f(A_{i-1})).
 		\end{align}
 		
 		If the inequality is right for any $A_{i-1}$ it is right, from tower property, in expectation over $A_{i-1}$:

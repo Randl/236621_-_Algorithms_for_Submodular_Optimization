@@ -3,8 +3,8 @@
 	\begin{proof}
 		From diminishing returns:
 		\begin{align}
-		f(X_{i-1} \cup \qty{u_i})-f(X_{i-1}) \geqslant f(Y_i) - f(Y_{i-1} \setminus \qty{u_i})  \\
-		f(X_{i-1} \cup \qty{u_i})-f(X_{i-1}) + f(Y_i) - f(Y_{i-1} \setminus \qty{u_i}) \geqslant 0
+		f(X_{i-1} \cup \qty{u_i})-f(X_{i-1}) &\geqslant f(Y_i) - f(Y_{i-1} \setminus \qty{u_i})  \\
+		f(X_{i-1} \cup \qty{u_i})-f(X_{i-1}) + f(Y_i) - f(Y_{i-1} \setminus \qty{u_i}) &\geqslant 0
 		\end{align}
 		Thus at least one of  $f(X_{i-1} \cup \qty{u_i})-f(X_{i-1}) $ and  $f(Y_{i-1} \setminus \qty{u_i}) - f(Y_i)$ is greater than $0$.
 	\end{proof}
@@ -20,14 +20,14 @@
 	
 	For all $i$:
 	\begin{align}
-	f(S^*_{i-1}) - f(S^*_i) \leqslant f(X_i) - f(X_{i-1})+f(Y_i) - f(Y_{i-1}) 
+	f(S^*_{i-1}) - f(S^*_i) \leqslant f(X_i) - f(X_{i-1})+f(Y_i) - f(Y_{i-1}).
 	\end{align}
 \end{lemma}
 
 \begin{lemma}
 	Let $S^*$ be an optimal solution and 
 	\begin{align}
-	S^*_i = S^* \cup X_i \cap Y_i
+	S^*_i = S^* \cup X_i \cap Y_i,
 	\end{align}
 	i.e., optimal solution to which we add everything \cref{alg:rand_double_greedy} added and drop everything it dropped.
 	

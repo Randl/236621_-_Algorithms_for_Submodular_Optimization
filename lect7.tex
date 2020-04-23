@@ -58,7 +58,7 @@ Let
 		\end{align}
 		Then
 		\begin{align}
-		\sum_{i \in S} F\qty(\max\qty{\vb{x}, \mathds{1}_i})-F(\vb{x}) &= \sum_{i \in S} \mathbb{E}_{R\sim D_{\max\qty{\vb{x}, \mathds{1}_i}}} [f(R)] - \mathbb{E}_{R\sim D_{\vb{x}}} [f(R)] = \sum_{i \in S}\mathbb{E}_{R\sim D_{\vb{x}}}\qty[f(R\cup \qty{i}) - f(R)] =\\&= \mathbb{E}_{R\sim D_{\vb{x}}}\qty[\sum_{i \in S} f(R\cup \qty{i}) - f(R)] \geqslant \mathbb{E}_{R\sim D_{\vb{x}}}\qty[f(R\cup S) - f(R)] =\\&= F\qty(\max\qty{\vb{x}, \mathds{1}_{S}})-F(\vb{x})
+		\sum_{i \in S} F\qty(\max\qty{\vb{x}, \mathds{1}_i})-F(\vb{x}) &= \sum_{i \in S} \mathbb{E}_{R\sim D_{\max\qty{\vb{x}, \mathds{1}_i}}} [f(R)] - \mathbb{E}_{R\sim D_{\vb{x}}} [f(R)] = \sum_{i \in S}\mathbb{E}_{R\sim D_{\vb{x}}}\qty[f(R\cup \qty{i}) - f(R)] =\\&= \mathbb{E}_{R\sim D_{\vb{x}}}\qty[\sum_{i \in S} f(R\cup \qty{i}) - f(R)] \geqslant \mathbb{E}_{R\sim D_{\vb{x}}}\qty[f(R\cup S) - f(R)] =\\&= F\qty(\max\qty{\vb{x}, \mathds{1}_{S}})-F(\vb{x}).
 		\end{align}
 	\end{proof}
 \end{lemma}

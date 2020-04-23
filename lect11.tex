@@ -123,7 +123,7 @@ which provides $2$-approximation.
 	\sum_{i=1}^k \int_0^\delta f(A_i(\theta)) \dd{\theta} \geqslant \int_0^1 f(V(\theta)) \dd{\theta} + \int_0^\delta f(A(\theta))\dd{\theta}
 	\end{align}
 	\begin{proof}
-		Thus, substituting \vref{th:delta_lemma} into \vref{th:delta_lemma2}
+		By substituting \vref{th:delta_lemma} into \vref{th:delta_lemma2} we get
 		\begin{align}
 		\sum_{i=1}^k \int_0^\delta f(A_i(\theta)) \dd{\theta} &\geqslant \sum_{i=1}^{k-1} \int_0^\delta f\qty(\qty\bigg[ \bigcup_{j=1}^{i} A_j(\theta)] \cap A_{i+1}(\theta))  +  f\qty(\bigcup_{i=1}^k A_i(\theta) )\dd{\theta}  \geqslant\\&\geqslant \int_0^1 f(V(\theta)) \dd{\theta} + \int_0^\delta f\qty(A(\theta) ) \dd{\theta}
 		\end{align}

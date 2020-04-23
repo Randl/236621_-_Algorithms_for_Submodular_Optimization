@@ -1,25 +1,24 @@
 \section{Introduction}
-We are looking on $f: 2^N \to \mathbb{R}$ for some set $N = \qty{1, \dots n }$
-\begin{definition}
+We are looking on $f: 2^N \to \mathbb{R}$ for some set $N = \qty{1, \dots, n }$
+\begin{definition}[Submodular function]
 	$f$ is submodular if 
 	\begin{align}
-	f(A)+f(B) \geqslant f(A\cap B) + f(A\cup B)
+	f(A)+f(B) \geqslant f(A\cap B) + f(A\cup B).
 	\end{align}
 \end{definition}
 
 \begin{definition}
-	Return of $u$ wrt $A$ is $f(A \cup \qty{u }) - f(A)$
-	
+	Return of $u$ with respect to $A$ is $f(A \cup \qty{u }) - f(A)$.
 \end{definition}
 \begin{definition}[Diminishing returns]
 $f$ has diminishing returns if for $A\subseteq B$
 \begin{align}
-f(A \cup \qty{u }) - f(A) \geqslant f(B \cup \qty{u }) - f(B)
+f(A \cup \qty{u }) - f(A) \geqslant f(B \cup \qty{u }) - f(B).
 \end{align}
 \end{definition}
 
 \begin{prop}
-	$f$ is submodular iff $f$ has diminishing returns
+	$f$ is submodular iff $f$ has diminishing returns.
 	\begin{proof}
 		$\Rightarrow$:
 		
@@ -28,23 +27,23 @@ f(A \cup \qty{u }) - f(A) \geqslant f(B \cup \qty{u }) - f(B)
 		f(A\cup \qty{ u }) + f(B) \geqslant f\qty(A\cup \qty{ u } \cup B) + f\qty((A\cup \qty{ u }) \cap B)  = f\qty(B\cup \qty{ u }) + f(A)  
 		\end{align}
 		Thus
-		
 		\begin{align}
-		f(A\cup \qty{ u })-f(A) \geqslant f\qty(B\cup \qty{ u })-f(B)
+		f(A\cup \qty{ u })-f(A) \geqslant f\qty(B\cup \qty{ u })-f(B).
 		\end{align}
-	\end{proof}
 
 
-$\Leftarrow$:
+	$\Leftarrow$:
+	
+	We'll proof by induction over $\abs{A\cup B} - \abs{A\cap B}$, i.e., size of symmetric difference.
+	
+	Basis: $\abs{A\cup B} - \abs{A\cap B} = 0$, then $A=B$, and then submodular property is fulfilled.
+	
+	Step: assume $\abs{A\cup B} - \abs{A\cap B} = k$. WLOG let $u\in A$ such that $u\notin B$.
+	\begin{align}
+	f(A) + f(B) = f(A) - f(A \setminus \qty{u}) + f(A \setminus  \qty{u}) + f(B) \geqslant\\\geqslant  f(A) - f(A \setminus \qty{u}) + f(A \setminus  \qty{u} \cup B) + f(A \setminus  \qty{u}  \cap B) \geqslant\\\geqslant f(A\cup B) -  f(A\cup B \setminus \qty{ u }) + f(A  \cup B \setminus  \qty{u} ) + f(A  \cap B) = f(A\cup B) + f(A\cap B).
+	\end{align}
 
-We'll proof by induction over $\abs{A\cup B} - \abs{A\cap B}$, i.e., size of symmetric difference.
-
-Basis: $\abs{A\cup B} - \abs{A\cap B} = 0$, then $A=B$, and then submodular property is fulfilled.
-
-Step: assume $\abs{A\cup B} - \abs{A\cap B} = k$. WLOG let $u\in A$ such that $u\notin B$.
-\begin{align}
-f(A) + f(B) = f(A) - f(A \setminus \qty{u}) + f(A \setminus  \qty{u}) + f(B) \geqslant\\\geqslant  f(A) - f(A \setminus \qty{u}) + f(A \setminus  \qty{u} \cup B) + f(A \setminus  \qty{u}  \cap B) \geqslant\\\geqslant f(A\cup B) -  f(A\cup B \setminus \qty{ u }) + f(A  \cup B \setminus  \qty{u} ) + f(A  \cap B) = f(A\cup B) + f(A\cap B)
-\end{align}
+\end{proof}
 \end{prop}
 
 \begin{definition}[Monotonous function]
@@ -52,7 +51,7 @@ f(A) + f(B) = f(A) - f(A \setminus \qty{u}) + f(A \setminus  \qty{u}) + f(B) \ge
 \end{definition}
 
 \begin{definition}[Symmetric function]
-	$f$ is symmetric if $\forall S \subseteq N$, $f(S) \leqslant f(N\setminus S)$.
+	$f$ is symmetric if $\forall S \subseteq N$, $f(S) = f(N\setminus S)$.
 \end{definition}
 \begin{definition}[Normalized function]
 $f$ is normalized if $f(\emptyset) = 0$.
@@ -62,24 +61,21 @@ $f$ is normalized if $f(\emptyset) = 0$.
 \subparagraph{Linear function}
 $\forall n\in N$ exists weight $w_n$ and 
 \begin{align}
-f(S) = \sum_{u \in S} w_u + b
+f(S) = \sum_{u \in S} w_u + b.
 \end{align} 
-
-Such $f$ is submodular.
+$f$ is submodular.
 \subparagraph{Budget additive function (clipped linear function)}
 $\forall n\in N$ exists weight $w_n$ and 
 \begin{align}
-f(S) = \min \qty{ \sum_{u \in S} w_u,  b }
+f(S) = \min \qty{ \sum_{u \in S} w_u,  b }.
 \end{align} 
-
-Such $f$ is submodular.
+$f$ is submodular.
 
 \subparagraph{Coverage function}
 Given set $X$ and $n$ subsets $S_1, S_2, \dots, S_n \subset X$ define
 \begin{align}
-f(S) = \abs{\bigcup_{i \in S} S_i}
+f(S) = \abs{\bigcup_{i \in S} S_i}.
 \end{align}
-
 This $f$ is obviously submodular.
 
 \subparagraph{Graph cuts}
@@ -88,7 +84,6 @@ Let $G=(V,E)$ be a graph and $w: E\to \mathbb{R}^+$ weights of edges. Given a cu
 
 \subparagraph{Rank function}
 Let $v_1, \dots, v_n \in \mathbb{R}^d$ vectors, and 
-
 \begin{align}
 f(S) = \rank (S) = \dim \text{span} \qty\big( \qty{ v_i | i \in S} )
 \end{align}
@@ -102,19 +97,18 @@ Given world $N$, submodular function $f: 2^N \to \mathbb{R}^+$, and a family of 
 \end{align}
 
 \paragraph{Note} Most of submodular functions (except for logarithm of determinant of submatrix) are nonnegative. We use the condition to have properly defined multiplicative approximation.
-\paragraph{Note} How $f$ is given in input? Obviously, not as a list of values, since it's exponential in $\abs{N}$. Thus we represent $f$ with black box, and same applies for constraints. Usually, constraints are simple. 
+\paragraph{Note} How $f$ is given in input? Obviously, not as a list of values, since it's exponential in $\abs{N}$. Thus, we represent $f$ with black box, and same applies for constraints. Usually, constraints are simple. 
 
 \subsection{Examples of submodular optimization problems}
 \paragraph{Example}
 $f$ is submodular and there are no constraints. It generalizes \textsc{max-cut}, \textsc{max-dicut}
 \paragraph{Example}
 $f$ is submodular and there is size constraint:
-
 \begin{align}
 \max \: & f(S)\\
-\st & \abs{S} \leqslant k
+\st & \abs{S} \leqslant k.
 \end{align}
-. It generalizes \textsc{max-k-cover}.
+It generalizes \textsc{max-k-cover}.
 
 \paragraph{Submodular welfare}
 Given $k$ players and $n$ goods, each player has submodular, monotone, non-negative value function $T_i$ over subsets of $N$. The goal is to maximize total value by partitioning the goods.

@@ -14,7 +14,7 @@
 \end{algorithm}
 
 \begin{lemma} \label{bound_random}
-	For set $S\subseteq N$ and vector $\vb{z}$ such that $\norm{z}_\infty \leqslant p$
+	For set $S\subseteq N$ and vector $\vb{z}$ such that $\norm{z}_\infty \leqslant p$,
 	\begin{align}
 	F(\max\qty{\mathds{1}_S , \vb{z}}) \geqslant (1-p) f(S)
 	\end{align}
@@ -94,7 +94,7 @@ with $Z_i$ independent. Denote by $S$ the set acquired by this rounding.
 \paragraph{Note} For submodular welfare with $k$ players we can get $1-\qty(1-\frac{1}{k})^k$ approximation, by running \vref{alg:measured_cont_greedy} and stopping after $t=1$.
 
 
-\paragraph{Pipage rounding}
+\paragraph{Pipage rounding \cite{ageev2004pipage}}
 We choose two components of vector $\vb{z}$, $z_i$ and $z_j$ and move mass from $z_i$ to $z_j$ such that
 \begin{itemize}
 	\item At least one of  $z_i$ and $z_j$ becomes integer
